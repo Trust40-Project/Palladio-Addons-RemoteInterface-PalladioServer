@@ -1,0 +1,8 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Rcp
+Bundle-SymbolicName: edu.kit.palladio.rcp;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Require-Bundle: org.eclipse.core.runtime
+Automatic-Module-Name: edu.kit.palladio.rcp
+Bundle-RequiredExecutionEnvironment: JavaSE-11
