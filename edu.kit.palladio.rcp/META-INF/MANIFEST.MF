@@ -3,6 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Rcp
 Bundle-SymbolicName: edu.kit.palladio.rcp;singleton:=true
 Bundle-Version: 1.0.0.qualifier
-Require-Bundle: org.eclipse.core.runtime
+Require-Bundle: org.eclipse.core.runtime,
+ edu.kit.palladio.rmi.filemanagment;bundle-version="1.0.0"
 Automatic-Module-Name: edu.kit.palladio.rcp
 Bundle-RequiredExecutionEnvironment: JavaSE-11
