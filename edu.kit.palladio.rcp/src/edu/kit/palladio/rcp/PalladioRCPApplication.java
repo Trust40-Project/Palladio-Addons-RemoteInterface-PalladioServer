@@ -1,6 +1,5 @@
 package edu.kit.palladio.rcp;
 
-import java.net.InetAddress;
 import java.rmi.Naming;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;

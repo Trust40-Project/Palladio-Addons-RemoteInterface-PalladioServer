@@ -14,7 +14,10 @@ public class HelloWorldApp{
         try {
             System.setProperty("java.rmi.server.hostname", "localhost");		
             var registry = LocateRegistry.getRegistry(hostName);
-            IHelloWorldFromEclipse helloWorld = (IHelloWorldFromEclipse) registry.lookup(lookupName);
+            for (String string : registry.list()) {
+                System.out.println(string);
+            }
+            var helloWorld = (IHelloWorldFromEclipse) registry.lookup(lookupName);
             String result = helloWorld.hello("Test from client without spring boot");
             System.out.println("result: " + result);
         } catch (Exception e) {
