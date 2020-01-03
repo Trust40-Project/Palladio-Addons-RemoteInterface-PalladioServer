@@ -45,7 +45,9 @@ public class PalladioRCPApplication implements IApplication {
 			System.out.println("line 41");
 			Naming.rebind(rmiName, impl);
 			 */		
-			System.setProperty("java.rmi.server.hostname","127.0.0.1");
+			//System.setProperty("java.rmi.server.hostname","127.0.0.1");
+			System.setProperty("java.rmi.server.hostname","0.0.4.75");
+			
 			registry = LocateRegistry.createRegistry(1099);
 			String name = "HelloEclipse";
 			//engine = new HelloWorldFromEclipse();
