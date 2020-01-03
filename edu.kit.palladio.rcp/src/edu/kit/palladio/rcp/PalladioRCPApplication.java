@@ -1,9 +1,9 @@
 package edu.kit.palladio.rcp;
 
-import java.rmi.Naming;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.eclipse.equinox.app.IApplication;
 import org.eclipse.equinox.app.IApplicationContext;
@@ -14,18 +14,23 @@ import org.eclipse.equinox.app.IApplicationContext;
 public class PalladioRCPApplication implements IApplication {
 
 	private static final IHelloWorldFromEclipse engine = new HelloWorldFromEclipse();
-	private static Registry registry = null;
-	private static IHelloWorldFromEclipse stub = null;
+	private final AtomicBoolean terminationFlag = new AtomicBoolean(false);
+	private Registry registry = null;
+	private IHelloWorldFromEclipse stub = null;
 
 	@Override
 	public Object start(IApplicationContext context) throws Exception {
 		
+		synchronized (terminationFlag) {
+			terminationFlag.set(false);
+		}
+		
 		//ISimulationController stub = (ISimulationController) UnicastRemoteObject.exportObject(this, 0);
 		stub = (IHelloWorldFromEclipse) UnicastRemoteObject.exportObject(engine, 0);
 
-		registry = LocateRegistry.createRegistry(Registry.REGISTRY_PORT);
+		registry = LocateRegistry.createRegistry(10099);
 
-		registry.bind("IHelloWorldFromEclipse", stub);
+		registry.bind(IHelloWorldFromEclipse.class.getName(), stub);
 
 		System.out.println("RMI server running");
 		
@@ -85,14 +90,20 @@ public class PalladioRCPApplication implements IApplication {
             System.err.println("ComputeEngine exception:");
             e.printStackTrace();
         }*/
-		while(true) {
-			
+
+		synchronized (terminationFlag) {
+			while (!terminationFlag.get()) {
+				terminationFlag.wait();
+			}
 		}
-		//return IApplication.EXIT_OK;
+		return IApplication.EXIT_OK;
 	}
 
 	@Override
 	public void stop() {
-		// nothing to do
+		synchronized (terminationFlag) {
+			terminationFlag.set(true);
+			terminationFlag.notifyAll();
+		}
 	}
 }
