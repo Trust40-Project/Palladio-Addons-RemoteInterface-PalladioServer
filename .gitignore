@@ -23,6 +23,10 @@ local.properties
 .loadpath
 .recommenders
 
+
+# Compiled class file
+*.class
+
 # External tool builders
 .externalToolBuilders/
 
