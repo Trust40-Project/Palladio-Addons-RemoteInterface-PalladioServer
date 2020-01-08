@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Projectmanagment
+Bundle-SymbolicName: edu.kit.palladio.rmi.projectmanagment
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: edu.kit.palladio.rmi.projectmanagment.Activator
+Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.core.resources;bundle-version="3.13.600",
+ org.eclipse.core.filesystem;bundle-version="1.7.600"
+Bundle-RequiredExecutionEnvironment: JavaSE-11
+Automatic-Module-Name: edu.kit.palladio.rmi.projectmanagment
+Bundle-ActivationPolicy: lazy
