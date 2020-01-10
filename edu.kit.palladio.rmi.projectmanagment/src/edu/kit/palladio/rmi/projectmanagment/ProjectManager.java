@@ -57,14 +57,36 @@ public class ProjectManager implements IProjectManager {
 
 	@Override
 	public boolean deleteProject(IProject toDelete) {
-		// TODO Auto-generated method stub
-		return false;
+		IWorkspaceRoot workspaceRoot = workspace.getRoot();
+		org.eclipse.core.resources.IProject projectToDelete = workspaceRoot.getProject(toDelete.getProjectId());
+		IProgressMonitor progressMonitor = new NullProgressMonitor();
+		try {
+			projectToDelete.delete(org.eclipse.core.resources.IResource.ALWAYS_DELETE_PROJECT_CONTENT | org.eclipse.core.resources.IResource.FORCE, progressMonitor);
+		} catch (CoreException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+		return true;
 	}
 
 	@Override
 	public IProject[] getProjects() {
 		// TODO Auto-generated method stub
-		return null;
+		IWorkspaceRoot workspaceRoot = workspace.getRoot();
+		org.eclipse.core.resources.IProject[] projects = workspaceRoot.getProjects();
+		IProject[] result = new IProject[projects.length];
+		for(int i = 0; i < projects.length; i++) {
+			try {
+				result[i] = new Project(projects[i].getDescription().getName());
+			} catch (CoreException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				result[i] = null;
+			}
+		}
+		
+		return result;
 	}
 
 }
