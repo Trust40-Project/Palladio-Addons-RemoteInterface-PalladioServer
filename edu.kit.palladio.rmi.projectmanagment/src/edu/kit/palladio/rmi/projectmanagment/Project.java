@@ -3,7 +3,7 @@ package edu.kit.palladio.rmi.projectmanagment;
 public class Project implements IProject {
 	private final String projectId;
 	
-	Project(String projectId){
+	public Project(String projectId){
 		this.projectId = projectId;
 	}
 

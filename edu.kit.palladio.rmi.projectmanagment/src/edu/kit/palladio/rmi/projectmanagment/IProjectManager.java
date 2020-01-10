@@ -1,6 +1,8 @@
 package edu.kit.palladio.rmi.projectmanagment;
 
-public interface IProjectManager {
+import java.rmi.Remote;
+
+public interface IProjectManager extends Remote {
 	IProject createProject(String projectId);
 	boolean deleteProject(IProject toDelete);
 	IProject[] getProjects();

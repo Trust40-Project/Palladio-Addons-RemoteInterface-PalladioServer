@@ -1,5 +1,8 @@
 package edu.kit.palladio.rcp;
 
+import edu.kit.palladio.rmi.projectmanagment.IProjectManager;
+import edu.kit.palladio.rmi.projectmanagment.ProjectManager;
+
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
@@ -31,6 +34,10 @@ public class PalladioRCPApplication implements IApplication {
 		registry = LocateRegistry.createRegistry(10099);
 
 		registry.bind(IHelloWorldFromEclipse.class.getName(), stub);
+		
+		
+		IProjectManager projectManagerStub = new ProjectManager();
+		registry.bind(IProjectManager.class.getName(), projectManagerStub);
 
 		System.out.println("RMI server running");
 		

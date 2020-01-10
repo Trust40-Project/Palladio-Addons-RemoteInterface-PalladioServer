@@ -11,14 +11,14 @@ public class ProjectManager implements IProjectManager {
 	
 	private IWorkspace workspace;
 	
-	ProjectManager(){
+	public ProjectManager(){
 		this.workspace = ResourcesPlugin.getWorkspace();
 	}
 
 	@Override
 	public IProject createProject(String projectId) {
 		
-		
+		System.out.println("create project");
 		// check if project already exists.
 		if(doesExist(projectId)) {
 			return new Project(projectId);
