@@ -1,7 +1,7 @@
 package edu.kit.palladio.rcp;
 
-import edu.kit.palladio.rmi.projectmanagment.IProjectManager;
-import edu.kit.palladio.rmi.projectmanagment.ProjectManager;
+/*import edu.kit.palladio.rmi.projectmanagment.IProjectManager;
+import edu.kit.palladio.rmi.projectmanagment.ProjectManager;*/
 
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -10,6 +10,9 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.eclipse.equinox.app.IApplication;
 import org.eclipse.equinox.app.IApplicationContext;
+
+import edu.kit.palladio.rmi.projectmanagment.IProjectManager;
+import edu.kit.palladio.rmi.projectmanagment.ProjectManager;
 
 /**
  * This class controls all aspects of the application's execution
@@ -28,7 +31,6 @@ public class PalladioRCPApplication implements IApplication {
 			terminationFlag.set(false);
 		}
 		
-		//ISimulationController stub = (ISimulationController) UnicastRemoteObject.exportObject(this, 0);
 		stub = (IHelloWorldFromEclipse) UnicastRemoteObject.exportObject(engine, 0);
 
 		registry = LocateRegistry.createRegistry(10099);
@@ -36,7 +38,7 @@ public class PalladioRCPApplication implements IApplication {
 		registry.bind(IHelloWorldFromEclipse.class.getName(), stub);
 		
 		
-		IProjectManager projectManagerStub = new ProjectManager();
+		IProjectManager projectManagerStub = (IProjectManager) UnicastRemoteObject.exportObject(new ProjectManager(), 0);
 		registry.bind(IProjectManager.class.getName(), projectManagerStub);
 
 		System.out.println("RMI server running");

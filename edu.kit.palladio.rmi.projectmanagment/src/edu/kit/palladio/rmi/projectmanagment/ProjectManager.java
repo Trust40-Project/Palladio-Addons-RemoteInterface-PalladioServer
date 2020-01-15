@@ -1,5 +1,8 @@
 package edu.kit.palladio.rmi.projectmanagment;
 
+import java.rmi.RemoteException;
+
+import org.eclipse.core.resources.IProjectDescription;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -9,20 +12,24 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 
 public class ProjectManager implements IProjectManager {
 	
-	private IWorkspace workspace;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	
+	private transient IWorkspace workspace;
 	
 	public ProjectManager(){
 		this.workspace = ResourcesPlugin.getWorkspace();
+		System.out.println("workspace root: " + this.workspace.getRoot().getRawLocation());
 	}
 
 	@Override
-	public IProject createProject(String projectId) {
+	public IProject createProject(String projectId) throws RemoteException{
 		
 		System.out.println("create project");
-		// check if project already exists.
-		if(doesExist(projectId)) {
-			return new Project(projectId);
-		}
+		
 		
 		IWorkspaceRoot workspaceRoot = workspace.getRoot();
 		org.eclipse.core.resources.IProject newProject = workspaceRoot.getProject(projectId);
@@ -30,16 +37,17 @@ public class ProjectManager implements IProjectManager {
 		IProgressMonitor progressMonitor = new NullProgressMonitor();
 		try {
 			newProject.create(progressMonitor);
+			newProject.open(progressMonitor); //TODO: Should all projects always be open?
 		} catch (CoreException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return null;
 		}
 		
-		
-		return new Project(projectId);
+		System.out.println("create project - done");
+		return (IProject) new Project(projectId);
 	}
-	
+	/*
 	private boolean doesExist(String projectId) {
 		org.eclipse.core.resources.IProject[] projects = workspace.getRoot().getProjects();
 		for(org.eclipse.core.resources.IProject project : projects) {
@@ -53,10 +61,11 @@ public class ProjectManager implements IProjectManager {
 			}
 		}
 		return false;
-	}
+	}*/
 
 	@Override
-	public boolean deleteProject(IProject toDelete) {
+	public boolean deleteProject(IProject toDelete) throws RemoteException{
+		System.out.println("delete project");
 		IWorkspaceRoot workspaceRoot = workspace.getRoot();
 		org.eclipse.core.resources.IProject projectToDelete = workspaceRoot.getProject(toDelete.getProjectId());
 		IProgressMonitor progressMonitor = new NullProgressMonitor();
@@ -67,12 +76,13 @@ public class ProjectManager implements IProjectManager {
 			e.printStackTrace();
 			return false;
 		}
+		System.out.println("delete project - done");
 		return true;
 	}
 
 	@Override
-	public IProject[] getProjects() {
-		// TODO Auto-generated method stub
+	public IProject[] getProjects() throws RemoteException{
+		System.out.println("get projects");
 		IWorkspaceRoot workspaceRoot = workspace.getRoot();
 		org.eclipse.core.resources.IProject[] projects = workspaceRoot.getProjects();
 		IProject[] result = new IProject[projects.length];
@@ -85,8 +95,27 @@ public class ProjectManager implements IProjectManager {
 				result[i] = null;
 			}
 		}
-		
+		System.out.println("get projects - done");
 		return result;
+	}
+
+	@Override
+	public boolean setNatures(IProject projectToSetNatures, String[] natures) throws RemoteException {
+		IWorkspaceRoot workspaceRoot = workspace.getRoot();
+		org.eclipse.core.resources.IProject projectToSet = workspaceRoot.getProject(projectToSetNatures.getProjectId());
+		
+		
+		try {
+			IProjectDescription projectDescription = projectToSet.getDescription();
+			projectDescription.setNatureIds(natures);
+			IProgressMonitor progressMonitor = new NullProgressMonitor();
+			projectToSet.setDescription(projectDescription, progressMonitor);
+		} catch (CoreException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+		return true;
 	}
 
 }
