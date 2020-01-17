@@ -118,4 +118,22 @@ public class ProjectManager implements IProjectManager {
 		return true;
 	}
 
+	@Override
+	public boolean close() {
+		IWorkspaceRoot workspaceRoot = workspace.getRoot();
+		org.eclipse.core.resources.IProject[] projects = workspaceRoot.getProjects();
+		boolean success = true;
+		for(org.eclipse.core.resources.IProject projectToSave: projects) {
+			try {
+				projectToSave.close(new NullProgressMonitor());
+			} catch (CoreException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				success = false;
+			}
+		}
+		return success;
+		
+	}
+
 }

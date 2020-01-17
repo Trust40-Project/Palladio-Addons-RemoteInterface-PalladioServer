@@ -11,6 +11,8 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import org.eclipse.equinox.app.IApplication;
 import org.eclipse.equinox.app.IApplicationContext;
 
+import edu.kit.palladio.rmi.filemanagment.IRemoteFileUpload;
+import edu.kit.palladio.rmi.filemanagment.RemoteFileUpload;
 import edu.kit.palladio.rmi.projectmanagment.IProjectManager;
 import edu.kit.palladio.rmi.projectmanagment.ProjectManager;
 
@@ -40,6 +42,10 @@ public class PalladioRCPApplication implements IApplication {
 		
 		IProjectManager projectManagerStub = (IProjectManager) UnicastRemoteObject.exportObject(new ProjectManager(), 0);
 		registry.bind(IProjectManager.class.getName(), projectManagerStub);
+		
+		IRemoteFileUpload fileUploadStub = (IRemoteFileUpload) UnicastRemoteObject.exportObject(new RemoteFileUpload(), 0);
+		registry.bind(IRemoteFileUpload.class.getName(), fileUploadStub);
+		
 
 		System.out.println("RMI server running");
 		
@@ -104,6 +110,10 @@ public class PalladioRCPApplication implements IApplication {
 			while (!terminationFlag.get()) {
 				terminationFlag.wait();
 			}
+		}
+		/*Ensure that all projects are closed an thus saved to the file system.*/
+		while(!projectManagerStub.close()) {
+			
 		}
 		return IApplication.EXIT_OK;
 	}

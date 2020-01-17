@@ -9,4 +9,5 @@ public interface IProjectManager extends Remote, Serializable {
 	boolean deleteProject(IProject toDelete) throws RemoteException;
 	IProject[] getProjects() throws RemoteException;
 	boolean setNatures(IProject projectToSetNatures, String[] natures) throws RemoteException;
+	boolean close();
 }
