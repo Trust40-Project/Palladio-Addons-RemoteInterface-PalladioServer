@@ -52,7 +52,8 @@ public class RemoteFileUpload implements IRemoteFileUpload {
 				}
 			} else {
 				IFile currentFile = projectToCreateIn.getFile(child.getName());
-				InputStream source = new ByteArrayInputStream(child.getContent().getBytes(child.getContentEncoding()));
+				//TODO: child.getContentEncoding() use encpding provided
+				InputStream source = new ByteArrayInputStream(child.getContent().getBytes());
 				if (!currentFile.exists()) {
 					// create a new file.
 					try {
@@ -99,7 +100,8 @@ public class RemoteFileUpload implements IRemoteFileUpload {
 				}
 			} else {
 				IFile currentFile = parentFolder.getFile(child.getName());
-				InputStream source = new ByteArrayInputStream(child.getContent().getBytes(child.getContentEncoding()));
+				//TODO: child.getContentEncoding() use encpding provided
+				InputStream source = new ByteArrayInputStream(child.getContent().getBytes());
 				if (!currentFile.exists()) {
 					// create a new file.
 					try {

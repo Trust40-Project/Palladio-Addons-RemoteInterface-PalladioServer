@@ -6,11 +6,11 @@ import java.util.Deque;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class FileNodeIterator implements Iterator {
+public class FileNodeDepthFirstIterator implements Iterator<IFileNode> {
 
 	private Deque<IFileNode> toDiscover;
 	
-	FileNodeIterator(IFileNode startNode) throws IllegalArgumentException{
+	public FileNodeDepthFirstIterator(IFileNode startNode) throws IllegalArgumentException{
 		assert(startNode != null);
 		toDiscover = new ArrayDeque<IFileNode>();
 		if(!toDiscover.offer(startNode)) {
@@ -24,8 +24,7 @@ public class FileNodeIterator implements Iterator {
 	}
 
 	@Override
-	public Object next() {
-		// TODO Auto-generated method stub
+	public IFileNode next() {
 		if (!hasNext()) {
             throw new NoSuchElementException();
         }
