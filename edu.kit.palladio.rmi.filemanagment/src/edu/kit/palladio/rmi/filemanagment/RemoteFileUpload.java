@@ -16,6 +16,8 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.NullProgressMonitor;
 
 public class RemoteFileUpload implements IRemoteFileUpload {
+	
+	//TODO: implement get file system structure.
 
 	private transient IWorkspace workspace;
 

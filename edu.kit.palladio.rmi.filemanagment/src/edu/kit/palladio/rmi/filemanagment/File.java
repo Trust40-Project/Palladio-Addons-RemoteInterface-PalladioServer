@@ -11,6 +11,7 @@ import edu.kit.palladio.rmi.filemanagment.IFileNode;
 public class File implements IFileNode {
 
     private String name;
+    //TODO: content byte
     private String content;
     private String contentEncoding;
     /**
