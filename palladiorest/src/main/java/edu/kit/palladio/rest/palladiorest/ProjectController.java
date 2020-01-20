@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import edu.kit.palladio.rmi.projectmanagment.IProject;
 import edu.kit.palladio.rmi.projectmanagment.IProjectManager;
+import edu.kit.palladio.rmi.projectmanagment.Project;
 
 @RestController
 public class ProjectController {
@@ -25,20 +26,21 @@ public class ProjectController {
 
     // Aggregate root
     @GetMapping("/projects")
-    List<IProject> allProjects() {
-        return null;
+    List<IProject> allProjects() throws RemoteException {
+        return projectManager.getProjects();
+       
     }
 
     @PostMapping("/projects")
-    IProject newProject(@RequestBody IProject newProject) {
-        return null;
+    IProject newProject(@RequestBody Project newProject) throws RemoteException {
+        return projectManager.createProject(newProject);
     }
 
     // Single item
 
     @GetMapping("/projects/{id}")
-    IProject oneProject(@PathVariable String projectId) {
-        return null;
+    IProject oneProject(@PathVariable String projectId) throws RemoteException {
+        return projectManager.getProject(projectId);
 
     }
 /*
@@ -48,6 +50,9 @@ public class ProjectController {
     }*/
 
     @DeleteMapping("/projects/{projectId}")
-    void deleteProject(@PathVariable String projectId) {
+    void deleteProject(@PathVariable String projectId) throws RemoteException {
+        if(!projectManager.deleteProject(projectId)){
+            //TODO: return badrequest status code.
+        }
     }
 }

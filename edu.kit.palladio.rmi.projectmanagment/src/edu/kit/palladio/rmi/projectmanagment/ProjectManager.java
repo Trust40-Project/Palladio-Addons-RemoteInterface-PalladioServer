@@ -1,7 +1,10 @@
 package edu.kit.palladio.rmi.projectmanagment;
 
 import java.rmi.RemoteException;
+import java.util.ArrayList;
+import java.util.List;
 
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IProjectDescription;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.IWorkspaceRoot;
@@ -26,11 +29,7 @@ public class ProjectManager implements IProjectManager {
 	}
 
 	@Override
-	public IProject createProject(String projectId) throws RemoteException{
-		
-		System.out.println("create project");
-		
-		
+	public edu.kit.palladio.rmi.projectmanagment.IProject createProject(String projectId) throws RemoteException{
 		IWorkspaceRoot workspaceRoot = workspace.getRoot();
 		org.eclipse.core.resources.IProject newProject = workspaceRoot.getProject(projectId);
 		
@@ -43,32 +42,20 @@ public class ProjectManager implements IProjectManager {
 			e.printStackTrace();
 			return null;
 		}
-		
-		System.out.println("create project - done");
-		return (IProject) new Project(projectId);
+		return (edu.kit.palladio.rmi.projectmanagment.IProject) new Project(projectId);
 	}
-	/*
-	private boolean doesExist(String projectId) {
-		org.eclipse.core.resources.IProject[] projects = workspace.getRoot().getProjects();
-		for(org.eclipse.core.resources.IProject project : projects) {
-			try {
-				if(project.getDescription().getName().equals(projectId)) {
-					return true;
-				}
-			} catch (CoreException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		return false;
-	}*/
+
 
 	@Override
-	public boolean deleteProject(IProject toDelete) throws RemoteException{
-		System.out.println("delete project");
-		IWorkspaceRoot workspaceRoot = workspace.getRoot();
-		org.eclipse.core.resources.IProject projectToDelete = workspaceRoot.getProject(toDelete.getProjectId());
-		IProgressMonitor progressMonitor = new NullProgressMonitor();
+	public boolean deleteProject(final edu.kit.palladio.rmi.projectmanagment.IProject toDelete) throws RemoteException{
+		return deleteProject(toDelete.getProjectId());
+	}
+
+	@Override
+	public boolean deleteProject(final String projectId) throws RemoteException{
+		final IWorkspaceRoot workspaceRoot = workspace.getRoot();
+		final org.eclipse.core.resources.IProject projectToDelete = workspaceRoot.getProject(projectId);
+		final IProgressMonitor progressMonitor = new NullProgressMonitor();
 		try {
 			projectToDelete.delete(org.eclipse.core.resources.IResource.ALWAYS_DELETE_PROJECT_CONTENT | org.eclipse.core.resources.IResource.FORCE, progressMonitor);
 		} catch (CoreException e) {
@@ -76,32 +63,28 @@ public class ProjectManager implements IProjectManager {
 			e.printStackTrace();
 			return false;
 		}
-		System.out.println("delete project - done");
 		return true;
 	}
-
+	
 	@Override
-	public IProject[] getProjects() throws RemoteException{
-		System.out.println("get projects");
-		IWorkspaceRoot workspaceRoot = workspace.getRoot();
-		org.eclipse.core.resources.IProject[] projects = workspaceRoot.getProjects();
-		IProject[] result = new IProject[projects.length];
+	public List<edu.kit.palladio.rmi.projectmanagment.IProject> getProjects() throws RemoteException{
+		final IWorkspaceRoot workspaceRoot = workspace.getRoot();
+		final org.eclipse.core.resources.IProject[] projects = workspaceRoot.getProjects();
+		final ArrayList<edu.kit.palladio.rmi.projectmanagment.IProject> result = new ArrayList<edu.kit.palladio.rmi.projectmanagment.IProject>(projects.length);
+		edu.kit.palladio.rmi.projectmanagment.IProject toAdd = null;
 		for(int i = 0; i < projects.length; i++) {
-			try {
-				result[i] = new Project(projects[i].getDescription().getName());
-			} catch (CoreException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				result[i] = null;
+			toAdd = toProjectManagmentIProject(projects[i]);
+			if(toAdd != null) {
+				result.add(toAdd);
 			}
+			
 		}
-		System.out.println("get projects - done");
 		return result;
 	}
 
 	@Override
-	public boolean setNatures(IProject projectToSetNatures, String[] natures) throws RemoteException {
-		IWorkspaceRoot workspaceRoot = workspace.getRoot();
+	public boolean setNatures(edu.kit.palladio.rmi.projectmanagment.IProject projectToSetNatures, String[] natures) throws RemoteException {
+		final IWorkspaceRoot workspaceRoot = workspace.getRoot();
 		org.eclipse.core.resources.IProject projectToSet = workspaceRoot.getProject(projectToSetNatures.getProjectId());
 		
 		
@@ -135,5 +118,43 @@ public class ProjectManager implements IProjectManager {
 		return success;
 		
 	}
+
+	@Override
+	public edu.kit.palladio.rmi.projectmanagment.IProject getProject(final String projectId) throws RemoteException {
+		final IWorkspaceRoot workspaceRoot = workspace.getRoot();
+		final IProject  resultProject = workspaceRoot.getProject(projectId);
+		return toProjectManagmentIProject(resultProject);
+	}
+	
+	private edu.kit.palladio.rmi.projectmanagment.IProject toProjectManagmentIProject(final IProject projectToConvert){
+		assert(projectToConvert != null);
+		if(projectToConvert.exists()) {
+			if(!projectToConvert.isOpen()) {
+				try {
+					projectToConvert.open(new NullProgressMonitor());
+				} catch (CoreException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					return null;
+				}
+			}
+			try {
+				return new edu.kit.palladio.rmi.projectmanagment.Project(projectToConvert.getDescription().getName());
+			} catch (CoreException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				return null;
+			}
+		}
+		return null;
+	}
+
+	@Override
+	public edu.kit.palladio.rmi.projectmanagment.IProject createProject(
+			edu.kit.palladio.rmi.projectmanagment.IProject projectToCreate) throws RemoteException {
+		return createProject(projectToCreate.getProjectId());
+	}
+
+
 
 }
