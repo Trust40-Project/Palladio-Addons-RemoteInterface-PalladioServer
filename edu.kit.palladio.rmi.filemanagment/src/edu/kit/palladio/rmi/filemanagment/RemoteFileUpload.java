@@ -2,6 +2,8 @@ package edu.kit.palladio.rmi.filemanagment;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.nio.file.FileSystems;
+import java.nio.file.Path;
 import java.rmi.RemoteException;
 import java.util.Collection;
 import java.util.Iterator;
@@ -34,6 +36,9 @@ public class RemoteFileUpload implements IRemoteFileUpload {
 			return false;
 		}
 		IProject projectToCreateIn = workspaceRoot.getProject(projectRoot.getName());
+		if(!projectToCreateIn.exists()) {
+			return false;
+		}
 		boolean couldCreateAll = true;
 		for (IFileNode child : projectRoot.getChildren()) {
 			if (child.isDirectory()) {
@@ -54,8 +59,7 @@ public class RemoteFileUpload implements IRemoteFileUpload {
 				}
 			} else {
 				IFile currentFile = projectToCreateIn.getFile(child.getName());
-				//TODO: child.getContentEncoding() use encpding provided
-				InputStream source = new ByteArrayInputStream(child.getContent().getBytes());
+				InputStream source = new ByteArrayInputStream(child.getContent());
 				if (!currentFile.exists()) {
 					// create a new file.
 					try {
@@ -102,8 +106,7 @@ public class RemoteFileUpload implements IRemoteFileUpload {
 				}
 			} else {
 				IFile currentFile = parentFolder.getFile(child.getName());
-				//TODO: child.getContentEncoding() use encpding provided
-				InputStream source = new ByteArrayInputStream(child.getContent().getBytes());
+				InputStream source = new ByteArrayInputStream(child.getContent());
 				if (!currentFile.exists()) {
 					// create a new file.
 					try {
@@ -127,6 +130,58 @@ public class RemoteFileUpload implements IRemoteFileUpload {
 
 		}
 		return couldCreateAll;
+	}
+
+	@Override
+	public boolean createFile(String path, IFileNode file) throws RemoteException {
+		
+		if(file.isDirectory()) {
+			return false;
+		}
+		Path pathToParse = FileSystems.getDefault().getPath(path);
+		Path fileName = pathToParse.getFileName();
+		if(fileName == null) {
+			// the path has 0 elements.
+			// we are not allowed to create in workspace. Thus path must at least contain a project folder.
+			return false;
+		}
+		if(!fileName.toString().equals(file.getName())) {
+			// the file to create is not yet part of the path.
+			pathToParse = FileSystems.getDefault().getPath(path, file.getName());
+		}
+		/*if(path.endsWith(file.getName()) || path.endWith(file.getName())) {
+			pathToParse = FileSystems.getDefault().getPath(path);
+		} else {
+			pathToParse = FileSystems.getDefault().getPath(path, file.getName());
+		}*/
+		final IFileNode toCreate = parsePathToTree(pathToParse, file);
+		
+		return this.createFiles(toCreate);
+	}
+	
+	/**
+	 * Creates a nested IFileNode structure with directories and possibly a file representing the given <i>path</i>.
+	 * 
+	 * @param path that is supposed to be created. The öast element needs to be fileAtLeaf.
+	 * @param fileAtLeaf the directory or file to put at the end of the path.
+	 * @return a representation of the path.
+	 * @throws RemoteException
+	 */
+	private IFileNode parsePathToTree(final Path path, IFileNode fileAtLeaf) throws RemoteException {
+		if(path.getNameCount() > 1) {
+			IFileNode root = new Directory(path.getName(0).toString());
+			IFileNode lastParent = root;
+			for(int i = 1; i < path.getNameCount() - 1; ++i) {
+				IFileNode directory = new Directory(path.getName(i).toString());
+				lastParent.addChild(directory);
+				lastParent = directory;
+			}
+			lastParent.addChild(fileAtLeaf);
+			return root;
+		} else {
+			return fileAtLeaf;
+		}
+		
 	}
 
 }

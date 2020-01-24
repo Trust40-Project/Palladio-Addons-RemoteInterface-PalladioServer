@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Configuration;
  */
 import org.springframework.remoting.rmi.RmiProxyFactoryBean;
 
+import edu.kit.palladio.rest.filemanagment.FileService;
 import edu.kit.palladio.rmi.projectmanagment.IProjectManager;
 
 @Configuration
@@ -15,7 +16,10 @@ public interface IRmiClientConfig {
     @Bean
     RmiProxyFactoryBean getProjectManagementRmiProxy();
 
+    @Bean
     RmiProxyFactoryBean getFileManagementRmiProxy();
 
+    @Bean
+    FileService getFileService();
 
 }
