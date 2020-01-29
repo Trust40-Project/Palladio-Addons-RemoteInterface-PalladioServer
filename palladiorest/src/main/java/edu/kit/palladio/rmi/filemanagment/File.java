@@ -55,6 +55,10 @@ public class File implements IFileNode {
         return new FileNodeDepthFirstIterator(this);
     }
 
+    @Override
+    public String toString() {
+    	return this.name;
+    }
    
     
 

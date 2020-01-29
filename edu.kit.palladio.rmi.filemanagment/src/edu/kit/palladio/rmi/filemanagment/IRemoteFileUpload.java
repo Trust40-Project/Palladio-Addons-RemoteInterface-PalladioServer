@@ -15,6 +15,6 @@ public interface IRemoteFileUpload extends Remote {
 	 * @throws RemoteException
 	 * @throws IOException 
 	 */
-	boolean createFiles(IFileNode projectRoot) throws RemoteException, IOException;
-	boolean createFile(String path, IFileNode file) throws RemoteException, IOException;
+	void createFiles(IFileNode projectRoot) throws RemoteException, IOException;
+	void createFile(String path, IFileNode file) throws RemoteException, IOException, IllegalArgumentException;
 }

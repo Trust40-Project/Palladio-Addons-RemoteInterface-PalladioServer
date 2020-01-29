@@ -1,6 +1,7 @@
 package edu.kit.palladio.rest.palladiorest;
 
 import java.io.IOException;
+import java.rmi.RemoteException;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -28,12 +29,13 @@ public class ProjectController {
     @PostMapping("/project/{projectId}/**")
     IFileNode newProjectContent(@PathVariable(name = "projectId") String projectId,
             @RequestParam(value = "file") MultipartFile file, HttpServletRequest request)
-            throws IllegalStateException, IOException {
+            throws RemoteException, IOException, IllegalArgumentException{
         final String requestPath = request.getAttribute(HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE).toString();
         final String bestMatchingPattern = request.getAttribute(HandlerMapping.BEST_MATCHING_PATTERN_ATTRIBUTE)
                 .toString();
 
         String path = projectId + "/" + new AntPathMatcher().extractPathWithinPattern(bestMatchingPattern, requestPath);
+        
         return fileService.save(path, file);
     }
 

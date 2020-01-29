@@ -7,7 +7,6 @@ import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.rmi.RemoteException;
 import java.util.Collection;
-import java.util.LinkedList;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
@@ -31,18 +30,18 @@ public class RemoteFileUpload implements IRemoteFileUpload {
 	}
 
 	@Override
-	public boolean createFiles(IFileNode projectRoot) throws IOException {
+	public void createFiles(IFileNode projectRoot) throws IOException {
 		IWorkspaceRoot workspaceRoot = workspace.getRoot();
 		if (!projectRoot.isDirectory()) {
 			throw new IllegalArgumentException("Need a directory to create inside and " + projectRoot.getName() + " is not a directory.");
 		}
 		IProject projectToCreateIn = workspaceRoot.getProject(projectRoot.getName());
+		
 		if(!projectToCreateIn.exists()) {
 			throw new IllegalArgumentException("Can only create inside of a project and " + projectRoot.getName() + " is not a project.");
 		}
-		boolean couldCreateAll = true;
-		LinkedList<String> notCreatedFolderIds = new LinkedList<String>();
-		LinkedList<String> notCreatedFileIds = new LinkedList<String>();
+		
+		final IFileNode couldNotCreate = new Directory(projectRoot.getName());
 		for (IFileNode child : projectRoot.getChildren()) {
 			if (child.isDirectory()) {
 				IFolder currentFolder = projectToCreateIn.getFolder(child.getName());
@@ -51,13 +50,12 @@ public class RemoteFileUpload implements IRemoteFileUpload {
 
 						currentFolder.create(false, true, new NullProgressMonitor());
 					}
-
-					if(!createRecursively(currentFolder, child.getChildren())) {
-						couldCreateAll = false;
+					IFileNode couldNotCreateRecursive = createRecursively(currentFolder, child.getChildren());
+					if(couldNotCreateRecursive != null) {
+						couldNotCreate.addChild(couldNotCreateRecursive);
 					}
 				} catch (CoreException e) {
-					couldCreateAll = false;
-					notCreatedFolderIds.add(child.getName());
+					couldNotCreate.addChild(child);
 				}
 			} else {
 				IFile currentFile = projectToCreateIn.getFile(child.getName());
@@ -67,30 +65,35 @@ public class RemoteFileUpload implements IRemoteFileUpload {
 					try {
 						currentFile.create(source, false, new NullProgressMonitor());
 					} catch (CoreException e) {
-						couldCreateAll = false;
-						notCreatedFileIds.add(child.getName());
+						couldNotCreate.addChild(child);
 					}
 				} else {
 					// replace content of current file.
 					try {
 						currentFile.setContents(source, false, true, new NullProgressMonitor());
 					} catch (CoreException e) {
-						couldCreateAll = false;
-						notCreatedFileIds.add(child.getName());
+						couldNotCreate.addChild(child);
 					}
 				}
 			}
 		}
-		if(!notCreatedFolderIds.isEmpty() || !notCreatedFileIds.isEmpty()) {
+		/*if(!notCreatedFolderIds.isEmpty() || !notCreatedFileIds.isEmpty()) {
 			throw new IOException("Could not create the following folders: " + notCreatedFolderIds.toString() + " and files: " + notCreatedFileIds.toString() + ".");
+		}*/
+		if(!couldNotCreate.getChildren().isEmpty()) {
+			throw new IOException("Could not create the following part of the file structure:\n" + couldNotCreate.toString());
 		}
-		return couldCreateAll;
+		//return couldCreateAll;
 	}
 
-	private boolean createRecursively(IFolder parentFolder, Collection<IFileNode> childrenToCreate)
+	private IFileNode createRecursively(IFolder parentFolder, Collection<IFileNode> childrenToCreate)
 			throws RemoteException {
-		boolean couldCreateAll = true;
 		
+		//boolean couldCreateAll = true;
+		final IFileNode couldNotCreate = new Directory(parentFolder.getName());
+		if(!parentFolder.exists()) {
+			return couldNotCreate;
+		}
 		for (IFileNode child : childrenToCreate) {
 			if (child.isDirectory()) {
 				IFolder currentFolder = parentFolder.getFolder(child.getName());
@@ -100,13 +103,14 @@ public class RemoteFileUpload implements IRemoteFileUpload {
 						currentFolder.create(false, true, new NullProgressMonitor());
 
 					}
-					if (!createRecursively(currentFolder, child.getChildren())) {
-						couldCreateAll = false;
+					IFileNode recursiveCouldNotCreate = createRecursively(currentFolder, child.getChildren());
+					if(recursiveCouldNotCreate != null) {
+						// recursive create did not go well.
+						couldNotCreate.addChild(recursiveCouldNotCreate);
 					}
+					
 				} catch (CoreException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-					couldCreateAll = false;
+					couldNotCreate.addChild(child);
 				}
 			} else {
 				IFile currentFile = parentFolder.getFile(child.getName());
@@ -116,38 +120,39 @@ public class RemoteFileUpload implements IRemoteFileUpload {
 					try {
 						currentFile.create(source, false, new NullProgressMonitor());
 					} catch (CoreException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-						couldCreateAll = false;
+						couldNotCreate.addChild(child);
 					}
 				} else {
 					// replace content of current file.
 					try {
 						currentFile.setContents(source, false, true, new NullProgressMonitor());
 					} catch (CoreException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-						couldCreateAll = false;
+						couldNotCreate.addChild(child);
 					}
 				}
 			}
 
 		}
-		return couldCreateAll;
+		if(couldNotCreate.getChildren().isEmpty()) {
+			return null;
+		} else {
+			return couldNotCreate;
+		}
+		
 	}
 
 	@Override
-	public boolean createFile(String path, IFileNode file) throws IOException {
+	public void createFile(String path, IFileNode file) throws IOException,IllegalArgumentException {
 		
 		if(file.isDirectory()) {
-			return false;
+			throw new IllegalArgumentException("The path is not valid. Can only create inside a existing project directory.");
 		}
 		Path pathToParse = FileSystems.getDefault().getPath(path);
 		Path fileName = pathToParse.getFileName();
 		if(fileName == null) {
 			// the path has 0 elements.
 			// we are not allowed to create in workspace. Thus path must at least contain a project folder.
-			return false;
+			throw new IllegalArgumentException("The path is not valid. Can only create inside a existing project.");
 		}
 		if(!fileName.toString().equals(file.getName())) {
 			// the file to create is not yet part of the path.
@@ -159,8 +164,7 @@ public class RemoteFileUpload implements IRemoteFileUpload {
 			pathToParse = FileSystems.getDefault().getPath(path, file.getName());
 		}*/
 		final IFileNode toCreate = parsePathToTree(pathToParse, file);
-		
-		return this.createFiles(toCreate);
+		this.createFiles(toCreate);
 	}
 	
 	/**

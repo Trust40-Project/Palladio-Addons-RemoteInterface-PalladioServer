@@ -32,14 +32,14 @@ public class ProjectsController {
     }
 
     @PostMapping("/projects")
-    IProject newProject(@RequestBody Project newProject) throws RemoteException {
+    IProject newProject(@RequestBody Project newProject) throws RemoteException, IllegalStateException, Throwable {
         return projectManager.createProject(newProject);
     }
 
     // Single item
 
     @GetMapping("/projects/{id}")
-    IProject oneProject(@PathVariable String projectId) throws RemoteException {
+    IProject oneProject(@PathVariable String projectId) throws RemoteException, IllegalStateException, IllegalArgumentException {
         return projectManager.getProject(projectId);
 
     }
@@ -50,9 +50,7 @@ public class ProjectsController {
     }*/
 
     @DeleteMapping("/projects/{projectId}")
-    void deleteProject(@PathVariable String projectId) throws RemoteException {
-        if(!projectManager.deleteProject(projectId)){
-            //TODO: return badrequest status code.
-        }
+    void deleteProject(@PathVariable String projectId) throws RemoteException, IllegalStateException {
+        projectManager.deleteProject(projectId);
     }
 }

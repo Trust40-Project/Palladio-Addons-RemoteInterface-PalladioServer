@@ -1,7 +1,5 @@
 package edu.kit.palladio.rmi.filemanagment;
 
-import java.nio.charset.Charset;
-import java.nio.file.Path;
 import java.rmi.RemoteException;
 import java.util.Collection;
 import java.util.Iterator;
@@ -55,6 +53,15 @@ public class File implements IFileNode {
         return new FileNodeDepthFirstIterator(this);
     }
 
+    @Override
+    public String toString() {
+    	return this.name;
+    }
+    
+    @Override
+    public String toStringRecursive(String delimiter) {
+    	return this.name;
+    }
    
     
 

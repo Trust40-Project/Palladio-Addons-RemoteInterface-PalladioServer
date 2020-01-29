@@ -6,6 +6,7 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.StringJoiner;
 
 import edu.kit.palladio.rmi.filemanagment.FileNodeDepthFirstIterator;
 import edu.kit.palladio.rmi.filemanagment.IFileNode;
@@ -60,7 +61,26 @@ public class Directory implements IFileNode{
 	public Iterator<IFileNode> iterator() {
 		return new FileNodeDepthFirstIterator(this);
 	}
-
+	
+	@Override
+	public String toString() {
+		StringJoiner stringJoiner = new StringJoiner("\n	");
+		try {
+			stringJoiner.add(this.getName());
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			for(IFileNode child : this.getChildren()) {
+				stringJoiner.add(child.toString());
+			}
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return stringJoiner.toString();
+	}
 	
 
     

@@ -1,9 +1,6 @@
 package edu.kit.palladio.rmi.filemanagment;
 
 import java.io.Serializable;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Path;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.Collection;
@@ -14,4 +11,5 @@ public interface IFileNode extends Remote, Serializable, Iterable<IFileNode> {
 	void addChild(IFileNode node) throws RemoteException;
 	Collection<IFileNode> getChildren() throws RemoteException;
 	byte[] getContent() throws RemoteException;
+	String toStringRecursive(final String delimiter);
 }

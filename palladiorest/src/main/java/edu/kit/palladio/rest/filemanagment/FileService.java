@@ -2,6 +2,7 @@ package edu.kit.palladio.rest.filemanagment;
 
 import java.io.IOException;
 import java.nio.file.Paths;
+import java.rmi.RemoteException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,13 +23,9 @@ public class FileService implements IFileService {
     }
 
     @Override
-    public IFileNode save(String path, MultipartFile file) throws IOException, IllegalStateException {
+    public IFileNode save(String path, MultipartFile file) throws RemoteException, IOException, IllegalArgumentException {
         final IFileNode fileToCreate = new File(file.getOriginalFilename(), file.getBytes());
-        if(fileUploader.createFile(path, fileToCreate)){
-            // success.
-            return fileToCreate;
-        } else {
-            throw new IllegalStateException("Please make sure that the path is valid.");
-        }
+        fileUploader.createFile(path, fileToCreate);
+        return fileToCreate;   
     }
 }
