@@ -112,9 +112,10 @@ public class PalladioRCPApplication implements IApplication {
 			}
 		}
 		/*Ensure that all projects are closed an thus saved to the file system.*/
-		while(!projectManagerStub.close()) {
+		//TODO: what if close fails?
+		projectManagerStub.close();
 			
-		}
+		
 		return IApplication.EXIT_OK;
 	}
 

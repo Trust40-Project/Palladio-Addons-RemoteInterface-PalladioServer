@@ -1,12 +1,13 @@
 package edu.kit.palladio.rmi.filemanagment;
 
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.rmi.RemoteException;
 import java.util.Collection;
-import java.util.Iterator;
+import java.util.LinkedList;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
@@ -30,16 +31,18 @@ public class RemoteFileUpload implements IRemoteFileUpload {
 	}
 
 	@Override
-	public boolean createFiles(IFileNode projectRoot) throws RemoteException {
+	public boolean createFiles(IFileNode projectRoot) throws IOException {
 		IWorkspaceRoot workspaceRoot = workspace.getRoot();
 		if (!projectRoot.isDirectory()) {
-			return false;
+			throw new IllegalArgumentException("Need a directory to create inside and " + projectRoot.getName() + " is not a directory.");
 		}
 		IProject projectToCreateIn = workspaceRoot.getProject(projectRoot.getName());
 		if(!projectToCreateIn.exists()) {
-			return false;
+			throw new IllegalArgumentException("Can only create inside of a project and " + projectRoot.getName() + " is not a project.");
 		}
 		boolean couldCreateAll = true;
+		LinkedList<String> notCreatedFolderIds = new LinkedList<String>();
+		LinkedList<String> notCreatedFileIds = new LinkedList<String>();
 		for (IFileNode child : projectRoot.getChildren()) {
 			if (child.isDirectory()) {
 				IFolder currentFolder = projectToCreateIn.getFolder(child.getName());
@@ -53,9 +56,8 @@ public class RemoteFileUpload implements IRemoteFileUpload {
 						couldCreateAll = false;
 					}
 				} catch (CoreException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
 					couldCreateAll = false;
+					notCreatedFolderIds.add(child.getName());
 				}
 			} else {
 				IFile currentFile = projectToCreateIn.getFile(child.getName());
@@ -65,21 +67,22 @@ public class RemoteFileUpload implements IRemoteFileUpload {
 					try {
 						currentFile.create(source, false, new NullProgressMonitor());
 					} catch (CoreException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
 						couldCreateAll = false;
+						notCreatedFileIds.add(child.getName());
 					}
 				} else {
 					// replace content of current file.
 					try {
 						currentFile.setContents(source, false, true, new NullProgressMonitor());
 					} catch (CoreException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
 						couldCreateAll = false;
+						notCreatedFileIds.add(child.getName());
 					}
 				}
 			}
+		}
+		if(!notCreatedFolderIds.isEmpty() || !notCreatedFileIds.isEmpty()) {
+			throw new IOException("Could not create the following folders: " + notCreatedFolderIds.toString() + " and files: " + notCreatedFileIds.toString() + ".");
 		}
 		return couldCreateAll;
 	}
@@ -87,6 +90,7 @@ public class RemoteFileUpload implements IRemoteFileUpload {
 	private boolean createRecursively(IFolder parentFolder, Collection<IFileNode> childrenToCreate)
 			throws RemoteException {
 		boolean couldCreateAll = true;
+		
 		for (IFileNode child : childrenToCreate) {
 			if (child.isDirectory()) {
 				IFolder currentFolder = parentFolder.getFolder(child.getName());
@@ -133,7 +137,7 @@ public class RemoteFileUpload implements IRemoteFileUpload {
 	}
 
 	@Override
-	public boolean createFile(String path, IFileNode file) throws RemoteException {
+	public boolean createFile(String path, IFileNode file) throws IOException {
 		
 		if(file.isDirectory()) {
 			return false;

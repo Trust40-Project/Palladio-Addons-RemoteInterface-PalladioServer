@@ -1,5 +1,6 @@
 package edu.kit.palladio.rmi.filemanagment;
 
+import java.io.IOException;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 
@@ -12,7 +13,8 @@ public interface IRemoteFileUpload extends Remote {
 	 * @param projectRoot a file node directory representing the eclipse project in the workspace the file system structure is supposed to be created in.
 	 * @return true on success and false if there is at least one directory or file that could not be created.
 	 * @throws RemoteException
+	 * @throws IOException 
 	 */
-	boolean createFiles(IFileNode projectRoot) throws RemoteException;
-	boolean createFile(String path, IFileNode file) throws RemoteException;
+	boolean createFiles(IFileNode projectRoot) throws RemoteException, IOException;
+	boolean createFile(String path, IFileNode file) throws RemoteException, IOException;
 }
