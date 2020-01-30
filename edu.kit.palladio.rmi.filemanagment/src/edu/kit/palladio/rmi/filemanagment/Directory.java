@@ -24,6 +24,17 @@ public class Directory implements IFileNode{
 		this.children = new ArrayList<IFileNode>();
 		
     }
+    
+    @Override
+	public String getName() throws RemoteException {
+		return this.name;
+	}
+
+	@Override
+	public boolean isDirectory() throws RemoteException {
+		return true;
+	}
+
 
 	@Override
 	public void addChild(IFileNode node) throws RemoteException {
@@ -44,17 +55,6 @@ public class Directory implements IFileNode{
 	}
 
 	
-
-	@Override
-	public String getName() throws RemoteException {
-		return this.name;
-	}
-
-	@Override
-	public boolean isDirectory() throws RemoteException {
-		return true;
-	}
-
 	@Override
 	public Iterator<IFileNode> iterator() {
 		return new FileNodeDepthFirstIterator(this);

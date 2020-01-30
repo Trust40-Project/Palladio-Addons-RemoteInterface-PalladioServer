@@ -32,7 +32,16 @@ public class Directory implements IFileNode{
 		if(!this.children.contains(node)){
             this.children.add(node);
         }
-		
+	}
+
+	@Override
+	public String getName() throws RemoteException {
+		return this.name;
+	}
+
+	@Override
+	public boolean isDirectory() throws RemoteException {
+		return true;
 	}
 
 	@Override
@@ -43,18 +52,6 @@ public class Directory implements IFileNode{
 	@Override
 	public byte[] getContent() throws RemoteException {
 		return new byte[0];
-	}
-
-	
-
-	@Override
-	public String getName() throws RemoteException {
-		return this.name;
-	}
-
-	@Override
-	public boolean isDirectory() throws RemoteException {
-		return true;
 	}
 
 	@Override

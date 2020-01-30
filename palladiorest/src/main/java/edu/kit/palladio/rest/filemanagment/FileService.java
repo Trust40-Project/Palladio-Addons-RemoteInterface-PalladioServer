@@ -30,18 +30,15 @@ public class FileService implements IFileService {
     }
 
     @Override
-    public IFileNode getSingleFileNode(String path) throws RemoteException, IllegalStateException {
-        return fileUploader.getFileNode(path);
+    public IFileNode getSingleFileNode(String path, Boolean showContent) throws RemoteException, IllegalStateException {
+        return fileUploader.getFileNode(path, showContent);
     }
 
-    @Override
-    public IFileNode getAllFileNode(String pathToStart) throws RemoteException, IllegalStateException {
-        return fileUploader.getAllFileNodes(pathToStart);
-    }
+    
 
     @Override
-    public IFileNode getAllFileNodesFromProject(String projectId) throws RemoteException, IllegalStateException {
-        return fileUploader.getAllFileNodesFromProject(projectId);
+    public IFileNode getAllFileNodesFromProject(String projectId, Boolean showFileContents) throws RemoteException, IllegalStateException {
+        return fileUploader.getAllFileNodesFromProject(projectId, showFileContents);
     }
 
     @Override

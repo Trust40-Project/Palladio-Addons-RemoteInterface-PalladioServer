@@ -2,6 +2,7 @@ package edu.kit.palladio.rest.palladiorest;
 
 import java.io.IOException;
 import java.rmi.RemoteException;
+import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -45,22 +46,22 @@ public class ProjectController {
 
      // Aggregate root
      @GetMapping("/project/{projectId}")
-     IFileNode allFilesFromProject(@PathVariable(name = "projectId") String projectId) throws RemoteException, IllegalStateException {
-        return fileService.getAllFileNodesFromProject(projectId);//TODO: if result null then not found.
+     IFileNode allFilesFromProject(@PathVariable(name = "projectId") String projectId, @RequestParam(value = "content", defaultValue = "false") Boolean showFileContents) throws RemoteException, IllegalStateException {
+        return fileService.getAllFileNodesFromProject(projectId, showFileContents);//TODO: if result null then not found.
      }
  
     
  
      // Single item
      @GetMapping("/project/{projectId}/**")
-     IFileNode oneFileInProject(@PathVariable(name = "projectId") String projectId, HttpServletRequest request) throws RemoteException, IllegalStateException {
+     IFileNode oneFileInProject(@PathVariable(name = "projectId") String projectId, @RequestParam(value = "content", defaultValue = "false") Boolean showContent, HttpServletRequest request) throws RemoteException, IllegalStateException {
 
         final String requestPath = request.getAttribute(HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE).toString();
         final String bestMatchingPattern = request.getAttribute(HandlerMapping.BEST_MATCHING_PATTERN_ATTRIBUTE)
                 .toString();
 
         String path = projectId + "/" + new AntPathMatcher().extractPathWithinPattern(bestMatchingPattern, requestPath);
-        return fileService.getSingleFileNode(path); //TODO: if result null then not found.
+        return fileService.getSingleFileNode(path, showContent); //TODO: if result null then not found.
  
      }
  /*

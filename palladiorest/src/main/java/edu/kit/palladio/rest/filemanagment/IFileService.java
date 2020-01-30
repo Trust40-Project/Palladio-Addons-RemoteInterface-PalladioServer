@@ -11,11 +11,9 @@ public interface IFileService {
 
     IFileNode save(final String path, final MultipartFile file) throws RemoteException, IOException, IllegalArgumentException;
 
-    IFileNode getSingleFileNode(final String path) throws RemoteException, IllegalStateException;
+    IFileNode getSingleFileNode(final String path, final Boolean showContent) throws RemoteException, IllegalStateException;
 
-    IFileNode getAllFileNode(final String pathToStart) throws RemoteException, IllegalStateException;
-
-    IFileNode getAllFileNodesFromProject(final String projectId) throws RemoteException, IllegalStateException;
+    IFileNode getAllFileNodesFromProject(final String projectId, final Boolean showFileContents) throws RemoteException, IllegalStateException;
 
     void deleteFileNode(final String pathToDeleteAt) throws RemoteException, IllegalArgumentException, IllegalStateException;
 }

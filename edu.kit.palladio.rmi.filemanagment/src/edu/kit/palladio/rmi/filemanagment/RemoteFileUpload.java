@@ -195,7 +195,7 @@ public class RemoteFileUpload implements IRemoteFileUpload {
 	}
 
 	@Override
-	public IFileNode getAllFileNodes(String pathToStart) throws RemoteException, IllegalStateException {
+	public IFileNode getAllFileNodes(final String pathToStart, final Boolean showFileContents) throws RemoteException, IllegalStateException {
 		IPath path = new org.eclipse.core.runtime.Path(pathToStart);
 		if(!path.isValidPath(pathToStart)) {
 			return null;
@@ -206,17 +206,22 @@ public class RemoteFileUpload implements IRemoteFileUpload {
 		// Does the start path point to a file?
 		IFile startFile = workspaceRoot.getFile(path);
 		if(startFile.exists()) {
-			try {
-				return new edu.kit.palladio.rmi.filemanagment.File(startFile.getName(), startFile.getContents().readAllBytes());
-			} catch (IOException | CoreException e) {
-				throw new IllegalStateException("Something went wrong reading the content of a file.");
+			if(showFileContents) {
+				try {
+					return new edu.kit.palladio.rmi.filemanagment.File(startFile.getName(), startFile.getContents().readAllBytes());
+				} catch (IOException | CoreException e) {
+					throw new IllegalStateException("Something went wrong reading the content of a file.");
+				}
+			} else {
+				return new edu.kit.palladio.rmi.filemanagment.File(startFile.getName(), null);
 			}
+			
 		}
 		
 		// Does the start path point to a folder?
 		IFolder startFolder = workspaceRoot.getFolder(path);
 		try {
-			return traverseContainer(startFolder);
+			return traverseContainer(startFolder, showFileContents);
 		} catch (CoreException e) {
 			throw new IllegalStateException("Resource not found.");
 		} catch (IOException | OutOfMemoryError e ) {
@@ -226,7 +231,7 @@ public class RemoteFileUpload implements IRemoteFileUpload {
 		
 	}
 	
-	private IFileNode traverseContainer(IContainer toTraverse) throws CoreException, IOException, OutOfMemoryError {
+	private IFileNode traverseContainer(final IContainer toTraverse, final Boolean showFileContents) throws CoreException, IOException, OutOfMemoryError {
 		if(!toTraverse.exists()) {
 			return null;
 		}
@@ -234,9 +239,14 @@ public class RemoteFileUpload implements IRemoteFileUpload {
 		for(IResource member : toTraverse.members()) {
 			if(member.exists()) {
 				if(member.getType() == org.eclipse.core.resources.IResource.FILE) {
-					thisFolder.addChild(new edu.kit.palladio.rmi.filemanagment.File(member.getName(), ((IFile)member).getContents().readAllBytes()));
+					if(showFileContents) {
+						thisFolder.addChild(new edu.kit.palladio.rmi.filemanagment.File(member.getName(), ((IFile)member).getContents().readAllBytes()));
+					} else {
+						thisFolder.addChild(new edu.kit.palladio.rmi.filemanagment.File(member.getName(), null));
+					}
+					
 				} else {
-					IFileNode recursiveResult = traverseContainer((IContainer) member);
+					IFileNode recursiveResult = traverseContainer((IContainer) member, showFileContents);
 					if(recursiveResult != null) {
 						thisFolder.addChild(recursiveResult);
 					}
@@ -246,46 +256,62 @@ public class RemoteFileUpload implements IRemoteFileUpload {
 		
 		return thisFolder;
 	}
-
+	
 	@Override
-	public IFileNode getFileNode(String pathOfFileNode) throws RemoteException, IllegalStateException {
-		IPath path = new org.eclipse.core.runtime.Path(pathOfFileNode);
-		if(!path.isValidPath(pathOfFileNode)) {
+	public IFileNode getFileNode(String pathOfFileNode, Boolean showContent)
+			throws RemoteException, IllegalStateException {
+		if(showContent) {
+			return this.getAllFileNodes(pathOfFileNode, showContent);
+		} else {
+			IPath path = new org.eclipse.core.runtime.Path(pathOfFileNode);
+			if(!path.isValidPath(pathOfFileNode)) {
+				return null;
+			}
+			
+			IWorkspaceRoot workspaceRoot = workspace.getRoot();
+			
+			// Does the path point to a file?
+			IFile file = workspaceRoot.getFile(path);
+			if(file.exists()) {
+				try {
+					return new edu.kit.palladio.rmi.filemanagment.File(file.getName(), file.getContents().readAllBytes());
+				} catch (IOException | CoreException e) {
+					throw new IllegalStateException("Something went wrong reading the content of the file.");
+				}
+			}
+			
+			// Does the path point to a folder?
+			IFolder folder = workspaceRoot.getFolder(path);
+			if(folder.exists()) {
+				return new Directory(folder.getName());
+			}
 			return null;
 		}
-		
-		IWorkspaceRoot workspaceRoot = workspace.getRoot();
-		
-		// Does the path point to a file?
-		IFile file = workspaceRoot.getFile(path);
-		if(file.exists()) {
-			try {
-				return new edu.kit.palladio.rmi.filemanagment.File(file.getName(), file.getContents().readAllBytes());
-			} catch (IOException | CoreException e) {
-				throw new IllegalStateException("Something went wrong reading the content of the file.");
-			}
-		}
-		
-		// Does the path point to a folder?
-		IFolder folder = workspaceRoot.getFolder(path);
-		if(folder.exists()) {
-			return new Directory(folder.getName());
-		}
-		return null;
 	}
 
 	@Override
-	public IFileNode getAllFileNodesFromProject(String projectId) throws RemoteException, IllegalStateException {
+	public IFileNode getFileNode(String pathOfFileNode) throws RemoteException, IllegalStateException {
+		return getFileNode(pathOfFileNode, false);
+	}
+	
+	@Override
+	public IFileNode getAllFileNodesFromProject(String projectId, Boolean showFileContents)
+			throws RemoteException, IllegalStateException {
 		IWorkspaceRoot workspaceRoot = workspace.getRoot();
 		
 		IProject project = workspaceRoot.getProject(projectId);
 		try {
-			return traverseContainer(project);
+			return traverseContainer(project, showFileContents);
 		} catch (CoreException e) {
 			throw new IllegalStateException("Resource not found.");
 		} catch (IOException | OutOfMemoryError e ) {
 			throw new IllegalStateException("Something went wrong reading the content of a file.");
 		}
+	}
+
+	@Override
+	public IFileNode getAllFileNodesFromProject(String projectId) throws RemoteException, IllegalStateException {
+		return getAllFileNodesFromProject(projectId, false);
 	}
 
 	@Override
@@ -300,6 +326,7 @@ public class RemoteFileUpload implements IRemoteFileUpload {
 		if(fileToDelete.exists()) {
 			try {
 				fileToDelete.delete(true, false, new NullProgressMonitor());
+				return;
 			} catch (CoreException e) {
 				throw new IllegalStateException("Currently the file at " + pathToDeleteAt + " can not be deleted.");
 			}
@@ -309,11 +336,16 @@ public class RemoteFileUpload implements IRemoteFileUpload {
 		if(folderToDelete.exists()) {
 			try {
 				folderToDelete.delete(true, false, new NullProgressMonitor());
+				return;
 			} catch (CoreException e) {
 				throw new IllegalStateException("Currently the folder at " + pathToDeleteAt + " can not be deleted.");
 			}
 		}
 		throw new IllegalArgumentException(pathToDeleteAt + " is not a valid resource to delete.");
 	}
+
+	
+
+	
 
 }

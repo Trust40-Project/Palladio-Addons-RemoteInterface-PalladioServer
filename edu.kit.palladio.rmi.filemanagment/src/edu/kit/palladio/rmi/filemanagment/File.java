@@ -20,18 +20,7 @@ public class File implements IFileNode {
         this.name = name;
         this.content = content;
     }
-
-    @Override
-    public void addChild(IFileNode node) throws RemoteException {
-        // no op
-
-    }
-
-    @Override
-    public Collection<IFileNode> getChildren() throws RemoteException {
-        return null;
-    }
-
+    
     @Override
     public byte[] getContent() throws RemoteException {
         return this.content;
@@ -47,6 +36,18 @@ public class File implements IFileNode {
     public boolean isDirectory() throws RemoteException {
         return false;
     }
+
+    @Override
+    public void addChild(IFileNode node) throws RemoteException {
+        // no op
+
+    }
+
+    @Override
+    public Collection<IFileNode> getChildren() throws RemoteException {
+        return null;
+    }
+
 
     @Override
     public Iterator<IFileNode> iterator() {

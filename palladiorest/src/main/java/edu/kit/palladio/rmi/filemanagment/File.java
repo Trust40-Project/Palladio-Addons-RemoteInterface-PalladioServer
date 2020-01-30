@@ -24,6 +24,16 @@ public class File implements IFileNode {
     }
 
     @Override
+    public String getName() throws RemoteException {
+        return this.name;
+    }
+
+    @Override
+    public boolean isDirectory() throws RemoteException {
+        return false;
+    }
+
+    @Override
     public void addChild(IFileNode node) throws RemoteException {
         // no op
 
@@ -37,17 +47,6 @@ public class File implements IFileNode {
     @Override
     public byte[] getContent() throws RemoteException {
         return this.content;
-    }
-
-   
-    @Override
-    public String getName() throws RemoteException {
-        return this.name;
-    }
-
-    @Override
-    public boolean isDirectory() throws RemoteException {
-        return false;
     }
 
     @Override
