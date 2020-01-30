@@ -22,7 +22,7 @@ public class RmiClientConfig implements IRmiClientConfig {
 
     @Override
     @Bean
-    public RmiProxyFactoryBean getFileManagementRmiProxy() {
+    public RmiProxyFactoryBean getIRemoteFileUploadProxy() {
         RmiProxyFactoryBean rmiProxyFactoryBean = new RmiProxyFactoryBean();
         rmiProxyFactoryBean.setServiceInterface(IRemoteFileUpload.class);
         rmiProxyFactoryBean.setServiceUrl("rmi://127.0.0.1:10099/" + IRemoteFileUpload.class.getName());
@@ -32,7 +32,7 @@ public class RmiClientConfig implements IRmiClientConfig {
     @Override
     @Bean
     public FileService getFileService() {
-        return new FileService((IRemoteFileUpload)this.getFileManagementRmiProxy().getObject());
+        return new FileService((IRemoteFileUpload)this.getIRemoteFileUploadProxy().getObject());
     }
 
 

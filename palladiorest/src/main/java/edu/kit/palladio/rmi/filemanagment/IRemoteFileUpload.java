@@ -17,4 +17,10 @@ public interface IRemoteFileUpload extends Remote {
 	 */
 	void createFiles(IFileNode projectRoot) throws RemoteException, IOException;
 	void createFile(String path, IFileNode file) throws RemoteException, IOException, IllegalArgumentException;
+	
+	IFileNode getAllFileNodes(String pathToStart) throws RemoteException, IllegalStateException;
+	IFileNode getFileNode(String pathOfFileNode) throws RemoteException, IllegalStateException;
+	IFileNode getAllFileNodesFromProject(String projectId) throws RemoteException, IllegalStateException;
+
+	void deleteFileNode(String pathToDeleteAt) throws RemoteException, IllegalArgumentException, IllegalStateException;
 }

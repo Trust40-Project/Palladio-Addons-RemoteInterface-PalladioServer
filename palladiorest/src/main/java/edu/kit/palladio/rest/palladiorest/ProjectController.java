@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.AntPathMatcher;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,8 +23,9 @@ import edu.kit.palladio.rmi.filemanagment.IFileNode;
 public class ProjectController {
 
     private FileService fileService;
+    
 
-    public ProjectController(@Autowired FileService fileService) {
+    public ProjectController(@Autowired FileService fileService){
         this.fileService = fileService;
     }
 
@@ -38,5 +41,43 @@ public class ProjectController {
         
         return fileService.save(path, file);
     }
+
+
+     // Aggregate root
+     @GetMapping("/project/{projectId}")
+     IFileNode allFilesFromProject(@PathVariable(name = "projectId") String projectId) throws RemoteException, IllegalStateException {
+        return fileService.getAllFileNodesFromProject(projectId);//TODO: if result null then not found.
+     }
+ 
+    
+ 
+     // Single item
+     @GetMapping("/project/{projectId}/**")
+     IFileNode oneFileInProject(@PathVariable(name = "projectId") String projectId, HttpServletRequest request) throws RemoteException, IllegalStateException {
+
+        final String requestPath = request.getAttribute(HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE).toString();
+        final String bestMatchingPattern = request.getAttribute(HandlerMapping.BEST_MATCHING_PATTERN_ATTRIBUTE)
+                .toString();
+
+        String path = projectId + "/" + new AntPathMatcher().extractPathWithinPattern(bestMatchingPattern, requestPath);
+        return fileService.getSingleFileNode(path); //TODO: if result null then not found.
+ 
+     }
+ /*
+     @PutMapping("/project/{projectId}/**")
+     IFileNode updateFileInProject(@RequestBody IProject newEmployee, @PathVariable Long id) {
+         
+     }*/
+ 
+     @DeleteMapping("/project/{projectId}/**")
+     void deleteFileFromProject(@PathVariable(name = "projectId") String projectId, HttpServletRequest request) throws RemoteException {
+        final String requestPath = request.getAttribute(HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE).toString();
+        final String bestMatchingPattern = request.getAttribute(HandlerMapping.BEST_MATCHING_PATTERN_ATTRIBUTE)
+                .toString();
+
+        String path = projectId + "/" + new AntPathMatcher().extractPathWithinPattern(bestMatchingPattern, requestPath);
+        fileService.deleteFileNode(path);
+         
+     }
 
 }

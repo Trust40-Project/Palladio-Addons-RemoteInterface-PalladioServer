@@ -17,7 +17,7 @@ public interface IRmiClientConfig {
     RmiProxyFactoryBean getProjectManagementRmiProxy();
 
     @Bean
-    RmiProxyFactoryBean getFileManagementRmiProxy();
+    RmiProxyFactoryBean getIRemoteFileUploadProxy();
 
     @Bean
     FileService getFileService();

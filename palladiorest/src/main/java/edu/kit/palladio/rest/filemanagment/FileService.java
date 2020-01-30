@@ -28,4 +28,26 @@ public class FileService implements IFileService {
         fileUploader.createFile(path, fileToCreate);
         return fileToCreate;   
     }
+
+    @Override
+    public IFileNode getSingleFileNode(String path) throws RemoteException, IllegalStateException {
+        return fileUploader.getFileNode(path);
+    }
+
+    @Override
+    public IFileNode getAllFileNode(String pathToStart) throws RemoteException, IllegalStateException {
+        return fileUploader.getAllFileNodes(pathToStart);
+    }
+
+    @Override
+    public IFileNode getAllFileNodesFromProject(String projectId) throws RemoteException, IllegalStateException {
+        return fileUploader.getAllFileNodesFromProject(projectId);
+    }
+
+    @Override
+    public void deleteFileNode(String pathToDeleteAt)
+            throws RemoteException, IllegalArgumentException, IllegalStateException {
+        fileUploader.deleteFileNode(pathToDeleteAt);
+
+    }
 }

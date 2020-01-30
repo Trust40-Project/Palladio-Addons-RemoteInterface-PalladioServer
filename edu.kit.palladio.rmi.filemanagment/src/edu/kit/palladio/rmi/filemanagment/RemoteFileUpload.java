@@ -8,19 +8,21 @@ import java.nio.file.Path;
 import java.rmi.RemoteException;
 import java.util.Collection;
 
+import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.NullProgressMonitor;
+
 
 public class RemoteFileUpload implements IRemoteFileUpload {
 	
-	//TODO: implement get file system structure.
-
 	private transient IWorkspace workspace;
 
 	public RemoteFileUpload() {
@@ -190,6 +192,128 @@ public class RemoteFileUpload implements IRemoteFileUpload {
 			return fileAtLeaf;
 		}
 		
+	}
+
+	@Override
+	public IFileNode getAllFileNodes(String pathToStart) throws RemoteException, IllegalStateException {
+		IPath path = new org.eclipse.core.runtime.Path(pathToStart);
+		if(!path.isValidPath(pathToStart)) {
+			return null;
+		}
+		
+		IWorkspaceRoot workspaceRoot = workspace.getRoot();
+		
+		// Does the start path point to a file?
+		IFile startFile = workspaceRoot.getFile(path);
+		if(startFile.exists()) {
+			try {
+				return new edu.kit.palladio.rmi.filemanagment.File(startFile.getName(), startFile.getContents().readAllBytes());
+			} catch (IOException | CoreException e) {
+				throw new IllegalStateException("Something went wrong reading the content of a file.");
+			}
+		}
+		
+		// Does the start path point to a folder?
+		IFolder startFolder = workspaceRoot.getFolder(path);
+		try {
+			return traverseContainer(startFolder);
+		} catch (CoreException e) {
+			throw new IllegalStateException("Resource not found.");
+		} catch (IOException | OutOfMemoryError e ) {
+			throw new IllegalStateException("Something went wrong reading the content of a file.");
+		}
+		
+		
+	}
+	
+	private IFileNode traverseContainer(IContainer toTraverse) throws CoreException, IOException, OutOfMemoryError {
+		if(!toTraverse.exists()) {
+			return null;
+		}
+		final IFileNode thisFolder = new Directory(toTraverse.getName());
+		for(IResource member : toTraverse.members()) {
+			if(member.exists()) {
+				if(member.getType() == org.eclipse.core.resources.IResource.FILE) {
+					thisFolder.addChild(new edu.kit.palladio.rmi.filemanagment.File(member.getName(), ((IFile)member).getContents().readAllBytes()));
+				} else {
+					IFileNode recursiveResult = traverseContainer((IContainer) member);
+					if(recursiveResult != null) {
+						thisFolder.addChild(recursiveResult);
+					}
+				}
+			}
+		}
+		
+		return thisFolder;
+	}
+
+	@Override
+	public IFileNode getFileNode(String pathOfFileNode) throws RemoteException, IllegalStateException {
+		IPath path = new org.eclipse.core.runtime.Path(pathOfFileNode);
+		if(!path.isValidPath(pathOfFileNode)) {
+			return null;
+		}
+		
+		IWorkspaceRoot workspaceRoot = workspace.getRoot();
+		
+		// Does the path point to a file?
+		IFile file = workspaceRoot.getFile(path);
+		if(file.exists()) {
+			try {
+				return new edu.kit.palladio.rmi.filemanagment.File(file.getName(), file.getContents().readAllBytes());
+			} catch (IOException | CoreException e) {
+				throw new IllegalStateException("Something went wrong reading the content of the file.");
+			}
+		}
+		
+		// Does the path point to a folder?
+		IFolder folder = workspaceRoot.getFolder(path);
+		if(folder.exists()) {
+			return new Directory(folder.getName());
+		}
+		return null;
+	}
+
+	@Override
+	public IFileNode getAllFileNodesFromProject(String projectId) throws RemoteException, IllegalStateException {
+		IWorkspaceRoot workspaceRoot = workspace.getRoot();
+		
+		IProject project = workspaceRoot.getProject(projectId);
+		try {
+			return traverseContainer(project);
+		} catch (CoreException e) {
+			throw new IllegalStateException("Resource not found.");
+		} catch (IOException | OutOfMemoryError e ) {
+			throw new IllegalStateException("Something went wrong reading the content of a file.");
+		}
+	}
+
+	@Override
+	public void deleteFileNode(String pathToDeleteAt) throws RemoteException, IllegalArgumentException, IllegalStateException {
+		IPath path = new org.eclipse.core.runtime.Path(pathToDeleteAt);
+		if(!path.isValidPath(pathToDeleteAt)) {
+			return;
+		}
+		
+		IWorkspaceRoot workspaceRoot = workspace.getRoot();
+		IFile fileToDelete = workspaceRoot.getFile(path);
+		if(fileToDelete.exists()) {
+			try {
+				fileToDelete.delete(true, false, new NullProgressMonitor());
+			} catch (CoreException e) {
+				throw new IllegalStateException("Currently the file at " + pathToDeleteAt + " can not be deleted.");
+			}
+		}
+		
+		IFolder folderToDelete = workspaceRoot.getFolder(path);
+		if(folderToDelete.exists()) {
+			try {
+				folderToDelete.delete(true, false, new NullProgressMonitor());
+			} catch (CoreException e) {
+				throw new IllegalStateException("Currently the folder at " + pathToDeleteAt + " can not be deleted.");
+			}
+		}
+		throw new IllegalArgumentException(pathToDeleteAt + " is not a valid resource to delete.");
 	}
 
 }
