@@ -207,13 +207,13 @@ public class RemoteFileUpload implements IRemoteFileUpload {
 		IFile startFile = workspaceRoot.getFile(path);
 		if(startFile.exists()) {
 			if(showFileContents) {
-				try {
-					return new edu.kit.palladio.rmi.filemanagment.File(startFile.getName(), startFile.getContents().readAllBytes());
+				try (InputStream is = startFile.getContents()){
+					return new edu.kit.palladio.rmi.filemanagment.File(startFile.getName(), is.readAllBytes());
 				} catch (IOException | CoreException e) {
 					throw new IllegalStateException("Something went wrong reading the content of a file.");
 				}
 			} else {
-				return new edu.kit.palladio.rmi.filemanagment.File(startFile.getName(), null);
+				return new edu.kit.palladio.rmi.filemanagment.File(startFile.getName(), new byte[0]);
 			}
 			
 		}
@@ -273,11 +273,12 @@ public class RemoteFileUpload implements IRemoteFileUpload {
 			// Does the path point to a file?
 			IFile file = workspaceRoot.getFile(path);
 			if(file.exists()) {
-				try {
-					return new edu.kit.palladio.rmi.filemanagment.File(file.getName(), file.getContents().readAllBytes());
-				} catch (IOException | CoreException e) {
+				
+			//	try{
+					return new edu.kit.palladio.rmi.filemanagment.File(file.getName(), new byte[0]);
+				/*} catch (IOException | CoreException e) {
 					throw new IllegalStateException("Something went wrong reading the content of the file.");
-				}
+				}*/
 			}
 			
 			// Does the path point to a folder?
@@ -328,6 +329,7 @@ public class RemoteFileUpload implements IRemoteFileUpload {
 				fileToDelete.delete(true, false, new NullProgressMonitor());
 				return;
 			} catch (CoreException e) {
+				e.printStackTrace();
 				throw new IllegalStateException("Currently the file at " + pathToDeleteAt + " can not be deleted.");
 			}
 		}
