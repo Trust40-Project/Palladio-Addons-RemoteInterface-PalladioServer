@@ -8,23 +8,23 @@ import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import org.eclipse.core.internal.runtime.InternalPlatform;
 import org.eclipse.equinox.app.IApplication;
 import org.eclipse.equinox.app.IApplicationContext;
+import org.osgi.framework.BundleContext;
+import org.osgi.framework.ServiceReference;
 
+import edu.kit.palladio.rcpapi.ILoadMe;
 import edu.kit.palladio.rmi.filemanagment.IRemoteFileUpload;
 import edu.kit.palladio.rmi.filemanagment.RemoteFileUpload;
-import edu.kit.palladio.rmi.projectmanagment.IProjectManager;
-import edu.kit.palladio.rmi.projectmanagment.ProjectManager;
 
 /**
  * This class controls all aspects of the application's execution
  */
 public class PalladioRCPApplication implements IApplication {
 
-	private static final IHelloWorldFromEclipse engine = new HelloWorldFromEclipse();
 	private final AtomicBoolean terminationFlag = new AtomicBoolean(false);
 	private Registry registry = null;
-	private IHelloWorldFromEclipse stub = null;
 
 	@Override
 	public Object start(IApplicationContext context) throws Exception {
@@ -33,15 +33,23 @@ public class PalladioRCPApplication implements IApplication {
 			terminationFlag.set(false);
 		}
 		
-		stub = (IHelloWorldFromEclipse) UnicastRemoteObject.exportObject(engine, 0);
-
-		registry = LocateRegistry.createRegistry(10099);
-
-		registry.bind(IHelloWorldFromEclipse.class.getName(), stub);
 		
+		
+		
+		registry = LocateRegistry.createRegistry(10099);
+		
+		BundleContext bundleContext = InternalPlatform.getDefault().getBundleContext();
+		ServiceReference<IComponentLoader> componentLoaderReference = bundleContext.getServiceReference(IComponentLoader.class);
+
+		IComponentLoader componentLoader = bundleContext.getService(componentLoaderReference);
+		for(ILoadMe component: componentLoader.getComponents()) {
+			ILoadMe componentStub = (ILoadMe) UnicastRemoteObject.exportObject(component, 0);
+			registry.bind(ILoadMe.class.getName(), componentStub);
+		}
+		/*
 		
 		IProjectManager projectManagerStub = (IProjectManager) UnicastRemoteObject.exportObject(new ProjectManager(), 0);
-		registry.bind(IProjectManager.class.getName(), projectManagerStub);
+		registry.bind(IProjectManager.class.getName(), projectManagerStub);*/
 		
 		IRemoteFileUpload fileUploadStub = (IRemoteFileUpload) UnicastRemoteObject.exportObject(new RemoteFileUpload(), 0);
 		registry.bind(IRemoteFileUpload.class.getName(), fileUploadStub);
@@ -113,7 +121,7 @@ public class PalladioRCPApplication implements IApplication {
 		}
 		/*Ensure that all projects are closed an thus saved to the file system.*/
 		//TODO: what if close fails?
-		projectManagerStub.close();
+		//projectManagerStub.close();
 			
 		
 		return IApplication.EXIT_OK;

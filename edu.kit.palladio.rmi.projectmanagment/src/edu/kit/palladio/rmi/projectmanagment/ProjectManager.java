@@ -15,7 +15,11 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
+import org.osgi.service.component.annotations.Component;
 
+
+
+@Component(immediate = true, property = { "id=edu.kit.palladio.rmi.projectmanagment.projectmanager", "name=Project Manager"/*, "needsNativeExecutables=false" */})
 public class ProjectManager implements IProjectManager {
 	
 	/**
