@@ -1,5 +1,6 @@
 package edu.kit.palladio.rmi.filemanagment;
 
+import edu.kit.palladio.rcpapi.ILoadMe;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -19,11 +20,13 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.NullProgressMonitor;
+import org.osgi.service.component.annotations.Component;
 
-
-public class RemoteFileUpload implements IRemoteFileUpload {
+@Component(immediate = true, property = { "id=edu.kit.palladio.rmi.filemanagment.remotefileupload", "name=Remote File Upload"})
+public class RemoteFileUpload implements IRemoteFileUpload, ILoadMe {
 	
 	private transient IWorkspace workspace;
+	private static final String RMIID = "edu.kit.palladio.rmi.filemanagment.IRemoteFileUpload";
 
 	public RemoteFileUpload() {
 		super();
@@ -344,6 +347,11 @@ public class RemoteFileUpload implements IRemoteFileUpload {
 			}
 		}
 		throw new IllegalArgumentException(pathToDeleteAt + " is not a valid resource to delete.");
+	}
+
+	@Override
+	public String getRmiId() throws RemoteException {
+		return RMIID;
 	}
 
 	

@@ -4,6 +4,7 @@
    <property name="name" value="Project Manager"/>
    <service>
       <provide interface="edu.kit.palladio.rmi.projectmanagment.IProjectManager"/>
+      <provide interface="edu.kit.palladio.rcpapi.ILoadMe"/>
    </service>
    <implementation class="edu.kit.palladio.rmi.projectmanagment.ProjectManager"/>
 </scr:component>

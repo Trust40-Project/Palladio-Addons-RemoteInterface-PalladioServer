@@ -13,22 +13,25 @@ import org.osgi.service.component.annotations.ReferencePolicy;
 
 import edu.kit.palladio.rcpapi.ILoadMe;
 
-@Component(immediate=true)
+@Component()
 public class ComponentLoader implements IComponentLoader {
 
-	private final List<ILoadMe> availableComponents = new LinkedList<ILoadMe>();
+	private final List<IComponentInformation> availableComponents = new LinkedList<IComponentInformation>();
 	
     @Reference(cardinality = ReferenceCardinality.MULTIPLE, policy = ReferencePolicy.DYNAMIC)
     public void bindComponent(ILoadMe component, Map<String, String> serviceProperties) {
-
-        availableComponents.add(component);
+    	System.out.println(serviceProperties.toString());
+        availableComponents.add(new ComponentInformation(component, serviceProperties));
     }
 
 
 
     public void unbindComponent(ILoadMe component) {
-    	this.availableComponents.remove(component);
-
+    	for(int i = 0; i < this.availableComponents.size(); ++i) {
+    		if(this.availableComponents.get(i).getComponent().equals(component)) {
+    			this.availableComponents.remove(i);
+    		}
+    	}
     }
 
 
@@ -43,7 +46,7 @@ public class ComponentLoader implements IComponentLoader {
 
 
 
-    public Collection<ILoadMe> getComponents() {
+    public Collection<IComponentInformation> getComponents() {
 
         return Collections.unmodifiableList(availableComponents);
 

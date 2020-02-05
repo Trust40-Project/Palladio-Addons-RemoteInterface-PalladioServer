@@ -17,15 +17,18 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.osgi.service.component.annotations.Component;
 
+import edu.kit.palladio.rcpapi.ILoadMe;
+
 
 
 @Component(immediate = true, property = { "id=edu.kit.palladio.rmi.projectmanagment.projectmanager", "name=Project Manager"/*, "needsNativeExecutables=false" */})
-public class ProjectManager implements IProjectManager {
+public class ProjectManager implements IProjectManager, ILoadMe {
 	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	private static final String RMIID = "edu.kit.palladio.rmi.projectmanagment.IProjectManager";
 	
 	
 	private transient IWorkspace workspace;
@@ -33,6 +36,11 @@ public class ProjectManager implements IProjectManager {
 	public ProjectManager(){
 		this.workspace = ResourcesPlugin.getWorkspace();
 		System.out.println("workspace root: " + this.workspace.getRoot().getRawLocation());
+	}
+	
+	@Override
+	public String getRmiId() throws RemoteException {
+		return RMIID;
 	}
 
 	@Override

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.2.0" immediate="true" name="edu.kit.palladio.rcp.ComponentLoader">
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.2.0" name="edu.kit.palladio.rcp.ComponentLoader">
    <service>
       <provide interface="edu.kit.palladio.rcp.IComponentLoader"/>
    </service>

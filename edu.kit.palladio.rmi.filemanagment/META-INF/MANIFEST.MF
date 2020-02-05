@@ -10,4 +10,6 @@ Bundle-RequiredExecutionEnvironment: JavaSE-11
 Automatic-Module-Name: edu.kit.palladio.rmi.filemanagment
 Bundle-ActivationPolicy: lazy
 Export-Package: edu.kit.palladio.rmi.filemanagment
-Import-Package: org.osgi.framework; version="[1.9,2.0)"
+Import-Package: edu.kit.palladio.rcpapi,
+ org.osgi.framework;version="[1.9,2.0)"
+Service-Component: OSGI-INF/edu.kit.palladio.rmi.filemanagment.RemoteFileUpload.xml

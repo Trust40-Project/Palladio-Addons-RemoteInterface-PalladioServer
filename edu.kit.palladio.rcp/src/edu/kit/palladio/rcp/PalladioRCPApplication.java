@@ -12,11 +12,10 @@ import org.eclipse.core.internal.runtime.InternalPlatform;
 import org.eclipse.equinox.app.IApplication;
 import org.eclipse.equinox.app.IApplicationContext;
 import org.osgi.framework.BundleContext;
+import org.osgi.framework.FrameworkUtil;
 import org.osgi.framework.ServiceReference;
 
 import edu.kit.palladio.rcpapi.ILoadMe;
-import edu.kit.palladio.rmi.filemanagment.IRemoteFileUpload;
-import edu.kit.palladio.rmi.filemanagment.RemoteFileUpload;
 
 /**
  * This class controls all aspects of the application's execution
@@ -35,24 +34,25 @@ public class PalladioRCPApplication implements IApplication {
 		
 		
 		
-		
 		registry = LocateRegistry.createRegistry(10099);
 		
-		BundleContext bundleContext = InternalPlatform.getDefault().getBundleContext();
+		//TODO: Is this a good way to go? https://stackoverflow.com/questions/559989/how-do-i-get-the-osgi-bundlecontext-for-an-eclipse-rcp-application
+		BundleContext bundleContext = FrameworkUtil.getBundle(getClass()).getBundleContext();
+		//BundleContext bundleContext = InternalPlatform.getDefault().getBundleContext();
 		ServiceReference<IComponentLoader> componentLoaderReference = bundleContext.getServiceReference(IComponentLoader.class);
-
 		IComponentLoader componentLoader = bundleContext.getService(componentLoaderReference);
-		for(ILoadMe component: componentLoader.getComponents()) {
-			ILoadMe componentStub = (ILoadMe) UnicastRemoteObject.exportObject(component, 0);
-			registry.bind(ILoadMe.class.getName(), componentStub);
+		for(IComponentInformation component: componentLoader.getComponents()) {
+			System.out.println(component.getComponent().getRmiId());
+			ILoadMe componentStub = (ILoadMe) UnicastRemoteObject.exportObject(component.getComponent(), 0);
+			registry.bind(component.getComponent().getRmiId(), componentStub);
 		}
 		/*
 		
 		IProjectManager projectManagerStub = (IProjectManager) UnicastRemoteObject.exportObject(new ProjectManager(), 0);
 		registry.bind(IProjectManager.class.getName(), projectManagerStub);*/
 		
-		IRemoteFileUpload fileUploadStub = (IRemoteFileUpload) UnicastRemoteObject.exportObject(new RemoteFileUpload(), 0);
-		registry.bind(IRemoteFileUpload.class.getName(), fileUploadStub);
+		/*IRemoteFileUpload fileUploadStub = (IRemoteFileUpload) UnicastRemoteObject.exportObject(new RemoteFileUpload(), 0);
+		registry.bind(IRemoteFileUpload.class.getName(), fileUploadStub);*/
 		
 
 		System.out.println("RMI server running");
