@@ -1,6 +1,6 @@
 package edu.kit.palladio.rcp;
 
-import edu.kit.palladio.rcpapi.ILoadMe;
+import edu.kit.palladio.rcp.api.ILoadMe;
 
 public interface IComponentInformation {
 	ILoadMe getComponent();

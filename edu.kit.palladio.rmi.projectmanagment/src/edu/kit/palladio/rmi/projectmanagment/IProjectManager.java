@@ -5,8 +5,6 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.List;
 
-import edu.kit.palladio.rcpapi.ILoadMe;
-
 public interface IProjectManager extends Serializable, Remote {
 	//post complete project with description and natures
 	IProject createProject(final IProject projectToCreate) throws RemoteException, Throwable, IllegalStateException;

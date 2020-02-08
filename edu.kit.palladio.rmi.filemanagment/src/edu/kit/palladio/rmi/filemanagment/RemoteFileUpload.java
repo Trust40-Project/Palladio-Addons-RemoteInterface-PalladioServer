@@ -1,6 +1,6 @@
 package edu.kit.palladio.rmi.filemanagment;
 
-import edu.kit.palladio.rcpapi.ILoadMe;
+import edu.kit.palladio.rcp.api.ILoadMe;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;

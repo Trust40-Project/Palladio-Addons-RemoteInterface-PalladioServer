@@ -3,7 +3,7 @@ package edu.kit.palladio.rcp;
 import java.util.Map;
 import java.util.Objects;
 
-import edu.kit.palladio.rcpapi.ILoadMe;
+import edu.kit.palladio.rcp.api.ILoadMe;
 
 public class ComponentInformation implements IComponentInformation {
 	

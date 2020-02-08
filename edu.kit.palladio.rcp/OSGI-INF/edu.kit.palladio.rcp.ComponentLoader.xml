@@ -3,6 +3,6 @@
    <service>
       <provide interface="edu.kit.palladio.rcp.IComponentLoader"/>
    </service>
-   <reference bind="bindComponent" cardinality="0..n" interface="edu.kit.palladio.rcpapi.ILoadMe" name="Component" policy="dynamic" unbind="unbindComponent" updated="updatedComponent"/>
+   <reference bind="bindComponent" cardinality="0..n" interface="edu.kit.palladio.rcp.api.ILoadMe" name="Component" policy="dynamic" unbind="unbindComponent" updated="updatedComponent"/>
    <implementation class="edu.kit.palladio.rcp.ComponentLoader"/>
 </scr:component>

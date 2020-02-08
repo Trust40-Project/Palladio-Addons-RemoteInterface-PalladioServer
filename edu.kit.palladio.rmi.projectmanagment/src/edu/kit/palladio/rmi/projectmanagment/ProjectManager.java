@@ -17,7 +17,7 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.osgi.service.component.annotations.Component;
 
-import edu.kit.palladio.rcpapi.ILoadMe;
+import edu.kit.palladio.rcp.api.ILoadMe;
 
 
 

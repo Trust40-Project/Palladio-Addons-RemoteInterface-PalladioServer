@@ -8,14 +8,10 @@ import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import org.eclipse.core.internal.runtime.InternalPlatform;
 import org.eclipse.equinox.app.IApplication;
 import org.eclipse.equinox.app.IApplicationContext;
-import org.osgi.framework.BundleContext;
-import org.osgi.framework.FrameworkUtil;
-import org.osgi.framework.ServiceReference;
 
-import edu.kit.palladio.rcpapi.ILoadMe;
+import edu.kit.palladio.rcp.api.ILoadMe;
 
 /**
  * This class controls all aspects of the application's execution
@@ -37,10 +33,13 @@ public class PalladioRCPApplication implements IApplication {
 		registry = LocateRegistry.createRegistry(10099);
 		
 		//TODO: Is this a good way to go? https://stackoverflow.com/questions/559989/how-do-i-get-the-osgi-bundlecontext-for-an-eclipse-rcp-application
-		BundleContext bundleContext = FrameworkUtil.getBundle(getClass()).getBundleContext();
+		/*BundleContext bundleContext = FrameworkUtil.getBundle(getClass()).getBundleContext();
 		//BundleContext bundleContext = InternalPlatform.getDefault().getBundleContext();
 		ServiceReference<IComponentLoader> componentLoaderReference = bundleContext.getServiceReference(IComponentLoader.class);
 		IComponentLoader componentLoader = bundleContext.getService(componentLoaderReference);
+		
+		*/
+		IComponentLoader componentLoader = Activator.getInstance().getComponentLoader();
 		for(IComponentInformation component: componentLoader.getComponents()) {
 			System.out.println(component.getComponent().getRmiId());
 			ILoadMe componentStub = (ILoadMe) UnicastRemoteObject.exportObject(component.getComponent(), 0);

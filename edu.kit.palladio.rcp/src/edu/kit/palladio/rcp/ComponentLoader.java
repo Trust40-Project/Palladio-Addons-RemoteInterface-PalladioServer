@@ -11,7 +11,7 @@ import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.component.annotations.ReferenceCardinality;
 import org.osgi.service.component.annotations.ReferencePolicy;
 
-import edu.kit.palladio.rcpapi.ILoadMe;
+import edu.kit.palladio.rcp.api.ILoadMe;
 
 @Component()
 public class ComponentLoader implements IComponentLoader {
@@ -20,7 +20,6 @@ public class ComponentLoader implements IComponentLoader {
 	
     @Reference(cardinality = ReferenceCardinality.MULTIPLE, policy = ReferencePolicy.DYNAMIC)
     public void bindComponent(ILoadMe component, Map<String, String> serviceProperties) {
-    	System.out.println(serviceProperties.toString());
         availableComponents.add(new ComponentInformation(component, serviceProperties));
     }
 

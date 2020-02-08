@@ -1,4 +1,4 @@
-package edu.kit.palladio.rcpapi;
+package edu.kit.palladio.rcp.api;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
