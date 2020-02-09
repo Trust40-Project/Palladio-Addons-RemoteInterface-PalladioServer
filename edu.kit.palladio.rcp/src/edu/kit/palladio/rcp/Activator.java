@@ -1,8 +1,5 @@
 package edu.kit.palladio.rcp;
 
-import java.rmi.registry.LocateRegistry;
-import java.rmi.server.UnicastRemoteObject;
-
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;

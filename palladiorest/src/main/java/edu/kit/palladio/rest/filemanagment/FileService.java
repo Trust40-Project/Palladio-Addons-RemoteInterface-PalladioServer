@@ -1,7 +1,6 @@
 package edu.kit.palladio.rest.filemanagment;
 
 import java.io.IOException;
-import java.nio.file.Paths;
 import java.rmi.RemoteException;
 
 import org.springframework.beans.factory.annotation.Autowired;

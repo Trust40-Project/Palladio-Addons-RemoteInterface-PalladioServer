@@ -2,7 +2,6 @@ package edu.kit.palladio.rest.palladiorest;
 
 import java.io.IOException;
 import java.rmi.RemoteException;
-import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 

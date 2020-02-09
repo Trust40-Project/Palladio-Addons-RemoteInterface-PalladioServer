@@ -1,13 +1,8 @@
 package edu.kit.palladio.rmi.filemanagment;
 
-import java.nio.charset.Charset;
-import java.nio.file.Path;
 import java.rmi.RemoteException;
 import java.util.Collection;
 import java.util.Iterator;
-
-import edu.kit.palladio.rmi.filemanagment.FileNodeDepthFirstIterator;
-import edu.kit.palladio.rmi.filemanagment.IFileNode;
 
 public class File implements IFileNode {
 

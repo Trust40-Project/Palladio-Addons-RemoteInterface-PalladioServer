@@ -1,9 +1,6 @@
 package edu.kit.palladio.rmi.filemanagment;
 
 import java.io.Serializable;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Path;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.Collection;
