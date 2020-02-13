@@ -9,7 +9,11 @@ Automatic-Module-Name: edu.kit.palladio.rcp
 Bundle-RequiredExecutionEnvironment: JavaSE-11
 Import-Package: edu.kit.palladio.rcp.api,
  org.osgi.framework;version="[1.9,2.0)",
- org.osgi.service.component.annotations;version="1.3.0";resolution:=optional
+ org.osgi.service.component.annotations;version="1.3.0";resolution:=optional,
+ edu.kit.palladio.rmi.filemanagment,
+ edu.kit.palladio.rmi.projectmanagment,
+ edu.kit.palladio.rmi.dataprocessinganalysis,
+ edu.kit.palladio.rmi.supportingprolog4j
 Service-Component: OSGI-INF/edu.kit.palladio.rcp.ComponentLoader.xml
 Bundle-ActivationPolicy: lazy
 Bundle-Activator: edu.kit.palladio.rcp.Activator

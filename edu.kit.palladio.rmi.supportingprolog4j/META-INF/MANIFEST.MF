@@ -14,3 +14,4 @@ Import-Package: edu.kit.palladio.rcp.api,
  org.prolog4j,
  org.prolog4j.manager
 Service-Component: OSGI-INF/edu.kit.palladio.rmi.supportingprolog4j.ProverManageWrapper.xml
+Export-Package: edu.kit.palladio.rmi.supportingprolog4j

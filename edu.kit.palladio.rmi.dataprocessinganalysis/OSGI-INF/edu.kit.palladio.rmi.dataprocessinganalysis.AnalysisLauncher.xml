@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.3.0" immediate="true" name="edu.kit.palladio.rmi.dataprocessinganalysis.AnalysisLauncher">
+   <property name="id" value="edu.kit.palladio.rmi.dataprocessinganalysis.analysislauncher"/>
+   <property name="name" value="Analysis Launcher"/>
+   <service>
+      <provide interface="edu.kit.palladio.rmi.dataprocessinganalysis.IAnalysisLauncher"/>
+      <provide interface="edu.kit.palladio.rcp.api.ILoadMe"/>
+   </service>
+   <reference cardinality="1..1" field="proverManager" interface="org.prolog4j.manager.IProverManager" name="proverManager"/>
+   <implementation class="edu.kit.palladio.rmi.dataprocessinganalysis.AnalysisLauncher"/>
+</scr:component>
