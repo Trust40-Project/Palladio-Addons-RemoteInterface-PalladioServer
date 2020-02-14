@@ -1,8 +1,11 @@
 package edu.kit.palladio.rmi.supportingprolog4j;
 
 import java.rmi.RemoteException;
-import java.util.Collection;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -34,8 +37,13 @@ public class ProverManageWrapper implements ILoadMe, IProverManagerRMI {
 	}
 
 	@Override
-	public Collection<ProverInformation> getProvers() throws RemoteException {
-		return this.proverManagerInstance.getProvers().keySet();
+	public List<ProverInformationSerializable> getProvers() throws RemoteException {
+		Map<ProverInformation, IProverFactory> proverMap = this.proverManagerInstance.getProvers();
+		List<ProverInformationSerializable> proverInformationList = new LinkedList<ProverInformationSerializable>();
+		for(ProverInformation proverInformation : proverMap.keySet()) {
+			proverInformationList.add(new ProverInformationSerializable(proverInformation.getId(), proverInformation.getName(), proverInformation.needsNativeExecutables()));
+		}
+		return proverInformationList;
 	}
 
 }

@@ -38,7 +38,8 @@ public class LaunchController {
 
     @PostMapping("/launch")
     void newProject(@RequestBody LaunchConfig launchConfig) throws RemoteException, IllegalStateException, Throwable {
-        this.analysisLauncher.launch(launchConfig);;
+        this.analysisLauncher.launch(launchConfig);
+        System.out.println("Done");
     }
 
     // Single item

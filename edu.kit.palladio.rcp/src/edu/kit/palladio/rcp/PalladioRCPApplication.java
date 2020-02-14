@@ -30,7 +30,7 @@ public class PalladioRCPApplication implements IApplication {
 		
 		
 		
-		registry = LocateRegistry.createRegistry(10099);
+		registry = LocateRegistry.createRegistry(10999);
 		
 		//TODO: Is this a good way to go? https://stackoverflow.com/questions/559989/how-do-i-get-the-osgi-bundlecontext-for-an-eclipse-rcp-application
 		/*BundleContext bundleContext = FrameworkUtil.getBundle(getClass()).getBundleContext();

@@ -35,7 +35,7 @@ public class AnalysisLauncher implements IAnalysisLauncher, ILoadMe {
 	private IProverManager proverManager;
 
 	@Override
-	public void launch(LaunchConfig launchConfig) throws IllegalArgumentException, RemoteException {
+	public void launch(ILaunchConfig launchConfig) throws IllegalArgumentException, RemoteException {
 		boolean returnValueIndexing = false;
 		boolean optimNegation = false;
 		boolean shortAssign = false;
@@ -75,8 +75,13 @@ public class AnalysisLauncher implements IAnalysisLauncher, ILoadMe {
 		
 		 AnalysisWorkflow analysisWorkflow = new AnalysisWorkflow(analysisWorkflowConfig);
 		 
-		 analysisWorkflow.launch();
-
+		 try {
+			 analysisWorkflow.launch();
+		 }catch(Exception e) {
+			 e.printStackTrace();
+		 }
+		 
+		 System.out.println("Launch done");
 	}
 
 	private IProverFactory getProverFactory(ILaunchConfig launchConfig) throws CoreException {

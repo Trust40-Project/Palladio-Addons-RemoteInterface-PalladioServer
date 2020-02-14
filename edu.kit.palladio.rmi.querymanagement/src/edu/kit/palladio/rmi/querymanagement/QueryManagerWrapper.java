@@ -1,7 +1,8 @@
 package edu.kit.palladio.rmi.querymanagement;
 
 import java.rmi.RemoteException;
-import java.util.Collection;
+import java.util.LinkedList;
+import java.util.List;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -26,8 +27,12 @@ public class QueryManagerWrapper implements IQueryManagerRMI, ILoadMe {
 	}
 	
 	@Override
-	public Collection<QueryInformation> getQueries() throws RemoteException{
-		return queryManagerInstance.getQueries().keySet();
+	public List<QueryInformationSerializable> getQueries() throws RemoteException{
+		List<QueryInformationSerializable> queryInformationList = new LinkedList<QueryInformationSerializable>();
+		for(QueryInformation queryInformation : queryManagerInstance.getQueries().keySet()) {
+			queryInformationList.add(new QueryInformationSerializable(queryInformation.getId(), queryInformation.getName()));
+		}
+		return queryInformationList;
 	}
 
 }

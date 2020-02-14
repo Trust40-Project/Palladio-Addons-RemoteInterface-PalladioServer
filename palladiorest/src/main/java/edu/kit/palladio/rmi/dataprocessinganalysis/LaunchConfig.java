@@ -1,5 +1,8 @@
 package edu.kit.palladio.rmi.dataprocessinganalysis;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class LaunchConfig implements ILaunchConfig {
 
     /**
@@ -15,13 +18,13 @@ public class LaunchConfig implements ILaunchConfig {
 
 
     //TODO: Add default values.
-    //@JsonCreator
-    public LaunchConfig(/*@JsonProperty("usageModelPath")*/ String usageModelPath,
-                        /*@JsonProperty("allocModelPath")*/ String allocModelPath,
-                        /*@JsonProperty("characteristicsModelPath")*/ String characteristicsModelPath,
-                        /*@JsonProperty("proverFactoryId")*/ String proverFactoryId,
-                        /*@JsonProperty("analysisGoalId")*/ String analysisGoalId,
-                        /*@JsonProperty("launchFlags")*/ LaunchFlags[] launchFlags
+    @JsonCreator
+    public LaunchConfig(@JsonProperty("usageModelPath") String usageModelPath,
+                        @JsonProperty("allocModelPath") String allocModelPath,
+                        @JsonProperty("characteristicsModelPath") String characteristicsModelPath,
+                        @JsonProperty("proverFactoryId") String proverFactoryId,
+                        @JsonProperty("analysisGoalId") String analysisGoalId,
+                        @JsonProperty("launchFlags") LaunchFlags[] launchFlags
 
     ){
         this.usageModelPath = usageModelPath;
@@ -29,6 +32,7 @@ public class LaunchConfig implements ILaunchConfig {
         this.proverFactoryId = proverFactoryId;
         this.analysisGoalId = analysisGoalId;
         this.launchFlags = launchFlags;
+        this.characteristicsModelPath = characteristicsModelPath;
     }
     
     @Override

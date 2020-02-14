@@ -1,6 +1,8 @@
 package edu.kit.palladio.rmi.dataprocessinganalysis;
 
-public interface ILaunchConfig {
+import java.io.Serializable;
+
+public interface ILaunchConfig extends Serializable {
 	String getUsageModelPath();
 	String getAllocModelPath();
 	String getCharacteristicsModelPath();

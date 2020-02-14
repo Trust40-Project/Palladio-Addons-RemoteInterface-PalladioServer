@@ -13,13 +13,14 @@ import edu.kit.palladio.rmi.supportingprolog4j.IProverManagerRMI;
 
 @Configuration
 public class RmiClientConfig implements IRmiClientConfig {
+    private final static int PORT = 10999;
 
     @Override
     @Bean
     public RmiProxyFactoryBean getProjectManagementRmiProxy() {
         RmiProxyFactoryBean rmiProxyFactoryBean = new RmiProxyFactoryBean();
         rmiProxyFactoryBean.setServiceInterface(IProjectManager.class);
-        rmiProxyFactoryBean.setServiceUrl("rmi://127.0.0.1:10099/" + IProjectManager.class.getName());
+        rmiProxyFactoryBean.setServiceUrl("rmi://127.0.0.1:"+PORT+"/" + IProjectManager.class.getName());
         return rmiProxyFactoryBean;
     }
 
@@ -28,7 +29,7 @@ public class RmiClientConfig implements IRmiClientConfig {
     public RmiProxyFactoryBean getIRemoteFileUploadProxy() {
         RmiProxyFactoryBean rmiProxyFactoryBean = new RmiProxyFactoryBean();
         rmiProxyFactoryBean.setServiceInterface(IRemoteFileUpload.class);
-        rmiProxyFactoryBean.setServiceUrl("rmi://127.0.0.1:10099/" + IRemoteFileUpload.class.getName());
+        rmiProxyFactoryBean.setServiceUrl("rmi://127.0.0.1:"+PORT+"/" + IRemoteFileUpload.class.getName());
         return rmiProxyFactoryBean;
     }
 
@@ -38,7 +39,7 @@ public class RmiClientConfig implements IRmiClientConfig {
     public RmiProxyFactoryBean getIProverManagerProxy(){
         RmiProxyFactoryBean rmiProxyFactoryBean = new RmiProxyFactoryBean();
         rmiProxyFactoryBean.setServiceInterface(IProverManagerRMI.class);
-        rmiProxyFactoryBean.setServiceUrl("rmi://127.0.0.1:10099/" + IProverManagerRMI.class.getName());
+        rmiProxyFactoryBean.setServiceUrl("rmi://127.0.0.1:"+PORT+"/" + IProverManagerRMI.class.getName());
         return rmiProxyFactoryBean;
     }
 
@@ -47,7 +48,7 @@ public class RmiClientConfig implements IRmiClientConfig {
     public RmiProxyFactoryBean getIQueryManagerProxy(){
         RmiProxyFactoryBean rmiProxyFactoryBean = new RmiProxyFactoryBean();
         rmiProxyFactoryBean.setServiceInterface(IQueryManagerRMI.class);
-        rmiProxyFactoryBean.setServiceUrl("rmi://127.0.0.1:10099/" + IQueryManagerRMI.class.getName());
+        rmiProxyFactoryBean.setServiceUrl("rmi://127.0.0.1:"+PORT+"/" + IQueryManagerRMI.class.getName());
         return rmiProxyFactoryBean;
     }
 
@@ -56,7 +57,7 @@ public class RmiClientConfig implements IRmiClientConfig {
     public RmiProxyFactoryBean getIAnalysisLauncherProxy(){
         RmiProxyFactoryBean rmiProxyFactoryBean = new RmiProxyFactoryBean();
         rmiProxyFactoryBean.setServiceInterface(IAnalysisLauncher.class);
-        rmiProxyFactoryBean.setServiceUrl("rmi://127.0.0.1:10099/" + IAnalysisLauncher.class.getName());
+        rmiProxyFactoryBean.setServiceUrl("rmi://127.0.0.1:"+PORT+"/" + IAnalysisLauncher.class.getName());
         return rmiProxyFactoryBean;
     }
 

@@ -2,12 +2,8 @@ package edu.kit.palladio.rmi.supportingprolog4j;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
-import java.util.Collection;
-import java.util.Map;
-
-import org.prolog4j.IProverFactory;
-import org.prolog4j.ProverInformation;
+import java.util.List;
 
 public interface IProverManagerRMI extends Remote {
-	Collection<ProverInformation> getProvers() throws RemoteException;
+	List<ProverInformationSerializable> getProvers() throws RemoteException;
 }
