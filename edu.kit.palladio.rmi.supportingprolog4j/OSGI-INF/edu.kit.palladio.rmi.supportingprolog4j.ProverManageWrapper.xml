@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.3.0" immediate="true" name="edu.kit.palladio.rmi.supportingprolog4j.ProverManageWrapper">
-   <property name="id" value="edu.kit.palladio.rmi.supportingprolog4j.provermanager"/>
+   <property name="id" value="edu.kit.palladio.rmi.supportingprolog4j.IProverManagerRMI"/>
    <property name="name" value="Prover Manager"/>
    <service>
       <provide interface="edu.kit.palladio.rcp.api.ILoadMe"/>

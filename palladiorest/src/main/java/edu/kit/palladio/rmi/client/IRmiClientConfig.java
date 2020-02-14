@@ -24,4 +24,10 @@ public interface IRmiClientConfig {
     @Bean
     RmiProxyFactoryBean getIProverManagerProxy();
 
+    @Bean
+    RmiProxyFactoryBean getIQueryManagerProxy();
+
+    @Bean
+    RmiProxyFactoryBean getIAnalysisLauncherProxy();
+
 }

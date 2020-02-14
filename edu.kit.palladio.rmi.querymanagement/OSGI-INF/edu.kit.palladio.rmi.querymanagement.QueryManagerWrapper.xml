@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.3.0" immediate="true" name="edu.kit.palladio.rmi.querymanagement.QueryManagerWrapper">
+   <property name="id" value="edu.kit.palladio.rmi.querymanagement.IQueryManagerRMI"/>
+   <property name="name" value="Query Manager"/>
+   <service>
+      <provide interface="edu.kit.palladio.rmi.querymanagement.IQueryManagerRMI"/>
+      <provide interface="edu.kit.palladio.rcp.api.ILoadMe"/>
+   </service>
+   <reference cardinality="1..1" field="queryManagerInstance" interface="org.palladiosimulator.pcm.dataprocessing.analysis.executor.workflow.query.impl.IQueryManager" name="queryManagerInstance"/>
+   <implementation class="edu.kit.palladio.rmi.querymanagement.QueryManagerWrapper"/>
+</scr:component>

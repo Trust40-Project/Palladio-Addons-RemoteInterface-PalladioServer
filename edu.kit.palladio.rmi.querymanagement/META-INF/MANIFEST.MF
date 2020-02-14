@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Querymanagement
+Bundle-SymbolicName: edu.kit.palladio.rmi.querymanagement
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: edu.kit.palladio.rmi.querymanagement.Activator
+Require-Bundle: org.eclipse.core.runtime
+Bundle-RequiredExecutionEnvironment: JavaSE-11
+Automatic-Module-Name: edu.kit.palladio.rmi.querymanagement
+Bundle-ActivationPolicy: lazy
+Import-Package: edu.kit.palladio.rcp.api,
+ org.osgi.service.component.annotations;version="1.3.0";resolution:=optional,
+ org.palladiosimulator.pcm.dataprocessing.analysis.executor.workflow.query,
+ org.palladiosimulator.pcm.dataprocessing.analysis.executor.workflow.query.impl
+Service-Component: OSGI-INF/edu.kit.palladio.rmi.querymanagement.QueryManagerWrapper.xml

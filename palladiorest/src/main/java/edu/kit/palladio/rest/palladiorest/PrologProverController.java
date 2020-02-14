@@ -1,6 +1,7 @@
 package edu.kit.palladio.rest.palladiorest;
 
 import java.rmi.RemoteException;
+import java.util.Collection;
 import java.util.Set;
 
 import org.prolog4j.ProverInformation;
@@ -22,15 +23,15 @@ public class PrologProverController {
 
     // Aggregate root
     @GetMapping("/provers")
-    Set<ProverInformation> allProvers() throws RemoteException {
-        return proverManager.getProvers().keySet();
+    Collection<ProverInformation> allProvers() throws RemoteException {
+        return proverManager.getProvers();
     }
 
     // Single item
 
     @GetMapping("/provers/{id}")
     ProverInformation oneProver(@PathVariable String proverId) throws RemoteException, IllegalArgumentException {
-        for (ProverInformation proverInformation : this.proverManager.getProvers().keySet()) {
+        for (ProverInformation proverInformation : this.proverManager.getProvers()) {
             if(proverInformation.getId().equals(proverId)){
                 return proverInformation;
             }
