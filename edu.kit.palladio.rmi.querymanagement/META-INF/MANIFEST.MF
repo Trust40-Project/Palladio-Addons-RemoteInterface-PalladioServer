@@ -13,3 +13,4 @@ Import-Package: edu.kit.palladio.rcp.api,
  org.palladiosimulator.pcm.dataprocessing.analysis.executor.workflow.query,
  org.palladiosimulator.pcm.dataprocessing.analysis.executor.workflow.query.impl
 Service-Component: OSGI-INF/edu.kit.palladio.rmi.querymanagement.QueryManagerWrapper.xml
+Export-Package: edu.kit.palladio.rmi.querymanagement

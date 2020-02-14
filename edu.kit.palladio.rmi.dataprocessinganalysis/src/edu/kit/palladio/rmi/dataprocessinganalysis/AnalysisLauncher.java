@@ -28,14 +28,14 @@ import edu.kit.palladio.rcp.api.ILoadMe;
 @Component(immediate = true, property = { "id=edu.kit.palladio.rmi.dataprocessinganalysis.analysislauncher", "name=Analysis Launcher"})
 public class AnalysisLauncher implements IAnalysisLauncher, ILoadMe {
 
-	private final static String RMIID = "du.kit.palladio.rmi.dataprocessinganalysis.IAnalysisLauncher";
+	private final static String RMIID = "edu.kit.palladio.rmi.dataprocessinganalysis.IAnalysisLauncher";
 	private final transient IWorkspace workspace = ResourcesPlugin.getWorkspace();
 
 	@Reference(service = IProverManager.class)
 	private IProverManager proverManager;
 
 	@Override
-	public void launch(ILaunchConfig launchConfig) throws IllegalArgumentException, RemoteException {
+	public void launch(LaunchConfig launchConfig) throws IllegalArgumentException, RemoteException {
 		boolean returnValueIndexing = false;
 		boolean optimNegation = false;
 		boolean shortAssign = false;

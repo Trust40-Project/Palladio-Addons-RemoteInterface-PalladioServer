@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import edu.kit.palladio.rmi.dataprocessinganalysis.IAnalysisLauncher;
 import edu.kit.palladio.rmi.dataprocessinganalysis.ILaunchConfig;
+import edu.kit.palladio.rmi.dataprocessinganalysis.LaunchConfig;
 import edu.kit.palladio.rmi.projectmanagment.IProject;
 import edu.kit.palladio.rmi.projectmanagment.IProjectManager;
 import edu.kit.palladio.rmi.projectmanagment.Project;
@@ -36,7 +37,7 @@ public class LaunchController {
     }
 
     @PostMapping("/launch")
-    void newProject(@RequestBody ILaunchConfig launchConfig) throws RemoteException, IllegalStateException, Throwable {
+    void newProject(@RequestBody LaunchConfig launchConfig) throws RemoteException, IllegalStateException, Throwable {
         this.analysisLauncher.launch(launchConfig);;
     }
 

@@ -26,7 +26,7 @@ public class QueryManagerWrapper implements IQueryManagerRMI, ILoadMe {
 	}
 	
 	@Override
-	public Collection<QueryInformation> getQueries(){
+	public Collection<QueryInformation> getQueries() throws RemoteException{
 		return queryManagerInstance.getQueries().keySet();
 	}
 
