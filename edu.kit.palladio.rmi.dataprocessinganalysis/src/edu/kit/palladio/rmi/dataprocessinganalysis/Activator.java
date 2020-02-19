@@ -1,5 +1,6 @@
 package edu.kit.palladio.rmi.dataprocessinganalysis;
 
+import org.modelversioning.emfprofile.registry.IProfileRegistry;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
@@ -23,6 +24,7 @@ public class Activator implements BundleActivator {
 		 * context.getServiceReference(IQueryManager.class); this.queryManager =
 		 * context.getService(queryManagerReference);
 		 */
+		IProfileRegistry.eINSTANCE.getClass();
 	}
 
 	public void stop(BundleContext bundleContext) throws Exception {
