@@ -23,12 +23,19 @@ import org.prolog4j.ProverInformation;
 import org.prolog4j.manager.IProverManager;
 
 import edu.kit.palladio.rcp.api.ILoadMe;
+import edu.kit.palladio.rmi.parallelanalysismanagment.ILaunchManager;
+import edu.kit.palladio.rmi.parallelanalysismanagment.LaunchManager;
 
 @Component(immediate = true, property = { "id=edu.kit.palladio.rmi.dataprocessinganalysis.analysislauncher", "name=Analysis Launcher"})
 public class AnalysisLauncher implements IAnalysisLauncher, ILoadMe {
 
 	private final static String RMIID = "edu.kit.palladio.rmi.dataprocessinganalysis.IAnalysisLauncher";
 	private final transient IWorkspace workspace = ResourcesPlugin.getWorkspace();
+	private ILaunchManager launchManager;
+	
+	public AnalysisLauncher(){
+		this.launchManager = new LaunchManager();
+	}
 
 	@Reference(service = IProverManager.class)
 	private IProverManager proverManager;
@@ -74,13 +81,8 @@ public class AnalysisLauncher implements IAnalysisLauncher, ILoadMe {
 		
 		 AnalysisWorkflow analysisWorkflow = new AnalysisWorkflow(analysisWorkflowConfig);
 		 
-		 try {
-			 analysisWorkflow.execute(new NullProgressMonitor());
-		 }catch(Exception e) {
-			 e.printStackTrace();
-		 }
+		 this.launchManager.addLaunch(analysisWorkflow);
 		 
-		 System.out.println("Launch done");
 	}
 
 	private IProverFactory getProverFactory(ILaunchConfig launchConfig) throws CoreException {
