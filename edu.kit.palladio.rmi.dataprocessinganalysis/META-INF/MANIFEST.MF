@@ -8,7 +8,8 @@ Require-Bundle: org.eclipse.core.runtime
 Bundle-RequiredExecutionEnvironment: JavaSE-11
 Automatic-Module-Name: edu.kit.palladio.rmi.dataprocessinganalysis
 Bundle-ActivationPolicy: lazy
-Import-Package: edu.kit.palladio.rcp.api,
+Import-Package: de.uka.ipd.sdq.workflow.jobs,
+ edu.kit.palladio.rcp.api,
  org.eclipse.core.resources,
  org.eclipse.debug.core,
  org.eclipse.emf.common.util,

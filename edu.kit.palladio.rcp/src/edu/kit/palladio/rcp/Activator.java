@@ -15,7 +15,6 @@ public class Activator implements BundleActivator {
 		Activator.activator = this;
 		ServiceReference<IComponentLoader> componentLoaderReference = context.getServiceReference(IComponentLoader.class);
 		this.componentLoader = context.getService(componentLoaderReference);
-		
 	}
 
 	@Override

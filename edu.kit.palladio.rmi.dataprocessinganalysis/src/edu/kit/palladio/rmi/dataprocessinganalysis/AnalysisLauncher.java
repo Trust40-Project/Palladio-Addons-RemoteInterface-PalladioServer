@@ -10,6 +10,7 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.debug.core.ILaunch;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.emf.common.util.URI;
@@ -76,7 +77,7 @@ public class AnalysisLauncher implements IAnalysisLauncher, ILoadMe {
 		 AnalysisWorkflow analysisWorkflow = new AnalysisWorkflow(analysisWorkflowConfig);
 		 
 		 try {
-			 analysisWorkflow.launch();
+			 analysisWorkflow.execute(new NullProgressMonitor());
 		 }catch(Exception e) {
 			 e.printStackTrace();
 		 }
