@@ -3,8 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Rcp
 Bundle-SymbolicName: edu.kit.palladio.rcp;singleton:=true
 Bundle-Version: 1.0.0.qualifier
-Require-Bundle: org.eclipse.core.runtime,
- org.eclipse.equinox.app.source;bundle-version="1.4.300"
+Require-Bundle: org.eclipse.core.runtime
 Automatic-Module-Name: edu.kit.palladio.rcp
 Bundle-RequiredExecutionEnvironment: JavaSE-11
 Import-Package: edu.kit.palladio.rcp.api,
