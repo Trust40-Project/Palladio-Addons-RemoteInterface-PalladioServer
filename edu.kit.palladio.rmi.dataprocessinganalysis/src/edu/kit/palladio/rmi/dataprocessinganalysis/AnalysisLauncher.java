@@ -2,6 +2,7 @@ package edu.kit.palladio.rmi.dataprocessinganalysis;
 
 import java.rmi.RemoteException;
 import java.util.Map;
+import java.util.Optional;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IWorkspace;
@@ -9,9 +10,7 @@ import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
-import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.debug.core.ILaunch;
-import org.eclipse.debug.core.ILaunchConfiguration;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.emf.common.util.URI;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -39,7 +38,7 @@ public class AnalysisLauncher implements IAnalysisLauncher, ILoadMe {
 		boolean returnValueIndexing = false;
 		boolean optimNegation = false;
 		boolean shortAssign = false;
-		for(LaunchFlags flag : launchConfig.getLaunchFlags()) {
+		for(LaunchFlags flag : Optional.ofNullable(launchConfig.getLaunchFlags()).orElseGet(() -> new LaunchFlags[0])) {
 			switch(flag) {
 				case RETURNVALUEINDEXING:
 					returnValueIndexing = true;
@@ -76,7 +75,7 @@ public class AnalysisLauncher implements IAnalysisLauncher, ILoadMe {
 		 AnalysisWorkflow analysisWorkflow = new AnalysisWorkflow(analysisWorkflowConfig);
 		 
 		 try {
-			 analysisWorkflow.launch();
+			 analysisWorkflow.execute(new NullProgressMonitor());
 		 }catch(Exception e) {
 			 e.printStackTrace();
 		 }
@@ -138,7 +137,7 @@ public class AnalysisLauncher implements IAnalysisLauncher, ILoadMe {
 		IFile file = workspaceRoot.getFile(path);
 		URI result;
 		if (file.exists()) {
-			result = URI.createFileURI(file.getFullPath().toString());
+			result = URI.createPlatformResourceURI(pathText, false);
 		} else {
 			result = URI.createFileURI(pathText);
 		}
