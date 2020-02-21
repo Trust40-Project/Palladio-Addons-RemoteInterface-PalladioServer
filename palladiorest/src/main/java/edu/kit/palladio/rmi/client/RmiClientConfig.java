@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.remoting.rmi.RmiProxyFactoryBean;
 
+import edu.kit.palladio.rcp.api.ISolutionManagerRemote;
 import edu.kit.palladio.rest.filemanagment.FileService;
 import edu.kit.palladio.rmi.dataprocessinganalysis.IAnalysisLauncher;
 import edu.kit.palladio.rmi.filemanagment.IRemoteFileUpload;
@@ -61,12 +62,24 @@ public class RmiClientConfig implements IRmiClientConfig {
         return rmiProxyFactoryBean;
     }
 
+    
+
     @Override
     @Bean
     public FileService getFileService() {
         return new FileService((IRemoteFileUpload)this.getIRemoteFileUploadProxy().getObject());
     }
 
+    
+    @Override
+    @Bean
+    public RmiProxyFactoryBean getISolutionManagerRemoteProxy() {
+
+        RmiProxyFactoryBean rmiProxyFactoryBean = new RmiProxyFactoryBean();
+        rmiProxyFactoryBean.setServiceInterface(ISolutionManagerRemote.class);
+        rmiProxyFactoryBean.setServiceUrl("rmi://127.0.0.1:"+PORT+"/" + ISolutionManagerRemote.class.getName());
+        return rmiProxyFactoryBean;
+    }
 
     
 

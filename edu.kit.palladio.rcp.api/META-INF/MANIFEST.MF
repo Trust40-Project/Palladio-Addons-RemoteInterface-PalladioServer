@@ -9,3 +9,4 @@ Bundle-RequiredExecutionEnvironment: JavaSE-11
 Automatic-Module-Name: edu.kit.palladio.rcp.api
 Bundle-ActivationPolicy: lazy
 Export-Package: edu.kit.palladio.rcp.api
+Import-Package: org.prolog4j

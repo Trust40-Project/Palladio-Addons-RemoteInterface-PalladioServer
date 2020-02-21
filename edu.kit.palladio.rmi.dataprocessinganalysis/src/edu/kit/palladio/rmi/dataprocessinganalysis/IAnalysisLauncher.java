@@ -5,5 +5,5 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 
 public interface IAnalysisLauncher extends Remote {
-	void launch(final ILaunchConfig launchConfig) throws RemoteException, IllegalArgumentException;
+	String launch(final ILaunchConfig launchConfig) throws RemoteException, IllegalArgumentException;
 }

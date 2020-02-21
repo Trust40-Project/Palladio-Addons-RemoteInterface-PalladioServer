@@ -30,22 +30,20 @@ public class LaunchController {
 
     // Aggregate root
     @GetMapping("/launch")
-    List<IProject> allProjects() throws RemoteException {
+    List<IProject> allLaunches() throws RemoteException {
         //TODO
         return null;
        
     }
-
     @PostMapping("/launch")
-    void newProject(@RequestBody LaunchConfig launchConfig) throws RemoteException, IllegalStateException, Throwable {
-        this.analysisLauncher.launch(launchConfig);
-        System.out.println("Done");
+    String newLaunch(@RequestBody LaunchConfig launchConfig) throws RemoteException, IllegalStateException, Throwable {
+        return this.analysisLauncher.launch(launchConfig);
     }
 
     // Single item
 
-    @GetMapping("/launch/{id}")
-    IProject oneProject(@PathVariable String projectId) throws RemoteException, IllegalStateException, IllegalArgumentException {
+    @GetMapping("/launch/{launchId}")
+    IProject oneLaunch(@PathVariable String launchId) throws RemoteException, IllegalStateException, IllegalArgumentException {
         //TODO
         return null;
 
@@ -56,8 +54,8 @@ public class LaunchController {
         
     }*/
 
-    @DeleteMapping("/launch/{projectId}")
-    void deleteProject(@PathVariable String projectId) throws RemoteException, IllegalStateException {
+    @DeleteMapping("/launch/{launchId}")
+    void deleteLaunch(@PathVariable String launchId) throws RemoteException, IllegalStateException {
         //TODO
         
     }

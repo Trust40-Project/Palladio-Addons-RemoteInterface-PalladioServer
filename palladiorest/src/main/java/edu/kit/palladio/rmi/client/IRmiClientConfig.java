@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Configuration;
  */
 import org.springframework.remoting.rmi.RmiProxyFactoryBean;
 
+import edu.kit.palladio.rcp.api.ISolutionManagerRemote;
 import edu.kit.palladio.rest.filemanagment.FileService;
 
 @Configuration
@@ -29,5 +30,8 @@ public interface IRmiClientConfig {
 
     @Bean
     RmiProxyFactoryBean getIAnalysisLauncherProxy();
+
+    @Bean
+    RmiProxyFactoryBean getISolutionManagerRemoteProxy();
 
 }

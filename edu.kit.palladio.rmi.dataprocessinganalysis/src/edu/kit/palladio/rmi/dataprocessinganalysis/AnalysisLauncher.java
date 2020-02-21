@@ -1,8 +1,12 @@
 package edu.kit.palladio.rmi.dataprocessinganalysis;
 
 import java.rmi.RemoteException;
+import java.time.Instant;
 import java.util.Map;
 import java.util.Optional;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IWorkspace;
@@ -20,28 +24,43 @@ import org.palladiosimulator.pcm.dataprocessing.analysis.executor.workflow.workf
 import org.palladiosimulator.pcm.dataprocessing.analysis.executor.workflow.workflow.AnalysisWorkflowConfig;
 import org.prolog4j.IProverFactory;
 import org.prolog4j.ProverInformation;
+import org.prolog4j.Solution;
 import org.prolog4j.manager.IProverManager;
 
+import de.uka.ipd.sdq.workflow.jobs.JobFailedException;
+import de.uka.ipd.sdq.workflow.jobs.UserCanceledException;
 import edu.kit.palladio.rcp.api.ILoadMe;
-import edu.kit.palladio.rmi.parallelanalysismanagment.ILaunchManager;
-import edu.kit.palladio.rmi.parallelanalysismanagment.LaunchManager;
+import edu.kit.palladio.rcp.api.ISolutionManager;
 
 @Component(immediate = true, property = { "id=edu.kit.palladio.rmi.dataprocessinganalysis.analysislauncher", "name=Analysis Launcher"})
 public class AnalysisLauncher implements IAnalysisLauncher, ILoadMe {
 
 	private final static String RMIID = "edu.kit.palladio.rmi.dataprocessinganalysis.IAnalysisLauncher";
 	private final transient IWorkspace workspace = ResourcesPlugin.getWorkspace();
-	private ILaunchManager launchManager;
+	private static ExecutorService executor;
 	
-	public AnalysisLauncher(){
-		this.launchManager = new LaunchManager();
-	}
-
 	@Reference(service = IProverManager.class)
 	private IProverManager proverManager;
+	
+	@Reference(service = ISolutionManager.class)
+	private ISolutionManager solutionManager;
+	
+	public AnalysisLauncher(){
+		ExecutorService currentExecutor = AnalysisLauncher.executor;
+		if (currentExecutor == null) {
+			synchronized (AnalysisLauncher.class) {
+				currentExecutor = AnalysisLauncher.executor;
+				if (currentExecutor == null) {
+					AnalysisLauncher.executor = Executors.newCachedThreadPool();
+				}
+			}
+		}
+	}
+
+	
 
 	@Override
-	public void launch(ILaunchConfig launchConfig) throws IllegalArgumentException, RemoteException {
+	public String launch(ILaunchConfig launchConfig) throws IllegalArgumentException, RemoteException {
 		boolean returnValueIndexing = false;
 		boolean optimNegation = false;
 		boolean shortAssign = false;
@@ -80,9 +99,23 @@ public class AnalysisLauncher implements IAnalysisLauncher, ILoadMe {
 		}
 		
 		 AnalysisWorkflow analysisWorkflow = new AnalysisWorkflow(analysisWorkflowConfig);
+		 analysisWorkflow.getBlackboard();
 		 
-		 this.launchManager.addLaunch(analysisWorkflow);
+		 Future<Solution<Object>> futureSolution = executor.submit(() -> {
+				try {
+					analysisWorkflow.execute(new NullProgressMonitor());
+					return analysisWorkflow.getBlackboard().getSolution();
+				} catch (JobFailedException | UserCanceledException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				return null;
+			});
+		 Instant now = Instant.now();
+		 final String launchId = launchConfig.getLaunchName()+ "-" + now.toString();
+		 solutionManager.registerFutureSolution(launchId, futureSolution);
 		 
+		 return launchId;
 	}
 
 	private IProverFactory getProverFactory(ILaunchConfig launchConfig) throws CoreException {

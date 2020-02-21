@@ -12,6 +12,7 @@ public class LaunchConfig implements ILaunchConfig {
     private String proverFactoryId;
     private String analysisGoalId;
     private LaunchFlags[] launchFlags;
+    private String launchName;
 
 
     
@@ -20,7 +21,8 @@ public class LaunchConfig implements ILaunchConfig {
                         String characteristicsModelPath,
                         String proverFactoryId,
                         String analysisGoalId,
-                        LaunchFlags[] launchFlags
+                        LaunchFlags[] launchFlags,
+                        String launchName
 
     ){
         this.usageModelPath = usageModelPath;
@@ -28,6 +30,7 @@ public class LaunchConfig implements ILaunchConfig {
         this.proverFactoryId = proverFactoryId;
         this.analysisGoalId = analysisGoalId;
         this.launchFlags = launchFlags;
+        this.launchName = launchName;
     }
     
     @Override
@@ -59,6 +62,11 @@ public class LaunchConfig implements ILaunchConfig {
     public LaunchFlags[] getLaunchFlags() {
         return launchFlags;
     }
+
+	@Override
+	public String getLaunchName() {
+		return launchName;
+	}
 
     
 }

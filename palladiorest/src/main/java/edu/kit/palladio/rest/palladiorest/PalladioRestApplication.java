@@ -9,7 +9,7 @@ import edu.kit.palladio.rmi.client.RmiClientConfig;
 
 @SpringBootApplication
 @Import(RmiClientConfig.class)
-@ComponentScan({"edu.kit.palladio.rmi.filemanagment", "edu.kit.palladio.rest.palladiorest"})
+//@ComponentScan({"edu.kit.palladio.rmi.filemanagment", "edu.kit.palladio.rest.palladiorest"})
 public class PalladioRestApplication {
 
 

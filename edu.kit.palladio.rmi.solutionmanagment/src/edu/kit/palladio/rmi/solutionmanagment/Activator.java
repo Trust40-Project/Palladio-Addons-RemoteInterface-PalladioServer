@@ -1,4 +1,4 @@
-package edu.kit.palladio.rmi.parallelanalysismanagment;
+package edu.kit.palladio.rmi.solutionmanagment;
 
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;

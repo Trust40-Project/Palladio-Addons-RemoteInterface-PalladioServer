@@ -15,6 +15,7 @@ public class LaunchConfig implements ILaunchConfig {
     private String proverFactoryId;
     private String analysisGoalId;
     private LaunchFlags[] launchFlags;
+    private String launchName;
 
 
     //TODO: Add default values.
@@ -24,7 +25,8 @@ public class LaunchConfig implements ILaunchConfig {
                         @JsonProperty("characteristicsModelPath") String characteristicsModelPath,
                         @JsonProperty("proverFactoryId") String proverFactoryId,
                         @JsonProperty("analysisGoalId") String analysisGoalId,
-                        @JsonProperty("launchFlags") LaunchFlags[] launchFlags
+                        @JsonProperty("launchFlags") LaunchFlags[] launchFlags,
+                        @JsonProperty("launchName") String launchName
 
     ){
         this.usageModelPath = usageModelPath;
@@ -33,6 +35,7 @@ public class LaunchConfig implements ILaunchConfig {
         this.analysisGoalId = analysisGoalId;
         this.launchFlags = launchFlags;
         this.characteristicsModelPath = characteristicsModelPath;
+        this.launchName = launchName;
     }
     
     @Override
@@ -65,5 +68,9 @@ public class LaunchConfig implements ILaunchConfig {
         return launchFlags;
     }
 
+    @Override
+	public String getLaunchName() {
+		return launchName;
+	}
     
 }
