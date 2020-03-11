@@ -1,5 +1,7 @@
 package edu.kit.palladio.rmi.dataprocessinganalysis;
 
+import java.util.Map;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -16,6 +18,7 @@ public class LaunchConfig implements ILaunchConfig {
     private String analysisGoalId;
     private LaunchFlags[] launchFlags;
     private String launchName;
+    private Map<String, String> parameters;
 
 
     //TODO: Add default values.
@@ -26,7 +29,8 @@ public class LaunchConfig implements ILaunchConfig {
                         @JsonProperty("proverFactoryId") String proverFactoryId,
                         @JsonProperty("analysisGoalId") String analysisGoalId,
                         @JsonProperty("launchFlags") LaunchFlags[] launchFlags,
-                        @JsonProperty("launchName") String launchName
+                        @JsonProperty("launchName") String launchName,
+                        @JsonProperty("parameters") Map<String, String> parameters
 
     ){
         this.usageModelPath = usageModelPath;
@@ -36,6 +40,7 @@ public class LaunchConfig implements ILaunchConfig {
         this.launchFlags = launchFlags;
         this.characteristicsModelPath = characteristicsModelPath;
         this.launchName = launchName;
+        this.parameters = parameters;
     }
     
     @Override
@@ -71,6 +76,11 @@ public class LaunchConfig implements ILaunchConfig {
     @Override
 	public String getLaunchName() {
 		return launchName;
+    }
+    
+    @Override
+	public Map<String, String> getParameters() {
+		return parameters;
 	}
     
 }

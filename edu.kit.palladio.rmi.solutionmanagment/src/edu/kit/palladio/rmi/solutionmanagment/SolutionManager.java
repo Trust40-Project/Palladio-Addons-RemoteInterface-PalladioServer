@@ -13,9 +13,10 @@ import org.prolog4j.Solution;
 
 import edu.kit.palladio.rcp.api.ILoadMe;
 import edu.kit.palladio.rcp.api.ISolutionManager;
+import edu.kit.palladio.rcp.api.ISolutionManagerRemote;
 
 @Component(immediate = true, property = { "id=edu.kit.palladio.rmi.solutionmanagment.solutionmanager", "name=Solution Manager"})
-public class SolutionManager implements ISolutionManager, ILoadMe {
+public class SolutionManager implements ISolutionManager, ISolutionManagerRemote, ILoadMe {
 
 	private final static int MAXNUMMILLISECTOWAIT = 100;
 	private final static String RMIID = "edu.kit.palladio.rcp.api.ISolutionManagerRemote";
@@ -40,18 +41,21 @@ public class SolutionManager implements ISolutionManager, ILoadMe {
 		// TODO Auto-generated method stub
 		Future<Solution<Object>> futureSolution = this.registeredFutureSolutions.get(launchId);
 		if(futureSolution == null) {
+			System.out.println("null");
 			//TODO: Return that solution does not exist.
 		}
 		if(futureSolution.isCancelled()) {
+			System.out.println("isCancelled");
 			//TODO: Return response that future is cancelled yet.
 		}
 		if(!futureSolution.isDone()) {
+			System.out.println("!isDone");
 			//TODO: Return response that future is not done yet.
 		}
 		
 		try {
 			Solution<Object> solution = futureSolution.get(MAXNUMMILLISECTOWAIT, TimeUnit.MILLISECONDS);
-	
+			System.out.println("solution");
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

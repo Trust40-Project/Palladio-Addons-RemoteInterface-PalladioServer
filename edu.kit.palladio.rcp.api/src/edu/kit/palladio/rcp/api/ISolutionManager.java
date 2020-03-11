@@ -5,6 +5,6 @@ import java.util.concurrent.Future;
 
 import org.prolog4j.Solution;
 
-public interface ISolutionManager extends ISolutionManagerRemote {
+public interface ISolutionManager {
 	void registerFutureSolution(final String launchId, Future<Solution<Object>> futureSolution);
 }

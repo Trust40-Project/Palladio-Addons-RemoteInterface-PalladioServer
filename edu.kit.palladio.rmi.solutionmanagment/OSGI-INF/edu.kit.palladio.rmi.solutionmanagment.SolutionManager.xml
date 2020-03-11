@@ -4,6 +4,7 @@
    <property name="name" value="Solution Manager"/>
    <service>
       <provide interface="edu.kit.palladio.rcp.api.ISolutionManager"/>
+      <provide interface="edu.kit.palladio.rcp.api.ISolutionManagerRemote"/>
       <provide interface="edu.kit.palladio.rcp.api.ILoadMe"/>
    </service>
    <implementation class="edu.kit.palladio.rmi.solutionmanagment.SolutionManager"/>

@@ -1,5 +1,7 @@
 package edu.kit.palladio.rmi.dataprocessinganalysis;
 
+import java.util.Map;
+
 public class LaunchConfig implements ILaunchConfig {
 
     /**
@@ -13,6 +15,7 @@ public class LaunchConfig implements ILaunchConfig {
     private String analysisGoalId;
     private LaunchFlags[] launchFlags;
     private String launchName;
+    private Map<String, String> parameters;
 
 
     
@@ -22,7 +25,8 @@ public class LaunchConfig implements ILaunchConfig {
                         String proverFactoryId,
                         String analysisGoalId,
                         LaunchFlags[] launchFlags,
-                        String launchName
+                        String launchName,
+                        Map<String, String> parameters
 
     ){
         this.usageModelPath = usageModelPath;
@@ -31,6 +35,7 @@ public class LaunchConfig implements ILaunchConfig {
         this.analysisGoalId = analysisGoalId;
         this.launchFlags = launchFlags;
         this.launchName = launchName;
+        this.parameters = parameters;
     }
     
     @Override
@@ -66,6 +71,11 @@ public class LaunchConfig implements ILaunchConfig {
 	@Override
 	public String getLaunchName() {
 		return launchName;
+	}
+
+	@Override
+	public Map<String, String> getParameters() {
+		return parameters;
 	}
 
     

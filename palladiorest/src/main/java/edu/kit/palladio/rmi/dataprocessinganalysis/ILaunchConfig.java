@@ -1,6 +1,7 @@
 package edu.kit.palladio.rmi.dataprocessinganalysis;
 
 import java.io.Serializable;
+import java.util.Map;
 
 public interface ILaunchConfig extends Serializable {
 	String getLaunchName();
@@ -10,5 +11,6 @@ public interface ILaunchConfig extends Serializable {
 	String getProverFactoryId();
 	String getAnalysisGoalId();
 	LaunchFlags[] getLaunchFlags();
+	Map<String, String> getParameters();
 	
 }

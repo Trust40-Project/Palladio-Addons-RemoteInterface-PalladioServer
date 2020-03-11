@@ -2,6 +2,7 @@ package edu.kit.palladio.rmi.dataprocessinganalysis;
 
 import java.rmi.RemoteException;
 import java.time.Instant;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ExecutorService;
@@ -15,11 +16,14 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.emf.common.util.URI;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 import org.palladiosimulator.pcm.dataprocessing.analysis.executor.workflow.query.IQuery;
 import org.palladiosimulator.pcm.dataprocessing.analysis.executor.workflow.query.QueryInformation;
+import org.palladiosimulator.pcm.dataprocessing.analysis.executor.workflow.query.QueryParameterType;
+import org.palladiosimulator.pcm.dataprocessing.analysis.executor.workflow.workflow.AnalysisBlackboard;
 import org.palladiosimulator.pcm.dataprocessing.analysis.executor.workflow.workflow.AnalysisWorkflow;
 import org.palladiosimulator.pcm.dataprocessing.analysis.executor.workflow.workflow.AnalysisWorkflowConfig;
 import org.prolog4j.IProverFactory;
@@ -82,15 +86,17 @@ public class AnalysisLauncher implements IAnalysisLauncher, ILoadMe {
 		
 		AnalysisWorkflowConfig analysisWorkflowConfig;
 		try {
+			final IQuery analysisGoal = this.getAnalysisGoal(launchConfig);
 			analysisWorkflowConfig = new AnalysisWorkflowConfig(
 					this.getUsageModelPath(launchConfig),
 					this.getAllocModelPath(launchConfig),
 					this.getCharacteristicsModelPath(launchConfig),
-					this.getAnalysisGoal(launchConfig),
+					analysisGoal,
 					this.getProverFactory(launchConfig),
 					returnValueIndexing,
 					optimNegation,
-					shortAssign
+					shortAssign,
+					this.getAnalysisGoalParameters(analysisGoal, launchConfig)
 					);
 		}  catch (CoreException e) {
 			// TODO Auto-generated catch block
@@ -99,12 +105,13 @@ public class AnalysisLauncher implements IAnalysisLauncher, ILoadMe {
 		}
 		
 		 AnalysisWorkflow analysisWorkflow = new AnalysisWorkflow(analysisWorkflowConfig);
-		 analysisWorkflow.getBlackboard();
 		 
 		 Future<Solution<Object>> futureSolution = executor.submit(() -> {
 				try {
 					analysisWorkflow.execute(new NullProgressMonitor());
-					return analysisWorkflow.getBlackboard().getSolution();
+					AnalysisBlackboard blackboard = analysisWorkflow.getBlackboard();
+					Solution<Object> solution = blackboard.getSolution();
+					return solution;
 				} catch (JobFailedException | UserCanceledException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -116,6 +123,18 @@ public class AnalysisLauncher implements IAnalysisLauncher, ILoadMe {
 		 solutionManager.registerFutureSolution(launchId, futureSolution);
 		 
 		 return launchId;
+	}
+	
+	private Map<String, String> getAnalysisGoalParameters(final IQuery analysisGoal, final ILaunchConfig launchConfig){
+		final Map<String, QueryParameterType> requiredParameters = analysisGoal.getParameters();
+		final Map<String, String> parameters = launchConfig.getParameters();
+		
+		parameters.entrySet().removeIf(entry -> !requiredParameters.containsKey(entry.getKey()));
+		
+		for (String paramName : analysisGoal.getParameters().keySet()) {
+			parameters.putIfAbsent(paramName, "");
+		}
+		return parameters;
 	}
 
 	private IProverFactory getProverFactory(ILaunchConfig launchConfig) throws CoreException {
