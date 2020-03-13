@@ -1,7 +1,9 @@
 package edu.kit.palladio.rest.palladiorest;
 
+import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -37,10 +39,9 @@ public class SolutionController {
     // Single item
 
     @GetMapping("/solution/{launchId}")
-    IProject oneSolution(@PathVariable String launchId) throws RemoteException, IllegalStateException, IllegalArgumentException {
+    Map<String, Serializable> oneSolution(@PathVariable String launchId) throws RemoteException, IllegalStateException, IllegalArgumentException {
         //TODO
-        this.solutionManager.getSolution(launchId);
-        return null;
+        return this.solutionManager.getSolution(launchId);
 
     }
 /*

@@ -1,15 +1,22 @@
 package edu.kit.palladio.rmi.solutionmanagment;
 
+import java.io.Serializable;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
 import org.osgi.service.component.annotations.Component;
+import org.palladiosimulator.pcm.dataprocessing.analysis.executor.workflow.workflow.AnalysisBlackboard;
 import org.prolog4j.Solution;
+import org.prolog4j.SolutionIterator;
 
 import edu.kit.palladio.rcp.api.ILoadMe;
 import edu.kit.palladio.rcp.api.ISolutionManager;
@@ -20,10 +27,10 @@ public class SolutionManager implements ISolutionManager, ISolutionManagerRemote
 
 	private final static int MAXNUMMILLISECTOWAIT = 100;
 	private final static String RMIID = "edu.kit.palladio.rcp.api.ISolutionManagerRemote";
-	private Map<String, Future<Solution<Object>>> registeredFutureSolutions;
+	private Map<String, Future<AnalysisBlackboard>> registeredFutureSolutions;
 	
 	public SolutionManager() {
-		this.registeredFutureSolutions = new HashMap<String, Future<Solution<Object>>>();
+		this.registeredFutureSolutions = new HashMap<String, Future<AnalysisBlackboard>>();
 	}
 	
 	@Override
@@ -32,41 +39,45 @@ public class SolutionManager implements ISolutionManager, ISolutionManagerRemote
 	}
 
 	@Override
-	public void registerFutureSolution(String launchId, Future<Solution<Object>> futureSolution) {
+	public void registerFutureSolution(String launchId, Future<AnalysisBlackboard> futureSolution) {
 		this.registeredFutureSolutions.put(launchId, futureSolution);
 	}
 
 	@Override
-	public void getSolution(String launchId) throws RemoteException {
+	public Map<String,Serializable> getSolution(final String launchId) throws RemoteException, IllegalStateException, NullPointerException {
 		// TODO Auto-generated method stub
-		Future<Solution<Object>> futureSolution = this.registeredFutureSolutions.get(launchId);
+		final Future<AnalysisBlackboard> futureSolution = this.registeredFutureSolutions.get(launchId);
 		if(futureSolution == null) {
-			System.out.println("null");
-			//TODO: Return that solution does not exist.
+			throw new NullPointerException("No solution for the launch id " + launchId + " could be found.");
 		}
 		if(futureSolution.isCancelled()) {
-			System.out.println("isCancelled");
-			//TODO: Return response that future is cancelled yet.
+			throw new IllegalStateException("The launch was canceled. Please try launching it again.");
 		}
 		if(!futureSolution.isDone()) {
-			System.out.println("!isDone");
-			//TODO: Return response that future is not done yet.
+			throw new IllegalStateException("The launch is not yet done.");
 		}
 		
 		try {
-			Solution<Object> solution = futureSolution.get(MAXNUMMILLISECTOWAIT, TimeUnit.MILLISECONDS);
-			System.out.println("solution");
+			final AnalysisBlackboard blackboard = futureSolution.get(MAXNUMMILLISECTOWAIT, TimeUnit.MILLISECONDS);
+			final Solution<Object> solution = blackboard.getSolution();
+			if(!solution.isSuccess()) {
+				throw new IllegalStateException("The solution to the launch was not successful.");
+			}
+			final HashMap<String, Serializable> results = new HashMap<String, Serializable>();
+			for (Entry<String, String> variable : blackboard.getQuery().getResultVars().entrySet()) {
+				
+				Serializable o = (Serializable) solution.get(variable.getValue());
+				results.put(variable.getKey(), o);
+			}
+			return results;
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new IllegalStateException("Could not get solution for launch. Please try again.");
 		} catch (ExecutionException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new IllegalStateException("Could not get solution for launch. Please try again.");
 		} catch (TimeoutException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new IllegalStateException("Could not get solution for launch. Please try again.");
 		}
-		
+		return null;
 	}
 
 

@@ -10,5 +10,8 @@ Automatic-Module-Name: edu.kit.palladio.rmi.solutionmanagment
 Bundle-ActivationPolicy: lazy
 Import-Package: edu.kit.palladio.rcp.api,
  org.osgi.service.component.annotations;version="1.3.0";resolution:=optional,
+ org.palladiosimulator.pcm.dataprocessing.analysis.executor.workflow.query,
+ org.palladiosimulator.pcm.dataprocessing.analysis.executor.workflow.query.impl,
+ org.palladiosimulator.pcm.dataprocessing.analysis.executor.workflow.workflow,
  org.prolog4j
 Service-Component: OSGI-INF/edu.kit.palladio.rmi.solutionmanagment.SolutionManager.xml

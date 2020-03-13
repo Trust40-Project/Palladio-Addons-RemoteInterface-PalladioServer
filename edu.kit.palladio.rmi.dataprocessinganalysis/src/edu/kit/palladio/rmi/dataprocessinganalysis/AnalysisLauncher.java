@@ -106,12 +106,11 @@ public class AnalysisLauncher implements IAnalysisLauncher, ILoadMe {
 		
 		 AnalysisWorkflow analysisWorkflow = new AnalysisWorkflow(analysisWorkflowConfig);
 		 
-		 Future<Solution<Object>> futureSolution = executor.submit(() -> {
+		 Future<AnalysisBlackboard> futureSolution = executor.submit(() -> {
 				try {
 					analysisWorkflow.execute(new NullProgressMonitor());
 					AnalysisBlackboard blackboard = analysisWorkflow.getBlackboard();
-					Solution<Object> solution = blackboard.getSolution();
-					return solution;
+					return blackboard;
 				} catch (JobFailedException | UserCanceledException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
