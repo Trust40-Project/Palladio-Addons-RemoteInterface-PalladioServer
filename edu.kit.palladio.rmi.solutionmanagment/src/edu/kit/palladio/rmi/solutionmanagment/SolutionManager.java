@@ -77,7 +77,6 @@ public class SolutionManager implements ISolutionManager, ISolutionManagerRemote
 		} catch (TimeoutException e) {
 			throw new IllegalStateException("Could not get solution for launch. Please try again.");
 		}
-		return null;
 	}
 
 
