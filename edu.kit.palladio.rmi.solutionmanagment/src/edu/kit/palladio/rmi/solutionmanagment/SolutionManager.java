@@ -66,8 +66,13 @@ public class SolutionManager implements ISolutionManager, ISolutionManagerRemote
 			final HashMap<String, Serializable> results = new HashMap<String, Serializable>();
 			for (Entry<String, String> variable : blackboard.getQuery().getResultVars().entrySet()) {
 				
-				Serializable o = (Serializable) solution.get(variable.getValue());
-				results.put(variable.getKey(), o);
+				Object result = (Serializable) solution.get(variable.getValue());
+				if(result instanceof Serializable) {
+					results.put(variable.getKey(), (Serializable) result);
+				} else {
+					results.put(variable.getKey(), "Not serializable.");
+				}
+				
 			}
 			return results;
 		} catch (InterruptedException e) {
