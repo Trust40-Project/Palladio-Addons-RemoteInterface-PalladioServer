@@ -45,7 +45,6 @@ public class SolutionManager implements ISolutionManager, ISolutionManagerRemote
 
 	@Override
 	public Map<String,Serializable> getSolution(final String launchId) throws RemoteException, IllegalStateException, NullPointerException {
-		// TODO Auto-generated method stub
 		final Future<AnalysisBlackboard> futureSolution = this.registeredFutureSolutions.get(launchId);
 		if(futureSolution == null) {
 			throw new NullPointerException("No solution for the launch id " + launchId + " could be found.");
