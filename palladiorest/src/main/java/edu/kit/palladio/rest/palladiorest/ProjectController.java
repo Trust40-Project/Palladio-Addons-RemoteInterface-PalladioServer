@@ -2,6 +2,9 @@ package edu.kit.palladio.rest.palladiorest;
 
 import java.io.IOException;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -29,8 +32,8 @@ public class ProjectController {
         this.fileService = fileService;
     }
 
-    @PostMapping("/project/{projectId}/**")
-    IFileNode newProjectContent(@PathVariable(name = "projectId") String projectId,
+    @PostMapping("/fileupload/project/{projectId}/**")
+    public IFileNode newProjectContent(@PathVariable(name = "projectId") String projectId,
             @RequestParam(value = "file") MultipartFile file, HttpServletRequest request)
             throws RemoteException, IOException, IllegalArgumentException{
         final String requestPath = request.getAttribute(HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE).toString();
@@ -40,6 +43,16 @@ public class ProjectController {
         String path = projectId + "/" + new AntPathMatcher().extractPathWithinPattern(bestMatchingPattern, requestPath);
         
         return fileService.save(path, file);
+    }
+
+   @PostMapping("/filesupload/project/{projectId}/**")
+    public IFileNode[] newProjectMultiFileContent(@PathVariable(name = "projectId") String projectId, @RequestParam("files") MultipartFile[] files, HttpServletRequest request)
+            throws RemoteException, IllegalArgumentException, IOException {
+        IFileNode[] fileNodes = new IFileNode[files.length];
+        for (int i = 0; i < files.length && i < fileNodes.length; i++) {
+            fileNodes[i] = newProjectContent(projectId, files[i], request);
+        }
+        return fileNodes;
     }
 
 

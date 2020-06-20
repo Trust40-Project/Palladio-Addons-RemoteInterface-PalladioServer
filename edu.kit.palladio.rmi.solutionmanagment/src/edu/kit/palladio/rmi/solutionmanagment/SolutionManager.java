@@ -77,7 +77,7 @@ public class SolutionManager implements ISolutionManager, ISolutionManagerRemote
 		} catch (InterruptedException e) {
 			throw new IllegalStateException("Could not get solution for launch. Please try again.");
 		} catch (ExecutionException e) {
-			throw new IllegalStateException("Could not get solution for launch. Please try again.");
+			throw new IllegalStateException("Launch could not get execute because of " + e.getLocalizedMessage() + " Please fix the problem and try launching again.");
 		} catch (TimeoutException e) {
 			throw new IllegalStateException("Could not get solution for launch. Please try again.");
 		}
