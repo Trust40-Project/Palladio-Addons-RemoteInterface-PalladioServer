@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import edu.kit.palladio.rmi.supportingprolog4j.IProverManagerRMI;
 import edu.kit.palladio.rmi.supportingprolog4j.ProverInformationSerializable;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 
 @RestController
 public class PrologProverController {
@@ -21,14 +23,16 @@ public class PrologProverController {
     }
 
     // Aggregate root
+    @Operation(summary = "Returns all installed provers.")
     @GetMapping("/provers")
     List<ProverInformationSerializable> allProvers() throws RemoteException {
         return proverManager.getProvers();
     }
 
     // Single item
+    @Operation(summary = "Returns the prover information for a certain installed prover.")
     @GetMapping("/provers/{id}")
-    ProverInformationSerializable oneProver(@PathVariable String proverId) throws RemoteException, IllegalArgumentException {
+    ProverInformationSerializable oneProver(@Parameter(description = "The id of the prover to get information about.", required = true) @PathVariable String proverId) throws RemoteException, IllegalArgumentException {
         for (ProverInformationSerializable proverInformation : this.proverManager.getProvers()) {
             if(proverInformation.getId().equals(proverId)){
                 return proverInformation;

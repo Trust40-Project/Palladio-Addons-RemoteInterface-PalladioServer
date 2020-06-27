@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 import edu.kit.palladio.rmi.projectmanagment.IProject;
 import edu.kit.palladio.rmi.projectmanagment.IProjectManager;
 import edu.kit.palladio.rmi.projectmanagment.Project;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 
 @RestController
 public class ProjectsController {
@@ -25,12 +27,14 @@ public class ProjectsController {
     }
 
     // Aggregate root
+    @Operation(summary = "Returns all projects.")
     @GetMapping("/projects")
     List<IProject> allProjects() throws RemoteException {
         return projectManager.getProjects();
        
     }
 
+    @Operation(summary = "Creates a new project.")
     @PostMapping("/projects")
     IProject newProject(@RequestBody Project newProject) throws RemoteException, IllegalStateException, Throwable {
         return projectManager.createProject(newProject);
@@ -38,8 +42,9 @@ public class ProjectsController {
 
     // Single item
 
+    @Operation(summary = "Get a single project.")
     @GetMapping("/projects/{id}")
-    IProject oneProject(@PathVariable String projectId) throws RemoteException, IllegalStateException, IllegalArgumentException {
+    IProject oneProject(@Parameter(description = "The id of the project to get.", required = true) @PathVariable String projectId) throws RemoteException, IllegalStateException, IllegalArgumentException {
         return projectManager.getProject(projectId);
 
     }
@@ -49,8 +54,9 @@ public class ProjectsController {
         
     }*/
 
+    @Operation(summary = "Delete a project and all of its data.")
     @DeleteMapping("/projects/{projectId}")
-    void deleteProject(@PathVariable String projectId) throws RemoteException, IllegalStateException {
+    void deleteProject(@Parameter(description = "The id of the project to delete.", required = true) @PathVariable String projectId) throws RemoteException, IllegalStateException {
         projectManager.deleteProject(projectId);
     }
 }

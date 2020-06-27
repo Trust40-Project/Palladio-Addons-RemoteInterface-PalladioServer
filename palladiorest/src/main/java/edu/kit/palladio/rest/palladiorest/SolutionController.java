@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import edu.kit.palladio.rcp.api.ISolutionManagerRemote;
 import edu.kit.palladio.rmi.projectmanagment.IProject;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 
 @RestController
 public class SolutionController {
@@ -37,9 +39,9 @@ public class SolutionController {
     }*/
 
     // Single item
-
+    @Operation(summary = "Returns the result to a certain analysis launch.")
     @GetMapping("/solution/{launchId}")
-    Map<String, Serializable> oneSolution(@PathVariable String launchId) throws RemoteException, IllegalStateException, IllegalArgumentException {
+    Map<String, Serializable> oneSolution(@Parameter(description = "The id of the analysis as returned by the launch endpoint when starting an analysis.", required = true) @PathVariable String launchId) throws RemoteException, IllegalStateException, IllegalArgumentException {
         //TODO
         return this.solutionManager.getSolution(launchId);
 

@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import edu.kit.palladio.rmi.querymanagement.IQueryManagerRMI;
 import edu.kit.palladio.rmi.querymanagement.QueryInformationSerializable;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 
 @RestController
 public class QueryInformationController {
@@ -21,15 +23,16 @@ public class QueryInformationController {
     }
 
     // Aggregate root
+    @Operation(summary = "Returns all the available query information.")
     @GetMapping("/queryinformation")
-    List<QueryInformationSerializable> allProvers() throws RemoteException {
+    List<QueryInformationSerializable> allQueries() throws RemoteException {
         return queryManager.getQueries();
     }
 
     // Single item
-
+    @Operation(summary = "Returns information to one query.")
     @GetMapping("/queryinformation/{id}")
-    QueryInformationSerializable oneProver(@PathVariable String queryId) throws RemoteException, IllegalArgumentException {
+    QueryInformationSerializable oneQuery(@Parameter(description = "The id of the query to get information about.", required = true) @PathVariable String queryId) throws RemoteException, IllegalArgumentException {
         for (QueryInformationSerializable queryInformation : this.queryManager.getQueries()) {
             if(queryInformation.getId().equals(queryId)){
                 return queryInformation;

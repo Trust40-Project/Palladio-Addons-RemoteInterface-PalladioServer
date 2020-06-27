@@ -17,6 +17,8 @@ import edu.kit.palladio.rmi.dataprocessinganalysis.LaunchConfig;
 import edu.kit.palladio.rmi.projectmanagment.IProject;
 import edu.kit.palladio.rmi.projectmanagment.IProjectManager;
 import edu.kit.palladio.rmi.projectmanagment.Project;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 
 @RestController
 public class LaunchController {
@@ -35,8 +37,10 @@ public class LaunchController {
         return null;
        
     }
+
+    @Operation(summary = "Launches a new Palladio analysis. Returns an id to query for the results.")
     @PostMapping("/launch")
-    String newLaunch(@RequestBody LaunchConfig launchConfig) throws RemoteException, IllegalStateException, Throwable {
+    String newLaunch(@io.swagger.v3.oas.annotations.parameters.RequestBody(description = "The launch configuration to use for the Palladio analysis.", required = true) @RequestBody LaunchConfig launchConfig) throws RemoteException, IllegalStateException, Throwable {
         return this.analysisLauncher.launch(launchConfig);
     }
 
