@@ -18,7 +18,9 @@ Bundle-ClassPath: lib/annotations-api-6.0.53.jar,
  lib/grpc-context-1.30.2.jar,
  .,
  lib/grpc-core-1.30.2.jar,
- lib/grpc-protobuf-lite-1.30.2.jar
+ lib/grpc-protobuf-lite-1.30.2.jar,
+ lib/perfmark-api-0.21.0.jar
 Import-Package: com.google.common.base;version="10.0.1",
+ com.google.common.collect;version="27.1.0",
  com.google.common.io;version="27.1.0",
  com.google.common.util.concurrent;version="21.0.0"
