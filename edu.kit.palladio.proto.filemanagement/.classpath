@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
+	<classpathentry exported="true" kind="lib" path="lib/grpc-context-1.30.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/protobuf-java-3.12.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/grpc-api-1.30.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/annotations-api-6.0.53.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/grpc-netty-shaded-1.30.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/grpc-protobuf-1.30.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/grpc-stub-1.30.2.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-11">
 		<attributes>
 			<attribute name="maven.pomderived" value="true"/>
