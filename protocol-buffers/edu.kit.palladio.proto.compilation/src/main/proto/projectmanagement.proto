@@ -10,23 +10,20 @@ message Project{
     string projectId = 1;
 }
 
-message Projects{
-    repeated Project projects = 1;
-}
 
 message CreateProjectResponse{
-
+    
 }
 message DeleteProjectResponse{
 
 }
 
-message GetProjectRequest{
+message GetProjectsRequest{
 
 }
 service ProjectManager{
     rpc createProject(Project) returns (CreateProjectResponse){}
     rpc deleteProject(Project) returns (DeleteProjectResponse){}
     rpc getProject(Project) returns (Project){}
-    rpc getProjects(GetProjectRequest) returns (Projects){}
+    rpc getProjects(GetProjectsRequest) returns (stream Project){}
 }

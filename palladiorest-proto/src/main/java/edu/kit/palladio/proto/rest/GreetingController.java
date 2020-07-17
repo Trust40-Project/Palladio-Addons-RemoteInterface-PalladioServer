@@ -18,7 +18,7 @@ public class GreetingController {
 	public void greeting(@RequestParam(value = "name", defaultValue = "World") String name)
         throws InterruptedException {
         // Access a service running on the local machine on port 50051
-        String target = "localhost:50051";
+        /*String target = "localhost:50051";
         
     
         // Create a communication channel to the server, known as a Channel. Channels are thread-safe
@@ -37,6 +37,6 @@ public class GreetingController {
           // resources the channel should be shut down when it will no longer be used. If it may be used
           // again leave it running.
           channel.shutdownNow().awaitTermination(5, TimeUnit.SECONDS);
-        }
+        }*/
 	}
 }

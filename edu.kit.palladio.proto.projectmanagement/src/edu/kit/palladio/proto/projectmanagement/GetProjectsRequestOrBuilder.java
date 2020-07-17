@@ -3,7 +3,7 @@
 
 package edu.kit.palladio.proto.projectmanagement;
 
-public interface GetProjectRequestOrBuilder extends
-    // @@protoc_insertion_point(interface_extends:projectmanagement.GetProjectRequest)
+public interface GetProjectsRequestOrBuilder extends
+    // @@protoc_insertion_point(interface_extends:projectmanagement.GetProjectsRequest)
     com.google.protobuf.MessageOrBuilder {
 }

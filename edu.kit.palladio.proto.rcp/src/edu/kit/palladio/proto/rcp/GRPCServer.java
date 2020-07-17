@@ -7,7 +7,8 @@ package edu.kit.palladio.proto.rcp;
 	import java.util.concurrent.TimeUnit;
 	import java.util.logging.Logger;
 
-import edu.kit.palladio.proto.projectmanagement.ProjectManagerService;
+import edu.kit.palladio.proto.filemanagement.RemoteFileUploadImpl;
+import edu.kit.palladio.proto.projectmanagement.ProjectManagerImpl;
 
 	/**
 	 * Server that manages startup/shutdown of a {@code Greeter} server.
@@ -21,7 +22,8 @@ import edu.kit.palladio.proto.projectmanagement.ProjectManagerService;
 	    /* The port on which the server should run */
 	    int port = 50051;
 	    server = ServerBuilder.forPort(port)
-	    		.addService(new ProjectManagerService())
+	    		.addService(new ProjectManagerImpl())
+	    		.addService(new RemoteFileUploadImpl())
 	        .build()
 	        .start();
 	    logger.info("Server started, listening on " + port);
