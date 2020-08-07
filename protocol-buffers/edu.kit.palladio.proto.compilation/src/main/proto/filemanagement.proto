@@ -44,9 +44,10 @@ message DirectoryChild{
 }
 */
 service RemoteFileUpload{
-    rpc createFile(File) returns (CreateFileResponse){}
-    rpc deleteFile(File) returns (DeleteFileResponse){}
+    rpc create(File) returns (CreateFileResponse){}
+    rpc delete(File) returns (DeleteFileResponse){}
     rpc write(stream FileChunck) returns (WriteResponse){}
+    rpc append(stream FileChunck) returns (WriteResponse){}
     rpc read(File) returns (stream FileChunck){}
-    rpc walkFileTree(FileTreeRequest) returns (stream File) {}
+    rpc listFilesAndDirectories(FileTreeRequest) returns (stream File) {}
 }

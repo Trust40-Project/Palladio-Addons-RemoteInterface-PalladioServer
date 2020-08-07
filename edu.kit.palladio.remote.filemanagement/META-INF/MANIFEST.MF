@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Filemanagement
+Bundle-SymbolicName: edu.kit.palladio.remote.filemanagement
+Bundle-Version: 1.0.0.qualifier
+Automatic-Module-Name: edu.kit.palladio.remote.filemanagement
+Bundle-RequiredExecutionEnvironment: JavaSE-11
+Import-Package: org.eclipse.core.resources,
+ org.eclipse.core.runtime
+Export-Package: edu.kit.palladio.remote.filemanagement

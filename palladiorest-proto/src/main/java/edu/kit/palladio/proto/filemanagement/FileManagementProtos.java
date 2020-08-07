@@ -59,18 +59,20 @@ public final class FileManagementProtos {
       "\030\002 \001(\014\"<\n\017FileTreeRequest\022)\n\013startingDir" +
       "\030\001 \001(\0132\024.filemanagement.File\"\024\n\022CreateFi" +
       "leResponse\"\017\n\rWriteResponse\"\024\n\022DeleteFil" +
-      "eResponse2\367\002\n\020RemoteFileUpload\022H\n\ncreate" +
-      "File\022\024.filemanagement.File\032\".filemanagem" +
-      "ent.CreateFileResponse\"\000\022H\n\ndeleteFile\022\024" +
-      ".filemanagement.File\032\".filemanagement.De" +
-      "leteFileResponse\"\000\022F\n\005write\022\032.filemanage" +
-      "ment.FileChunck\032\035.filemanagement.WriteRe" +
-      "sponse\"\000(\001\022<\n\004read\022\024.filemanagement.File" +
-      "\032\032.filemanagement.FileChunck\"\0000\001\022I\n\014walk" +
-      "FileTree\022\037.filemanagement.FileTreeReques" +
-      "t\032\024.filemanagement.File\"\0000\001B>\n$edu.kit.p" +
-      "alladio.proto.filemanagmentB\024FileManagem" +
-      "entProtosP\001b\006proto3"
+      "eResponse2\303\003\n\020RemoteFileUpload\022D\n\006create" +
+      "\022\024.filemanagement.File\032\".filemanagement." +
+      "CreateFileResponse\"\000\022D\n\006delete\022\024.fileman" +
+      "agement.File\032\".filemanagement.DeleteFile" +
+      "Response\"\000\022F\n\005write\022\032.filemanagement.Fil" +
+      "eChunck\032\035.filemanagement.WriteResponse\"\000" +
+      "(\001\022G\n\006append\022\032.filemanagement.FileChunck" +
+      "\032\035.filemanagement.WriteResponse\"\000(\001\022<\n\004r" +
+      "ead\022\024.filemanagement.File\032\032.filemanageme" +
+      "nt.FileChunck\"\0000\001\022T\n\027listFilesAndDirecto" +
+      "ries\022\037.filemanagement.FileTreeRequest\032\024." +
+      "filemanagement.File\"\0000\001B?\n%edu.kit.palla" +
+      "dio.proto.filemanagementB\024FileManagement" +
+      "ProtosP\001b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

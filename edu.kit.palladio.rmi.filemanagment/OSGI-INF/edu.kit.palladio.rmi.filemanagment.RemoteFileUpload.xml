@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" immediate="true" name="edu.kit.palladio.rmi.filemanagment.RemoteFileUpload">
-   <property name="id" value="edu.kit.palladio.rmi.filemanagment.remotefileupload"/>
+   <property name="id" value="edu.kit.palladio.rmi.filemanagment.RemoteFileUpload"/>
    <property name="name" value="Remote File Upload"/>
    <service>
       <provide interface="edu.kit.palladio.rmi.filemanagment.IRemoteFileUpload"/>

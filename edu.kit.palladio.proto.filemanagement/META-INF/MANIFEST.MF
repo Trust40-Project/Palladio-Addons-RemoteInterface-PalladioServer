@@ -13,4 +13,6 @@ Export-Package: edu.kit.palladio.proto.filemanagement
 Import-Package: com.google.common.base;version="10.0.1",
  com.google.common.collect;version="27.1.0",
  com.google.common.io;version="27.1.0",
- com.google.common.util.concurrent;version="21.0.0"
+ com.google.common.util.concurrent;version="21.0.0",
+ edu.kit.palladio.remote.filemanagement,
+ org.eclipse.core.resources
