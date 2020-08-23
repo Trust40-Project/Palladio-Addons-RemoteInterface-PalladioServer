@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.HandlerMapping;
 
-import edu.kit.palladio.proto.rest.dto.File;
+import edu.kit.palladio.remote.filemanagement.File;
 import edu.kit.palladio.proto.rest.services.FilemanagementClient;
 import edu.kit.palladio.proto.rest.services.IFileService;
 import io.swagger.v3.oas.annotations.Operation;

@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Projectmanagement
+Bundle-SymbolicName: edu.kit.palladio.remote.projectmanagement
+Bundle-Version: 1.0.0.qualifier
+Automatic-Module-Name: edu.kit.palladio.remote.projectmanagement
+Bundle-RequiredExecutionEnvironment: JavaSE-11

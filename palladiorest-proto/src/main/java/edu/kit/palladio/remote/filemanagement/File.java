@@ -1,4 +1,4 @@
-package edu.kit.palladio.proto.rest.dto;
+package edu.kit.palladio.remote.filemanagement;
 
 
 public class File {
