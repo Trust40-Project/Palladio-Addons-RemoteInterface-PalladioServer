@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Analysisi API
+Bundle-SymbolicName: edu.kit.palladio.remote.analysis.api
+Bundle-Version: 1.0.0.qualifier
+Automatic-Module-Name: edu.kit.palladio.remote.analysis.api
+Bundle-RequiredExecutionEnvironment: JavaSE-11
