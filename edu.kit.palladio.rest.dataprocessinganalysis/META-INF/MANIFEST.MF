@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Dataprocessinganalysis
+Bundle-SymbolicName: edu.kit.palladio.rest.dataprocessinganalysis
+Bundle-Version: 1.0.0.qualifier
+Automatic-Module-Name: edu.kit.palladio.rest.dataprocessinganalysis
+Bundle-RequiredExecutionEnvironment: JavaSE-11
+Require-Bundle: org.eclipse.core.runtime;bundle-version="3.16.0"
+Import-Package: edu.kit.palladio.remote.dataprocessinganalysis,
+ javax.ws.rs;version="2.1.99",
+ javax.ws.rs.core;version="2.1.99"
+Service-Component: OSGI-INF/edu.kit.palladio.rest.dataprocessinganalysis.DataProcessingAnalysisLauncherController.xml
+Bundle-ActivationPolicy: lazy
+Export-Package: edu.kit.palladio.rest.dataprocessinganalysis

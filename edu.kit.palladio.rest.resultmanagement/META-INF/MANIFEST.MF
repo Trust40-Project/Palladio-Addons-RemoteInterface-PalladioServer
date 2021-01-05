@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Resultmanagement
+Bundle-SymbolicName: edu.kit.palladio.rest.resultmanagement
+Bundle-Version: 1.0.0.qualifier
+Automatic-Module-Name: edu.kit.palladio.rest.resultmanagement
+Bundle-RequiredExecutionEnvironment: JavaSE-11
+Import-Package: edu.kit.palladio.remote.resultmanagement,
+ javax.ws.rs
+Require-Bundle: org.eclipse.core.runtime;bundle-version="3.16.0"
+Service-Component: OSGI-INF/edu.kit.palladio.rest.resultmanagement.AnalysisResultController.xml
+Bundle-ActivationPolicy: lazy
+Export-Package: edu.kit.palladio.rest.resultmanagement

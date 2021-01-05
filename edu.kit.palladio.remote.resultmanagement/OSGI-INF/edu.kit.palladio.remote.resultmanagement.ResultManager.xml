@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" immediate="true" name="edu.kit.palladio.remote.resultmanagement.ResultManager">
+   <property name="id" value="edu.kit.palladio.remote.resultmanagement.resultmanager"/>
+   <property name="name" value="Result Manager"/>
+   <service>
+      <provide interface="edu.kit.palladio.remote.resultmanagement.IResultManager"/>
+   </service>
+   <implementation class="edu.kit.palladio.remote.resultmanagement.ResultManager"/>
+</scr:component>

@@ -1,0 +1,408 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?pde version="3.5"?>
+
+<product name="Hello World Example using Jersey Server Distribution Provider" uid="edu.kit.palladio.rest.server.jersey" version="1.12.0.qualifier" useFeatures="false" includeLaunchers="false">
+
+   <configIni use="default">
+   </configIni>
+
+   <launcherArgs>
+      <programArgs>-consoleLog -console
+      </programArgs>
+      <vmArgs>-Xms40m 
+-Xmx384m 
+-Declipse.ignoreApp=true 
+-Dosgi.noShutdown=true 
+-Dorg.osgi.service.http.port=8080
+-Decf.jaxrs.server.pathPrefix=/rservices
+      </vmArgs>
+      <vmArgsMac>-XstartOnFirstThread -Dorg.eclipse.swt.internal.carbon.smallFonts
+      </vmArgsMac>
+   </launcherArgs>
+
+   <launcher>
+      <win useIco="false">
+         <bmp/>
+      </win>
+   </launcher>
+
+   <vm>
+      <windows include="false">org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-9</windows>
+   </vm>
+
+   <plugins>
+      <plugin id="ch.qos.logback.classic"/>
+      <plugin id="ch.qos.logback.core"/>
+      <plugin id="ch.qos.logback.slf4j" fragment="true"/>
+      <plugin id="com.fasterxml.jackson.core.jackson-annotations"/>
+      <plugin id="com.fasterxml.jackson.core.jackson-core"/>
+      <plugin id="com.fasterxml.jackson.core.jackson-databind"/>
+      <plugin id="com.fasterxml.jackson.jaxrs.jackson-jaxrs-base"/>
+      <plugin id="com.fasterxml.jackson.jaxrs.jackson-jaxrs-json-provider"/>
+      <plugin id="com.fasterxml.jackson.module.jackson-module-jaxb-annotations"/>
+      <plugin id="com.google.guava"/>
+      <plugin id="com.google.inject"/>
+      <plugin id="com.ibm.icu"/>
+      <plugin id="com.sun.activation.javax.activation"/>
+      <plugin id="de.uka.ipd.sdq.dialogs"/>
+      <plugin id="de.uka.ipd.sdq.errorhandling"/>
+      <plugin id="de.uka.ipd.sdq.identifier"/>
+      <plugin id="de.uka.ipd.sdq.probfunction"/>
+      <plugin id="de.uka.ipd.sdq.probfunction.math"/>
+      <plugin id="de.uka.ipd.sdq.stoex"/>
+      <plugin id="de.uka.ipd.sdq.stoex.analyser"/>
+      <plugin id="de.uka.ipd.sdq.units"/>
+      <plugin id="de.uka.ipd.sdq.workflow"/>
+      <plugin id="de.uka.ipd.sdq.workflow.launchconfig"/>
+      <plugin id="de.uka.ipd.sdq.workflow.logging.console"/>
+      <plugin id="de.uka.ipd.sdq.workflow.mdsd"/>
+      <plugin id="de.uka.ipd.sdq.workflow.ui"/>
+      <plugin id="de.uka.ipd.sdq.workflow.workbench"/>
+      <plugin id="edu.kit.palladio.remote.dataprocessinganalysis"/>
+      <plugin id="edu.kit.palladio.remote.filemanagement"/>
+      <plugin id="edu.kit.palladio.remote.projectmanagement"/>
+      <plugin id="edu.kit.palladio.remote.resultmanagement"/>
+      <plugin id="edu.kit.palladio.rest.dataprocessinganalysis"/>
+      <plugin id="edu.kit.palladio.rest.filemanagement"/>
+      <plugin id="edu.kit.palladio.rest.projectmanagement"/>
+      <plugin id="edu.kit.palladio.rest.resultmanagement"/>
+      <plugin id="edu.kit.palladio.rest.server"/>
+      <plugin id="io.github.classgraph"/>
+      <plugin id="jakarta.annotation-api"/>
+      <plugin id="jakarta.ws.rs-api"/>
+      <plugin id="jakarta.xml.bind-api"/>
+      <plugin id="javassist"/>
+      <plugin id="javax.activation"/>
+      <plugin id="javax.annotation"/>
+      <plugin id="javax.inject"/>
+      <plugin id="javax.management"/>
+      <plugin id="javax.servlet"/>
+      <plugin id="javax.transaction" fragment="true"/>
+      <plugin id="javax.validation.api"/>
+      <plugin id="javax.ws.rs"/>
+      <plugin id="javax.ws.rs-api"/>
+      <plugin id="javax.xml"/>
+      <plugin id="javax.xml.bind"/>
+      <plugin id="javax.xml.stream"/>
+      <plugin id="lpg.runtime.java"/>
+      <plugin id="org.antlr.runtime"/>
+      <plugin id="org.antlr.runtime.source"/>
+      <plugin id="org.apache.batik.constants"/>
+      <plugin id="org.apache.batik.css"/>
+      <plugin id="org.apache.batik.i18n"/>
+      <plugin id="org.apache.batik.util"/>
+      <plugin id="org.apache.commons.beanutils"/>
+      <plugin id="org.apache.commons.cli"/>
+      <plugin id="org.apache.commons.collections"/>
+      <plugin id="org.apache.commons.io"/>
+      <plugin id="org.apache.commons.jxpath"/>
+      <plugin id="org.apache.commons.lang3"/>
+      <plugin id="org.apache.commons.logging"/>
+      <plugin id="org.apache.commons.math"/>
+      <plugin id="org.apache.felix.gogo.command"/>
+      <plugin id="org.apache.felix.gogo.runtime"/>
+      <plugin id="org.apache.felix.gogo.shell"/>
+      <plugin id="org.apache.felix.scr"/>
+      <plugin id="org.apache.log4j"/>
+      <plugin id="org.apache.xerces"/>
+      <plugin id="org.apache.xml.resolver"/>
+      <plugin id="org.apache.xml.serializer"/>
+      <plugin id="org.apache.xmlgraphics"/>
+      <plugin id="org.eclipse.compare.core"/>
+      <plugin id="org.eclipse.core.commands"/>
+      <plugin id="org.eclipse.core.contenttype"/>
+      <plugin id="org.eclipse.core.databinding"/>
+      <plugin id="org.eclipse.core.databinding.observable"/>
+      <plugin id="org.eclipse.core.databinding.property"/>
+      <plugin id="org.eclipse.core.expressions"/>
+      <plugin id="org.eclipse.core.filebuffers"/>
+      <plugin id="org.eclipse.core.filesystem"/>
+      <plugin id="org.eclipse.core.filesystem.win32.x86_64" fragment="true"/>
+      <plugin id="org.eclipse.core.jobs"/>
+      <plugin id="org.eclipse.core.resources"/>
+      <plugin id="org.eclipse.core.resources.win32.x86_64" fragment="true"/>
+      <plugin id="org.eclipse.core.runtime"/>
+      <plugin id="org.eclipse.core.variables"/>
+      <plugin id="org.eclipse.debug.core"/>
+      <plugin id="org.eclipse.debug.ui"/>
+      <plugin id="org.eclipse.e4.core.commands"/>
+      <plugin id="org.eclipse.e4.core.contexts"/>
+      <plugin id="org.eclipse.e4.core.di"/>
+      <plugin id="org.eclipse.e4.core.di.annotations"/>
+      <plugin id="org.eclipse.e4.core.di.extensions"/>
+      <plugin id="org.eclipse.e4.core.di.extensions.supplier"/>
+      <plugin id="org.eclipse.e4.core.services"/>
+      <plugin id="org.eclipse.e4.emf.xpath"/>
+      <plugin id="org.eclipse.e4.ui.bindings"/>
+      <plugin id="org.eclipse.e4.ui.css.core"/>
+      <plugin id="org.eclipse.e4.ui.css.swt"/>
+      <plugin id="org.eclipse.e4.ui.css.swt.theme"/>
+      <plugin id="org.eclipse.e4.ui.di"/>
+      <plugin id="org.eclipse.e4.ui.dialogs"/>
+      <plugin id="org.eclipse.e4.ui.model.workbench"/>
+      <plugin id="org.eclipse.e4.ui.services"/>
+      <plugin id="org.eclipse.e4.ui.widgets"/>
+      <plugin id="org.eclipse.e4.ui.workbench"/>
+      <plugin id="org.eclipse.e4.ui.workbench.addons.swt"/>
+      <plugin id="org.eclipse.e4.ui.workbench.renderers.swt"/>
+      <plugin id="org.eclipse.e4.ui.workbench.swt"/>
+      <plugin id="org.eclipse.e4.ui.workbench3"/>
+      <plugin id="org.eclipse.ecf"/>
+      <plugin id="org.eclipse.ecf.console"/>
+      <plugin id="org.eclipse.ecf.discovery"/>
+      <plugin id="org.eclipse.ecf.identity"/>
+      <plugin id="org.eclipse.ecf.osgi.services.distribution"/>
+      <plugin id="org.eclipse.ecf.osgi.services.remoteserviceadmin"/>
+      <plugin id="org.eclipse.ecf.osgi.services.remoteserviceadmin.console"/>
+      <plugin id="org.eclipse.ecf.osgi.services.remoteserviceadmin.proxy"/>
+      <plugin id="org.eclipse.ecf.provider.jaxrs"/>
+      <plugin id="org.eclipse.ecf.provider.jaxrs.server"/>
+      <plugin id="org.eclipse.ecf.provider.jersey.server"/>
+      <plugin id="org.eclipse.ecf.provider.jmdns"/>
+      <plugin id="org.eclipse.ecf.remoteservice"/>
+      <plugin id="org.eclipse.ecf.remoteservice.asyncproxy"/>
+      <plugin id="org.eclipse.ecf.ssl" fragment="true"/>
+      <plugin id="org.eclipse.emf"/>
+      <plugin id="org.eclipse.emf.cdo"/>
+      <plugin id="org.eclipse.emf.cdo.common"/>
+      <plugin id="org.eclipse.emf.codegen"/>
+      <plugin id="org.eclipse.emf.codegen.ecore"/>
+      <plugin id="org.eclipse.emf.common"/>
+      <plugin id="org.eclipse.emf.common.ui"/>
+      <plugin id="org.eclipse.emf.ecore"/>
+      <plugin id="org.eclipse.emf.ecore.change"/>
+      <plugin id="org.eclipse.emf.ecore.edit"/>
+      <plugin id="org.eclipse.emf.ecore.xmi"/>
+      <plugin id="org.eclipse.emf.edit"/>
+      <plugin id="org.eclipse.emf.edit.ui"/>
+      <plugin id="org.eclipse.emf.mwe.core"/>
+      <plugin id="org.eclipse.emf.mwe.utils"/>
+      <plugin id="org.eclipse.emf.mwe2.runtime"/>
+      <plugin id="org.eclipse.emf.transaction"/>
+      <plugin id="org.eclipse.emf.validation"/>
+      <plugin id="org.eclipse.equinox.app"/>
+      <plugin id="org.eclipse.equinox.bidi"/>
+      <plugin id="org.eclipse.equinox.common"/>
+      <plugin id="org.eclipse.equinox.concurrent"/>
+      <plugin id="org.eclipse.equinox.console"/>
+      <plugin id="org.eclipse.equinox.event"/>
+      <plugin id="org.eclipse.equinox.http.jetty"/>
+      <plugin id="org.eclipse.equinox.http.servlet"/>
+      <plugin id="org.eclipse.equinox.p2.core"/>
+      <plugin id="org.eclipse.equinox.p2.engine"/>
+      <plugin id="org.eclipse.equinox.p2.metadata"/>
+      <plugin id="org.eclipse.equinox.p2.metadata.repository"/>
+      <plugin id="org.eclipse.equinox.p2.repository"/>
+      <plugin id="org.eclipse.equinox.preferences"/>
+      <plugin id="org.eclipse.equinox.registry"/>
+      <plugin id="org.eclipse.equinox.security"/>
+      <plugin id="org.eclipse.equinox.security.win32.x86_64" fragment="true"/>
+      <plugin id="org.eclipse.equinox.util"/>
+      <plugin id="org.eclipse.gmf.runtime.notation"/>
+      <plugin id="org.eclipse.help"/>
+      <plugin id="org.eclipse.jdt.compiler.apt" fragment="true"/>
+      <plugin id="org.eclipse.jdt.compiler.tool" fragment="true"/>
+      <plugin id="org.eclipse.jdt.core"/>
+      <plugin id="org.eclipse.jdt.debug"/>
+      <plugin id="org.eclipse.jdt.launching"/>
+      <plugin id="org.eclipse.jetty.continuation"/>
+      <plugin id="org.eclipse.jetty.http"/>
+      <plugin id="org.eclipse.jetty.io"/>
+      <plugin id="org.eclipse.jetty.security"/>
+      <plugin id="org.eclipse.jetty.server"/>
+      <plugin id="org.eclipse.jetty.servlet"/>
+      <plugin id="org.eclipse.jetty.util"/>
+      <plugin id="org.eclipse.jface"/>
+      <plugin id="org.eclipse.jface.databinding"/>
+      <plugin id="org.eclipse.jface.text"/>
+      <plugin id="org.eclipse.ltk.core.refactoring"/>
+      <plugin id="org.eclipse.m2e.archetype.common"/>
+      <plugin id="org.eclipse.m2e.core"/>
+      <plugin id="org.eclipse.m2e.core.ui"/>
+      <plugin id="org.eclipse.m2e.logback.appender" fragment="true"/>
+      <plugin id="org.eclipse.m2e.maven.indexer"/>
+      <plugin id="org.eclipse.m2e.maven.runtime"/>
+      <plugin id="org.eclipse.m2e.maven.runtime.slf4j.simple"/>
+      <plugin id="org.eclipse.m2e.model.edit"/>
+      <plugin id="org.eclipse.m2e.workspace.cli"/>
+      <plugin id="org.eclipse.m2m.qvt.oml"/>
+      <plugin id="org.eclipse.m2m.qvt.oml.common"/>
+      <plugin id="org.eclipse.m2m.qvt.oml.cst.parser"/>
+      <plugin id="org.eclipse.m2m.qvt.oml.ecore.imperativeocl"/>
+      <plugin id="org.eclipse.m2m.qvt.oml.emf.util"/>
+      <plugin id="org.eclipse.m2m.qvt.oml.ocl"/>
+      <plugin id="org.eclipse.m2m.qvt.oml.project"/>
+      <plugin id="org.eclipse.m2m.qvt.oml.runtime"/>
+      <plugin id="org.eclipse.net4j.util"/>
+      <plugin id="org.eclipse.ocl"/>
+      <plugin id="org.eclipse.ocl.common"/>
+      <plugin id="org.eclipse.ocl.ecore"/>
+      <plugin id="org.eclipse.ocl.pivot"/>
+      <plugin id="org.eclipse.osgi"/>
+      <plugin id="org.eclipse.osgi.compatibility.state" fragment="true"/>
+      <plugin id="org.eclipse.osgi.services"/>
+      <plugin id="org.eclipse.osgi.services.remoteserviceadmin"/>
+      <plugin id="org.eclipse.osgi.util"/>
+      <plugin id="org.eclipse.swt"/>
+      <plugin id="org.eclipse.swt.win32.win32.x86_64" fragment="true"/>
+      <plugin id="org.eclipse.text"/>
+      <plugin id="org.eclipse.ui"/>
+      <plugin id="org.eclipse.ui.console"/>
+      <plugin id="org.eclipse.ui.editors"/>
+      <plugin id="org.eclipse.ui.forms"/>
+      <plugin id="org.eclipse.ui.ide"/>
+      <plugin id="org.eclipse.ui.navigator"/>
+      <plugin id="org.eclipse.ui.views"/>
+      <plugin id="org.eclipse.ui.win32" fragment="true"/>
+      <plugin id="org.eclipse.ui.workbench"/>
+      <plugin id="org.eclipse.ui.workbench.texteditor"/>
+      <plugin id="org.eclipse.uml2"/>
+      <plugin id="org.eclipse.uml2.common"/>
+      <plugin id="org.eclipse.wst.common.core"/>
+      <plugin id="org.eclipse.wst.common.emf"/>
+      <plugin id="org.eclipse.wst.common.environment"/>
+      <plugin id="org.eclipse.wst.common.frameworks"/>
+      <plugin id="org.eclipse.wst.common.uriresolver"/>
+      <plugin id="org.eclipse.wst.sse.core"/>
+      <plugin id="org.eclipse.wst.xml.core"/>
+      <plugin id="org.eclipse.xpand"/>
+      <plugin id="org.eclipse.xtend"/>
+      <plugin id="org.eclipse.xtend.core"/>
+      <plugin id="org.eclipse.xtend.lib"/>
+      <plugin id="org.eclipse.xtend.lib.macro"/>
+      <plugin id="org.eclipse.xtend.standalone"/>
+      <plugin id="org.eclipse.xtend.typesystem.emf"/>
+      <plugin id="org.eclipse.xtext"/>
+      <plugin id="org.eclipse.xtext.builder.standalone"/>
+      <plugin id="org.eclipse.xtext.common.types"/>
+      <plugin id="org.eclipse.xtext.ecore"/>
+      <plugin id="org.eclipse.xtext.generator"/>
+      <plugin id="org.eclipse.xtext.ide"/>
+      <plugin id="org.eclipse.xtext.junit4"/>
+      <plugin id="org.eclipse.xtext.logging" fragment="true"/>
+      <plugin id="org.eclipse.xtext.smap"/>
+      <plugin id="org.eclipse.xtext.testing"/>
+      <plugin id="org.eclipse.xtext.ui.testing"/>
+      <plugin id="org.eclipse.xtext.util"/>
+      <plugin id="org.eclipse.xtext.xbase"/>
+      <plugin id="org.eclipse.xtext.xbase.junit"/>
+      <plugin id="org.eclipse.xtext.xbase.lib"/>
+      <plugin id="org.eclipse.xtext.xtext.generator"/>
+      <plugin id="org.glassfish.hk2.api"/>
+      <plugin id="org.glassfish.hk2.external.aopalliance-repackaged"/>
+      <plugin id="org.glassfish.hk2.external.jakarta.inject"/>
+      <plugin id="org.glassfish.hk2.locator"/>
+      <plugin id="org.glassfish.hk2.osgi-resource-locator"/>
+      <plugin id="org.glassfish.hk2.utils"/>
+      <plugin id="org.glassfish.jersey.containers.jersey-container-servlet"/>
+      <plugin id="org.glassfish.jersey.containers.jersey-container-servlet-core"/>
+      <plugin id="org.glassfish.jersey.core.jersey-client"/>
+      <plugin id="org.glassfish.jersey.core.jersey-common"/>
+      <plugin id="org.glassfish.jersey.core.jersey-server"/>
+      <plugin id="org.glassfish.jersey.ext.entityfiltering"/>
+      <plugin id="org.glassfish.jersey.ext.jersey-entity-filtering"/>
+      <plugin id="org.glassfish.jersey.inject.jersey-hk2"/>
+      <plugin id="org.glassfish.jersey.media.jersey-media-jaxb"/>
+      <plugin id="org.glassfish.jersey.media.jersey-media-json-jackson"/>
+      <plugin id="org.hamcrest.core"/>
+      <plugin id="org.junit"/>
+      <plugin id="org.modelversioning.emfprofile"/>
+      <plugin id="org.modelversioning.emfprofile.project"/>
+      <plugin id="org.modelversioning.emfprofile.registry"/>
+      <plugin id="org.objectweb.asm"/>
+      <plugin id="org.palladiosimulator.commons"/>
+      <plugin id="org.palladiosimulator.commons.stoex"/>
+      <plugin id="org.palladiosimulator.commons.stoex.api"/>
+      <plugin id="org.palladiosimulator.mdsdprofiles.api"/>
+      <plugin id="org.palladiosimulator.pcm"/>
+      <plugin id="org.palladiosimulator.pcm.dataprocessing"/>
+      <plugin id="org.palladiosimulator.pcm.dataprocessing.analysis.executor.workflow"/>
+      <plugin id="org.palladiosimulator.pcm.dataprocessing.analysis.transformation"/>
+      <plugin id="org.palladiosimulator.pcm.dataprocessing.profile"/>
+      <plugin id="org.palladiosimulator.pcm.dataprocessing.prolog"/>
+      <plugin id="org.palladiosimulator.pcm.dataprocessing.prolog.transformation"/>
+      <plugin id="org.prolog4j.api"/>
+      <plugin id="org.prolog4j.manager"/>
+      <plugin id="org.slf4j.api"/>
+      <plugin id="org.slf4j.impl.log4j12" fragment="true"/>
+      <plugin id="org.tukaani.xz"/>
+      <plugin id="org.w3c.css.sac"/>
+      <plugin id="org.w3c.dom.events"/>
+      <plugin id="org.w3c.dom.smil"/>
+      <plugin id="org.w3c.dom.svg"/>
+   </plugins>
+
+   <configurations>
+      <plugin id="com.fasterxml.jackson.core.jackson-annotations" autoStart="true" startLevel="0" />
+      <plugin id="com.fasterxml.jackson.core.jackson-core" autoStart="true" startLevel="0" />
+      <plugin id="com.fasterxml.jackson.core.jackson-databind" autoStart="true" startLevel="0" />
+      <plugin id="com.fasterxml.jackson.jaxrs.jackson-jaxrs-base" autoStart="true" startLevel="0" />
+      <plugin id="com.fasterxml.jackson.jaxrs.jackson-jaxrs-json-provider" autoStart="true" startLevel="0" />
+      <plugin id="com.fasterxml.jackson.module.jackson-module-jaxb-annotations" autoStart="true" startLevel="0" />
+      <plugin id="edu.kit.palladio.rest.dataprocessinganalysis" autoStart="true" startLevel="0" />
+      <plugin id="edu.kit.palladio.rest.filemanagement" autoStart="true" startLevel="0" />
+      <plugin id="edu.kit.palladio.rest.projectmanagement" autoStart="true" startLevel="0" />
+      <plugin id="edu.kit.palladio.rest.resultmanagement" autoStart="true" startLevel="0" />
+      <plugin id="edu.kit.palladio.rest.server" autoStart="true" startLevel="0" />
+      <plugin id="jakarta.annotation-api" autoStart="true" startLevel="0" />
+      <plugin id="jakarta.ws.rs-api" autoStart="true" startLevel="0" />
+      <plugin id="javassist" autoStart="true" startLevel="0" />
+      <plugin id="javax.servlet" autoStart="true" startLevel="0" />
+      <plugin id="javax.validation.api" autoStart="true" startLevel="0" />
+      <plugin id="org.apache.felix.gogo.command" autoStart="true" startLevel="0" />
+      <plugin id="org.apache.felix.gogo.runtime" autoStart="true" startLevel="0" />
+      <plugin id="org.apache.felix.gogo.shell" autoStart="true" startLevel="0" />
+      <plugin id="org.apache.felix.scr" autoStart="true" startLevel="1" />
+      <plugin id="org.eclipse.core.jobs" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.core.runtime" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.ecf" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.ecf.console" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.ecf.discovery" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.ecf.identity" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.ecf.osgi.services.distribution" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.ecf.osgi.services.remoteserviceadmin" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.ecf.osgi.services.remoteserviceadmin.console" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.ecf.osgi.services.remoteserviceadmin.proxy" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.ecf.provider.jaxrs" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.ecf.provider.jaxrs.server" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.ecf.provider.jersey.server" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.ecf.provider.jmdns" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.ecf.remoteservice" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.ecf.remoteservice.asyncproxy" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.equinox.common" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.equinox.concurrent" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.equinox.console" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.equinox.event" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.equinox.http.jetty" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.equinox.http.servlet" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.equinox.simpleconfigurator" autoStart="true" startLevel="1" />
+      <plugin id="org.eclipse.equinox.util" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.jetty.continuation" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.jetty.http" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.jetty.io" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.jetty.security" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.jetty.server" autoStart="true" startLevel="3" />
+      <plugin id="org.eclipse.jetty.servlet" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.jetty.util" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.osgi" autoStart="true" startLevel="-1" />
+      <plugin id="org.eclipse.osgi.services" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.osgi.services.remoteserviceadmin" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.osgi.util" autoStart="true" startLevel="0" />
+      <plugin id="org.glassfish.hk2.api" autoStart="true" startLevel="0" />
+      <plugin id="org.glassfish.hk2.external.aopalliance-repackaged" autoStart="true" startLevel="0" />
+      <plugin id="org.glassfish.hk2.external.jakarta.inject" autoStart="true" startLevel="0" />
+      <plugin id="org.glassfish.hk2.locator" autoStart="true" startLevel="0" />
+      <plugin id="org.glassfish.hk2.osgi-resource-locator" autoStart="true" startLevel="0" />
+      <plugin id="org.glassfish.hk2.utils" autoStart="true" startLevel="0" />
+      <plugin id="org.glassfish.jersey.containers.jersey-container-servlet" autoStart="true" startLevel="0" />
+      <plugin id="org.glassfish.jersey.containers.jersey-container-servlet-core" autoStart="true" startLevel="0" />
+      <plugin id="org.glassfish.jersey.core.jersey-client" autoStart="true" startLevel="0" />
+      <plugin id="org.glassfish.jersey.core.jersey-common" autoStart="true" startLevel="0" />
+      <plugin id="org.glassfish.jersey.core.jersey-server" autoStart="true" startLevel="0" />
+      <plugin id="org.glassfish.jersey.ext.jersey-entity-filtering" autoStart="true" startLevel="0" />
+      <plugin id="org.glassfish.jersey.inject.jersey-hk2" autoStart="true" startLevel="0" />
+      <plugin id="org.glassfish.jersey.media.jersey-media-jaxb" autoStart="true" startLevel="0" />
+      <plugin id="org.glassfish.jersey.media.jersey-media-json-jackson" autoStart="true" startLevel="0" />
+   </configurations>
+
+</product>

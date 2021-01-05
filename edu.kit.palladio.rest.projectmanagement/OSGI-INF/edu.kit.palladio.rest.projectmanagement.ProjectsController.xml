@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" immediate="true" name="edu.kit.palladio.rest.projectmanagement.ProjectsController">
+   <property name="service.exported.interfaces" value="edu.kit.palladio.rest.projectmanagement.IProjectsController"/>
+   <property name="service.exported.intents">osgi.async
+jaxrs
+   </property>
+   <property name="osgi.basic.timeout" value="5000000"/>
+   <property name="ecf.jaxrs.server.pathPrefix" value="/projects"/>
+   <service>
+      <provide interface="edu.kit.palladio.rest.projectmanagement.IProjectsController"/>
+   </service>
+   <implementation class="edu.kit.palladio.rest.projectmanagement.ProjectsController"/>
+</scr:component>

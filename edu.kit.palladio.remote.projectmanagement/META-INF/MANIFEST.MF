@@ -5,3 +5,10 @@ Bundle-SymbolicName: edu.kit.palladio.remote.projectmanagement
 Bundle-Version: 1.0.0.qualifier
 Automatic-Module-Name: edu.kit.palladio.remote.projectmanagement
 Bundle-RequiredExecutionEnvironment: JavaSE-11
+Bundle-ActivationPolicy: lazy
+Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.core.resources,
+ org.eclipse.core.filesystem
+Export-Package: edu.kit.palladio.remote.projectmanagement
+Import-Package: org.osgi.framework;version="[1.9,2.0)",
+ org.osgi.service.component.annotations;version="1.3.0";resolution:=optional
