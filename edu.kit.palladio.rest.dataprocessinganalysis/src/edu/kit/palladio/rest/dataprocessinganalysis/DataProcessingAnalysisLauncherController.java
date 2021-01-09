@@ -13,7 +13,7 @@ import edu.kit.palladio.remote.dataprocessinganalysis.IAnalysisLauncher;
 import edu.kit.palladio.remote.dataprocessinganalysis.LaunchConfig;
 
 @Path("")
-@Component(immediate = true, property = { "service.exported.interfaces=edu.kit.palladio.rest.filemanagement.IDataProcessingAnalysisLauncherController", "service.exported.intents=osgi.async",
+@Component(immediate = true, property = { "service.exported.interfaces=edu.kit.palladio.rest.dataprocessinganalysis.IDataProcessingAnalysisLauncherController", "service.exported.intents=osgi.async",
 		"service.exported.intents=jaxrs", "osgi.basic.timeout=5000000", "ecf.jaxrs.server.pathPrefix=/dataprocessinganalysis" })
 public class DataProcessingAnalysisLauncherController implements IDataProcessingAnalysisLauncherController {
 

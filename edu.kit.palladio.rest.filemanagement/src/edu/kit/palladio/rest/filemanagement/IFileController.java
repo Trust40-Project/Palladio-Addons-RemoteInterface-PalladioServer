@@ -1,5 +1,6 @@
 package edu.kit.palladio.rest.filemanagement;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -41,7 +42,9 @@ public interface IFileController {
     @Path("/upload/project/{projectId}/{s:.*}")
     @Consumes(MediaType.MULTIPART_FORM_DATA)  
     public void newProjectContent(@PathParam("projectId") String projectId,
-    		@FormParam("file") InputStream uploadedInputStream,
+    		/*@FormParam("file")*/ InputStream uploadedInputStream,
             @Context UriInfo uriInfo)
             throws IOException, IllegalArgumentException;
+
+    
 }

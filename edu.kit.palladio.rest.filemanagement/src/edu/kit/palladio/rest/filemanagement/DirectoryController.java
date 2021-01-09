@@ -5,6 +5,8 @@ import java.io.IOException;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 
 import org.osgi.service.component.annotations.Component;
@@ -27,7 +29,7 @@ public class DirectoryController implements IDirectoryController {
 	@Override
 	@PUT
 	@Path("/project/{projectId}/{s:.*}")
-	public void createDirectory(String projectId, UriInfo uriInfo) throws IOException, IllegalArgumentException {
+	public void createDirectory(@PathParam("projectId") String projectId, @Context UriInfo uriInfo) throws IOException, IllegalArgumentException {
 		final var pathParameters = uriInfo.getPathParameters();
 		if(!pathParameters.containsKey(PATHPARAMETERURL)) {
 			throw new IllegalArgumentException("request url does not contain a path for a file or directory");
@@ -39,7 +41,7 @@ public class DirectoryController implements IDirectoryController {
 	@Override
 	@DELETE
     @Path("/project/{projectId}/{s:.*}")
-	public void deleteFile(String projectId, UriInfo uriInfo) throws IOException, IllegalArgumentException {
+	public void deleteFile(@PathParam("projectId") String projectId, @Context UriInfo uriInfo) throws IOException, IllegalArgumentException {
 		final var pathParameters = uriInfo.getPathParameters();
 		if(!pathParameters.containsKey(PATHPARAMETERURL)) {
 			throw new IllegalArgumentException("request url does not contain a path for a file or directory");

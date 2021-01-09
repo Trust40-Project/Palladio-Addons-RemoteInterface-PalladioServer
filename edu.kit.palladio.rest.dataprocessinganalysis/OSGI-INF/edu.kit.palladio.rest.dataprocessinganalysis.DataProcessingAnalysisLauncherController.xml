@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" immediate="true" name="edu.kit.palladio.rest.dataprocessinganalysis.DataProcessingAnalysisLauncherController">
-   <property name="service.exported.interfaces" value="edu.kit.palladio.rest.filemanagement.IDataProcessingAnalysisLauncherController"/>
+   <property name="service.exported.interfaces" value="edu.kit.palladio.rest.dataprocessinganalysis.IDataProcessingAnalysisLauncherController"/>
    <property name="service.exported.intents">osgi.async
 jaxrs
    </property>

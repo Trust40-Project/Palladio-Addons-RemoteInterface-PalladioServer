@@ -36,7 +36,6 @@ public class ProjectController implements IProjectController {
 	@Path("/{projectId}/{s:.*}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Collection<File> listFilesAndDiretories(@PathParam("projectId") String projectId, @Context UriInfo uriInfo) {
-		System.out.println("listFilesAndDiretories");
 		var pathParameters = uriInfo.getPathParameters();
 		if(!pathParameters.containsKey(PATHPARAMETERURL)) {
 			throw new IllegalArgumentException("request url does not contain a path for a file or directory");

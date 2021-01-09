@@ -1,5 +1,6 @@
 package edu.kit.palladio.rest.filemanagement;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -69,8 +70,7 @@ public class FileController implements IFileController {
 		}
 		final String path = projectId + "/" + pathParameters.getFirst(PATHPARAMETERURL);
         
-	
-        try(final InputStream fileToRead =  new EclipseFileInputStream(path)){
+		final InputStream fileToRead =  new EclipseFileInputStream(path);
         	final CacheControl cacheControl = new CacheControl();
         	cacheControl.setNoCache(true);
         	cacheControl.setNoStore(true);
@@ -81,14 +81,13 @@ public class FileController implements IFileController {
         		.header("Pragma", "no-cache")
         		.header("Expires", "0")
         		.build();
-        }
 	}
 
 	@Override
-	@PUT
+	@PUT	
     @Path("/upload/project/{projectId}/{s:.*}")
     @Consumes(MediaType.MULTIPART_FORM_DATA) 
-	public void newProjectContent(@PathParam("projectId") String projectId, @FormParam("file") InputStream uploadedInputStream, @Context UriInfo uriInfo)
+	public void newProjectContent(@PathParam("projectId") String projectId,InputStream uploadedInputStream,/*@FormParam("file") InputStream uploadedInputStream,*/ @Context UriInfo uriInfo)
 			throws IOException, IllegalArgumentException {
 		var pathParameters = uriInfo.getPathParameters();
 		if(!pathParameters.containsKey(PATHPARAMETERURL)) {

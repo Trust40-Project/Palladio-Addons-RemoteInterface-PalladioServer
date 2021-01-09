@@ -48,6 +48,7 @@ public class ProjectsController implements IProjectsController {
     // Single item
     @GET
     @Path("/{projectId}")
+    @Produces(MediaType.APPLICATION_JSON)
 	public
     IProject oneProject(@PathParam("projectId") String projectId) throws IllegalStateException, IllegalArgumentException {
         return projectManager.getProject(projectId);

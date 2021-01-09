@@ -39,6 +39,10 @@ public class LaunchConfig implements ILaunchConfig {
         this.parameters = parameters;
     }
     
+    public LaunchConfig() {
+    	
+    }
+    
     @Override
     public String getUsageModelPath() {
         return usageModelPath;

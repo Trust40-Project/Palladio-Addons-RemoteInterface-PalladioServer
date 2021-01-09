@@ -22,6 +22,7 @@ import org.osgi.service.component.annotations.Reference;
 import org.palladiosimulator.pcm.dataprocessing.analysis.executor.workflow.query.IQuery;
 import org.palladiosimulator.pcm.dataprocessing.analysis.executor.workflow.query.QueryInformation;
 import org.palladiosimulator.pcm.dataprocessing.analysis.executor.workflow.query.QueryParameterType;
+import org.palladiosimulator.pcm.dataprocessing.analysis.executor.workflow.query.impl.IQueryManager;
 import org.palladiosimulator.pcm.dataprocessing.analysis.executor.workflow.workflow.AnalysisBlackboard;
 import org.palladiosimulator.pcm.dataprocessing.analysis.executor.workflow.workflow.AnalysisWorkflow;
 import org.palladiosimulator.pcm.dataprocessing.analysis.executor.workflow.workflow.AnalysisWorkflowConfig;
@@ -149,6 +150,8 @@ public class AnalysisLauncher implements IAnalysisLauncher {
 		String analysisGoalId = launchConfig.getAnalysisGoalId();
 
 		if (!analysisGoalId.equals("default")) {
+			Activator manager = Activator.getInstance();
+			System.out.print("                                                                                     hallo "+ manager);
 			for (Map.Entry<QueryInformation, IQuery> entry : Activator.getInstance().getQueryManager().getQueries().entrySet()) {
 				if (entry.getKey().getId().equals(analysisGoalId)) {
 					return entry.getValue();

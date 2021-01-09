@@ -6,10 +6,14 @@ public class Project implements IProject {
 	 * 
 	 */
 	private static final long serialVersionUID = -6812722787414546751L;
-	private final String projectId;
+	private String projectId;
 	
 	public Project(String projectId){
 		this.projectId = projectId;
+	}
+	
+	public Project(){
+		
 	}
 
 
