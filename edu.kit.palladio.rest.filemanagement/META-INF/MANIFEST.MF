@@ -10,11 +10,16 @@ Import-Package: edu.kit.palladio.remote.filemanagement,
  javax.servlet.http;version="3.1.0",
  javax.ws.rs;version="2.1.99",
  javax.ws.rs.core;version="2.1.99",
+ org.apache.commons.fileupload;version="1.2.2",
+ org.apache.commons.fileupload.disk;version="1.2.2",
+ org.apache.commons.fileupload.servlet;version="1.2.2",
+ org.apache.commons.fileupload.util;version="1.2.2",
+ org.apache.commons.io,
  org.osgi.framework,
  org.osgi.service.component.annotations;resolution:=optional
 Service-Component: OSGI-INF/edu.kit.palladio.rest.filemanagement.ProjectController.xml,
- OSGI-INF/edu.kit.palladio.rest.filemanagement.FileController.xml,
- OSGI-INF/edu.kit.palladio.rest.filemanagement.DirectoryController.xml
+ OSGI-INF/edu.kit.palladio.rest.filemanagement.DirectoryController.xml,
+ OSGI-INF/edu.kit.palladio.rest.filemanagement.FileController.xml
 Bundle-ActivationPolicy: lazy
 Require-Bundle: org.eclipse.core.runtime;bundle-version="3.16.0"
 Export-Package: edu.kit.palladio.rest.filemanagement

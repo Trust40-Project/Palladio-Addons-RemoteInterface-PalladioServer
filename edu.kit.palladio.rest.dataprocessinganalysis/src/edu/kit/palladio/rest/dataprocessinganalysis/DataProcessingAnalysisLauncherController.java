@@ -7,6 +7,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 import edu.kit.palladio.remote.dataprocessinganalysis.AnalysisLauncher;
 import edu.kit.palladio.remote.dataprocessinganalysis.IAnalysisLauncher;
@@ -17,11 +18,9 @@ import edu.kit.palladio.remote.dataprocessinganalysis.LaunchConfig;
 		"service.exported.intents=jaxrs", "osgi.basic.timeout=5000000", "ecf.jaxrs.server.pathPrefix=/dataprocessinganalysis" })
 public class DataProcessingAnalysisLauncherController implements IDataProcessingAnalysisLauncherController {
 
+	@Reference(service = IAnalysisLauncher.class)
 	private IAnalysisLauncher analysisLauncher;
 	
-	public DataProcessingAnalysisLauncherController() {
-		analysisLauncher = new AnalysisLauncher();
-	}
 	
 	@Override
 	@POST

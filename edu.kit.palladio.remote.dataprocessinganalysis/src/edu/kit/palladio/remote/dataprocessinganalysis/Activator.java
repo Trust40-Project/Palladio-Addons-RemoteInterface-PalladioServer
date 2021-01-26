@@ -18,8 +18,10 @@ public class Activator implements BundleActivator {
 	}
 
 	public void start(BundleContext bundleContext) throws Exception {
-		Activator.context = bundleContext;
+
+Activator.context = bundleContext;
 		Activator.instance = this;
+		
 		/*
 		 * ServiceReference<IQueryManager> queryManagerReference =
 		 * context.getServiceReference(IQueryManager.class); this.queryManager =

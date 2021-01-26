@@ -35,7 +35,7 @@ import de.uka.ipd.sdq.workflow.jobs.JobFailedException;
 import de.uka.ipd.sdq.workflow.jobs.UserCanceledException;
 import edu.kit.palladio.remote.resultmanagement.IResultManager;
 
-//@Component(immediate = true, property = { "id=edu.kit.palladio.rmi.dataprocessinganalysis.analysislauncher", "name=Analysis Launcher"})
+@Component(immediate = true, property = { "id=edu.kit.palladio.remote.dataprocessinganalysis.analysislauncher", "name=Analysis Launcher"})
 public class AnalysisLauncher implements IAnalysisLauncher {
 
 	private final transient IWorkspace workspace = ResourcesPlugin.getWorkspace();
@@ -137,6 +137,7 @@ public class AnalysisLauncher implements IAnalysisLauncher {
 	private IProverFactory getProverFactory(ILaunchConfig launchConfig) throws CoreException {
 
 		final String proverFactoryId = launchConfig.getProverFactoryId();
+		System.out.println("-----------------------------------------------------------------------" + proverManager);
 		for (Map.Entry<ProverInformation, IProverFactory> entry : proverManager.getProvers().entrySet()) {
 			if (entry.getKey().getId().equals(proverFactoryId)) {
 				return entry.getValue();
@@ -150,8 +151,6 @@ public class AnalysisLauncher implements IAnalysisLauncher {
 		String analysisGoalId = launchConfig.getAnalysisGoalId();
 
 		if (!analysisGoalId.equals("default")) {
-			Activator manager = Activator.getInstance();
-			System.out.print("                                                                                     hallo "+ manager);
 			for (Map.Entry<QueryInformation, IQuery> entry : Activator.getInstance().getQueryManager().getQueries().entrySet()) {
 				if (entry.getKey().getId().equals(analysisGoalId)) {
 					return entry.getValue();

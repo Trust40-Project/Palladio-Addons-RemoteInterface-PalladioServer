@@ -101,6 +101,7 @@
       <plugin id="org.apache.commons.beanutils"/>
       <plugin id="org.apache.commons.cli"/>
       <plugin id="org.apache.commons.collections"/>
+      <plugin id="org.apache.commons.fileupload"/>
       <plugin id="org.apache.commons.io"/>
       <plugin id="org.apache.commons.jxpath"/>
       <plugin id="org.apache.commons.lang"/>
@@ -411,10 +412,12 @@
       <plugin id="org.palladiosimulator.pcm.dataprocessing.prolog.transformation"/>
       <plugin id="org.prolog4j.api"/>
       <plugin id="org.prolog4j.manager"/>
+      <plugin id="org.prolog4j.tuprolog"/>
       <plugin id="org.sat4j.core"/>
       <plugin id="org.sat4j.pb"/>
       <plugin id="org.slf4j.api"/>
       <plugin id="org.slf4j.api.source"/>
+      <plugin id="org.slf4j.impl.log4j12" fragment="true"/>
       <plugin id="org.tukaani.xz"/>
       <plugin id="org.w3c.css.sac"/>
       <plugin id="org.w3c.dom.events"/>

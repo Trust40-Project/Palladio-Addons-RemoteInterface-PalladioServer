@@ -22,3 +22,5 @@ Import-Package: de.uka.ipd.sdq.workflow.jobs,
  org.prolog4j.manager
 Bundle-ActivationPolicy: lazy
 Export-Package: edu.kit.palladio.remote.dataprocessinganalysis
+Bundle-Activator: edu.kit.palladio.remote.dataprocessinganalysis.Activator
+Service-Component: OSGI-INF/edu.kit.palladio.remote.dataprocessinganalysis.AnalysisLauncher.xml

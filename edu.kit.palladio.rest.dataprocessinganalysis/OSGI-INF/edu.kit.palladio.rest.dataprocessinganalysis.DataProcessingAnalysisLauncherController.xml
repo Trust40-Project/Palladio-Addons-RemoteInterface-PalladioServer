@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" immediate="true" name="edu.kit.palladio.rest.dataprocessinganalysis.DataProcessingAnalysisLauncherController">
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.3.0" immediate="true" name="edu.kit.palladio.rest.dataprocessinganalysis.DataProcessingAnalysisLauncherController">
    <property name="service.exported.interfaces" value="edu.kit.palladio.rest.dataprocessinganalysis.IDataProcessingAnalysisLauncherController"/>
    <property name="service.exported.intents">osgi.async
 jaxrs
@@ -9,5 +9,6 @@ jaxrs
    <service>
       <provide interface="edu.kit.palladio.rest.dataprocessinganalysis.IDataProcessingAnalysisLauncherController"/>
    </service>
+   <reference cardinality="1..1" field="analysisLauncher" interface="edu.kit.palladio.remote.dataprocessinganalysis.IAnalysisLauncher" name="analysisLauncher"/>
    <implementation class="edu.kit.palladio.rest.dataprocessinganalysis.DataProcessingAnalysisLauncherController"/>
 </scr:component>

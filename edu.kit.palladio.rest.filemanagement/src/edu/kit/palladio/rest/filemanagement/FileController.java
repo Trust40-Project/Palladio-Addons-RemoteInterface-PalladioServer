@@ -4,22 +4,30 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.List;
 
+import javax.servlet.ServletContext;
+import javax.servlet.ServletConfig;
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
-import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.CacheControl;
 import javax.ws.rs.core.Context;
-import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileUploadException;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 import edu.kit.palladio.remote.filemanagement.EclipseFileInputStream;
 import edu.kit.palladio.remote.filemanagement.EclipseFileOutputStream;
@@ -31,11 +39,18 @@ import edu.kit.palladio.remote.filemanagement.IFileManager;
 public class FileController implements IFileController {
 
 	private static final String PATHPARAMETERURL = "s";
+	@Reference(service = IFileManager.class)
 	private IFileManager fileManager;
+	/*@Reference
+	private ServletConfig  config;
+	*/
 	
 	public FileController() {
-		fileManager = new FileManager();
+		//this.fileManager = new FileManager();
+		System.out.println("---------------------------------------------------------constructor with filemanager called: " + this.fileManager);			
+		
 	}
+	
 	@Override
 	@PUT
     @Path("/project/{projectId}/{s:.*}")
@@ -84,21 +99,52 @@ public class FileController implements IFileController {
 	}
 
 	@Override
-	@PUT	
+	@POST	
     @Path("/upload/project/{projectId}/{s:.*}")
     @Consumes(MediaType.MULTIPART_FORM_DATA) 
-	public void newProjectContent(@PathParam("projectId") String projectId,InputStream uploadedInputStream,/*@FormParam("file") InputStream uploadedInputStream,*/ @Context UriInfo uriInfo)
-			throws IOException, IllegalArgumentException {
+	public void newProjectContent(@Context HttpServletRequest httpServletRequest, @PathParam("projectId") String projectId,/*InputStream uploadedInputStream,*//*@FormParam("file") InputStream uploadedInputStream,*/ @Context UriInfo uriInfo)
+			throws IOException, IllegalArgumentException, FileUploadException {
 		var pathParameters = uriInfo.getPathParameters();
 		if(!pathParameters.containsKey(PATHPARAMETERURL)) {
 			throw new IllegalArgumentException("request url does not contain a path for a file or directory");
 		}
 		final String path = projectId + "/" + pathParameters.getFirst(PATHPARAMETERURL);
-		try(final OutputStream fileToWriteTo = new EclipseFileOutputStream(path)){
+		
+		// Check that we have a file upload request
+		boolean isMultipart = ServletFileUpload.isMultipartContent(httpServletRequest);
+		if(!isMultipart) {
+			throw new IllegalArgumentException("Expected multipart file upload request.");
+		}
+		// Create a factory for disk-based file items
+		DiskFileItemFactory factory = new DiskFileItemFactory();
+
+		// Configure a repository (to ensure a secure temp location is used)
+		ServletContext servletContext = httpServletRequest.getServletContext();
+		File repository = (File) servletContext.getAttribute("javax.servlet.context.tempdir");
+		factory.setRepository(repository);
+
+		// Create a new file upload handler
+		ServletFileUpload upload = new ServletFileUpload(factory);
+
+		// Parse the request
+		List<FileItem> items = upload.parseRequest(httpServletRequest);
+		
+		for(FileItem fileItem: items) {
+			if(!fileItem.isFormField()) {
+				
+				try(final OutputStream fileToWriteTo = new EclipseFileOutputStream(path)){
+					try(final InputStream uploadedInputStream = fileItem.getInputStream()){
+						uploadedInputStream.transferTo(fileToWriteTo);
+					}
+				}
+			}
+			
+		}
+		/*try(final OutputStream fileToWriteTo = new EclipseFileOutputStream(path)){
 			uploadedInputStream.transferTo(fileToWriteTo);
 			uploadedInputStream.close();
 		}
-		
+		*/
         
 	}
 
