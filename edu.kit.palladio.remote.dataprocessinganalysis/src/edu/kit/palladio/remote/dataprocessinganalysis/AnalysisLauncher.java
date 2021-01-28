@@ -1,9 +1,11 @@
 package edu.kit.palladio.remote.dataprocessinganalysis;
 
+import java.io.Serializable;
 import java.time.Instant;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Map.Entry;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
@@ -104,11 +106,11 @@ public class AnalysisLauncher implements IAnalysisLauncher {
 		
 		 AnalysisWorkflow analysisWorkflow = new AnalysisWorkflow(analysisWorkflowConfig);
 		 
-		 Future<AnalysisBlackboard> futureSolution = executor.submit(() -> {
+		 Future<Serializable> futureSolution = executor.submit(() -> {
 				try {
 					analysisWorkflow.execute(new NullProgressMonitor());
 					AnalysisBlackboard blackboard = analysisWorkflow.getBlackboard();
-					return blackboard;
+					return serializeBlackboard(blackboard);
 				} catch (JobFailedException | UserCanceledException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -120,6 +122,25 @@ public class AnalysisLauncher implements IAnalysisLauncher {
 		 solutionManager.registerFutureSolution(launchId, futureSolution);
 		 
 		 return launchId;
+	}
+	
+	private Serializable serializeBlackboard(AnalysisBlackboard blackboard) {
+		final Solution<Object> solution = blackboard.getSolution();
+		if(!solution.isSuccess()) {
+			return "The solution to the launch was not successful.";
+		}
+		final HashMap<String, Serializable> results = new HashMap<String, Serializable>();
+		for (Entry<String, String> variable : blackboard.getQuery().getResultVars().entrySet()) {
+			
+			Object result = (Serializable) solution.get(variable.getValue());
+			if(result instanceof Serializable) {
+				results.put(variable.getKey(), (Serializable) result);
+			} else {
+				results.put(variable.getKey(), "Not serializable.");
+			}
+			
+		}
+		return results;
 	}
 	
 	private Map<String, String> getAnalysisGoalParameters(final IQuery analysisGoal, final ILaunchConfig launchConfig){
@@ -137,7 +158,6 @@ public class AnalysisLauncher implements IAnalysisLauncher {
 	private IProverFactory getProverFactory(ILaunchConfig launchConfig) throws CoreException {
 
 		final String proverFactoryId = launchConfig.getProverFactoryId();
-		System.out.println("-----------------------------------------------------------------------" + proverManager);
 		for (Map.Entry<ProverInformation, IProverFactory> entry : proverManager.getProvers().entrySet()) {
 			if (entry.getKey().getId().equals(proverFactoryId)) {
 				return entry.getValue();

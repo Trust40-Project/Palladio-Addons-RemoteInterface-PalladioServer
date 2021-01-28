@@ -27,21 +27,21 @@ import org.prolog4j.SolutionIterator;
 public class ResultManager implements IResultManager{
 
 	private final static int MAXNUMMILLISECTOWAIT = 100;
-	private Map<String, Future<AnalysisBlackboard>> registeredFutureSolutions;
+	private Map<String, Future<Serializable>> registeredFutureSolutions;
 	
 	public ResultManager() {
-		this.registeredFutureSolutions = new HashMap<String, Future<AnalysisBlackboard>>();
+		this.registeredFutureSolutions = new HashMap<String, Future<Serializable>>();
 	}
 	
 
 	@Override
-	public void registerFutureSolution(String launchId, Future<AnalysisBlackboard> futureSolution) {
+	public void registerFutureSolution(String launchId, Future<Serializable> futureSolution) {
 		this.registeredFutureSolutions.put(launchId, futureSolution);
 	}
 
 	@Override
-	public Map<String,Serializable> getSolution(final String launchId) throws IllegalStateException, NullPointerException {
-		final Future<AnalysisBlackboard> futureSolution = this.registeredFutureSolutions.get(launchId);
+	public Serializable getSolution(final String launchId) throws IllegalStateException, NullPointerException {
+		final Future<Serializable> futureSolution = this.registeredFutureSolutions.get(launchId);
 		if(futureSolution == null) {
 			throw new NullPointerException("No solution for the launch id " + launchId + " could be found.");
 		}
@@ -51,25 +51,9 @@ public class ResultManager implements IResultManager{
 		if(!futureSolution.isDone()) {
 			throw new IllegalStateException("The launch is not yet done.");
 		}
-		
 		try {
-			final AnalysisBlackboard blackboard = futureSolution.get(MAXNUMMILLISECTOWAIT, TimeUnit.MILLISECONDS);
-			final Solution<Object> solution = blackboard.getSolution();
-			if(!solution.isSuccess()) {
-				throw new IllegalStateException("The solution to the launch was not successful.");
-			}
-			final HashMap<String, Serializable> results = new HashMap<String, Serializable>();
-			for (Entry<String, String> variable : blackboard.getQuery().getResultVars().entrySet()) {
-				
-				Object result = (Serializable) solution.get(variable.getValue());
-				if(result instanceof Serializable) {
-					results.put(variable.getKey(), (Serializable) result);
-				} else {
-					results.put(variable.getKey(), "Not serializable.");
-				}
-				
-			}
-			return results;
+			return futureSolution.get(MAXNUMMILLISECTOWAIT, TimeUnit.MILLISECONDS);
+		
 		} catch (InterruptedException e) {
 			throw new IllegalStateException("Could not get solution for launch. Please try again.");
 		} catch (ExecutionException e) {

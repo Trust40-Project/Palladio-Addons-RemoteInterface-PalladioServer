@@ -11,6 +11,6 @@ import javax.ws.rs.PathParam;
 public interface IAnalysisResultController {
 	@GET
 	@Path("/{launchId}")
-    Map<String, Serializable> oneSolution(@PathParam("launchId") String launchId) throws IllegalStateException, IllegalArgumentException;
+    Serializable oneSolution(@PathParam("launchId") String launchId) throws IllegalStateException, IllegalArgumentException;
       
 }

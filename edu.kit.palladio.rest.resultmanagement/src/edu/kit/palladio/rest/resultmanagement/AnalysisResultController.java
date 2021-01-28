@@ -26,7 +26,7 @@ public class AnalysisResultController implements IAnalysisResultController {
 	@Override
 	@GET
 	@Path("/{launchId}")
-	public Map<String, Serializable> oneSolution(@PathParam("launchId") String launchId)
+	public Serializable oneSolution(@PathParam("launchId") String launchId)
 			throws IllegalStateException, IllegalArgumentException {
 		return resultManager.getSolution(launchId);
 	}
