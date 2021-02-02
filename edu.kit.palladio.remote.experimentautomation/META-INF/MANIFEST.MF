@@ -22,3 +22,4 @@ Import-Package: de.uka.ipd.sdq.workflow,
  org.palladiosimulator.experimentautomation.experiments,
  org.palladiosimulator.experimentautomation.experiments.impl
 Require-Bundle: org.eclipse.core.runtime;bundle-version="3.16.0"
+Export-Package: edu.kit.palladio.remote.experimentautomation

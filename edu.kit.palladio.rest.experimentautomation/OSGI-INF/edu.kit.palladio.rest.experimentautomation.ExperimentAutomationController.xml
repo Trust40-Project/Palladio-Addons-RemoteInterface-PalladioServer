@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" immediate="true" name="edu.kit.palladio.rest.experimentautomation.ExperimentAutomationController">
+   <property name="service.exported.interfaces" value="edu.kit.palladio.rest.experimentautomation.IExperimentAutomationController"/>
+   <property name="service.exported.intents">osgi.async
+jaxrs
+   </property>
+   <property name="osgi.basic.timeout" value="5000000"/>
+   <property name="ecf.jaxrs.server.pathPrefix" value="/experimentautomation"/>
+   <service>
+      <provide interface="edu.kit.palladio.rest.experimentautomation.IExperimentAutomationController"/>
+   </service>
+   <reference bind="setExperimentAutomationLauncher" interface="edu.kit.palladio.remote.experimentautomation.IExperimentAutomationLauncher" name="ExperimentAutomationLauncher"/>
+   <implementation class="edu.kit.palladio.rest.experimentautomation.ExperimentAutomationController"/>
+</scr:component>
