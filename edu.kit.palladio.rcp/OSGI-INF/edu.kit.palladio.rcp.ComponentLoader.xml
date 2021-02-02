@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.2.0" name="edu.kit.palladio.rcp.ComponentLoader">
-   <service>
-      <provide interface="edu.kit.palladio.rcp.IComponentLoader"/>
-   </service>
-   <reference bind="bindComponent" cardinality="0..n" interface="edu.kit.palladio.rcp.api.ILoadMe" name="Component" policy="dynamic" unbind="unbindComponent" updated="updatedComponent"/>
-   <implementation class="edu.kit.palladio.rcp.ComponentLoader"/>
-</scr:component>
