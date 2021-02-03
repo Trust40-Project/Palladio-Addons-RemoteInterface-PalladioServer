@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" immediate="true" name="edu.kit.palladio.remote.projectmanagement.ProjectManager">
+   <property name="id" value="edu.kit.palladio.remote.projectmanagement"/>
+   <property name="name" value="Project Manager"/>
+   <service>
+      <provide interface="edu.kit.palladio.remote.projectmanagement.IProjectManager"/>
+   </service>
+   <implementation class="edu.kit.palladio.remote.projectmanagement.ProjectManager"/>
+</scr:component>

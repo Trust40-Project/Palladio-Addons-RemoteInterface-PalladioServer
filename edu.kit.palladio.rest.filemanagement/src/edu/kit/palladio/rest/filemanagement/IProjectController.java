@@ -3,7 +3,6 @@ package edu.kit.palladio.rest.filemanagement;
 import edu.kit.palladio.remote.filemanagement.File;
 import java.util.Collection;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;

@@ -18,6 +18,7 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
+import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 import org.palladiosimulator.experimentautomation.experiments.Experiment;
 import org.palladiosimulator.experimentautomation.experiments.ExperimentRepository;
@@ -28,14 +29,20 @@ import org.palladiosimulator.experimentautomation.application.config.ExperimentA
 import org.palladiosimulator.experimentautomation.application.jobs.RunExperimentAutomationJob;
 import org.palladiosimulator.experimentautomation.application.utils.EcoreHelper;
 
+@Component(immediate = true, property = { "id=edu.kit.palladio.remote.experimentautomation", "name=Experiment Automation Launcher"})
 public class ExperimentAutomationLauncher implements IExperimentAutomationLauncher {
 	
-	private static ExecutorService executor;
-	@Reference(service = IResultManager.class)
+	private ExecutorService executor;
 	private IResultManager solutionManager;
 	
+	@Reference
+	public void setResultManager(IResultManager solutionManager) {
+		this.solutionManager = solutionManager;
+	}
+	
 	public ExperimentAutomationLauncher(){
-		ExecutorService currentExecutor = ExperimentAutomationLauncher.executor;
+		
+		/*ExecutorService currentExecutor = ExperimentAutomationLauncher.executor;
 		if (currentExecutor == null) {
 			synchronized (ExperimentAutomationLauncher.class) {
 				currentExecutor = ExperimentAutomationLauncher.executor;
@@ -43,7 +50,7 @@ public class ExperimentAutomationLauncher implements IExperimentAutomationLaunch
 					ExperimentAutomationLauncher.executor = Executors.newCachedThreadPool();
 				}
 			}
-		}
+		}*/
 	}
 
 	@Override

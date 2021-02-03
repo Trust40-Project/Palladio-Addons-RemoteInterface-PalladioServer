@@ -9,5 +9,6 @@ jaxrs
    <service>
       <provide interface="edu.kit.palladio.rest.resultmanagement.IAnalysisResultController"/>
    </service>
+   <reference bind="setResultManager" interface="edu.kit.palladio.remote.resultmanagement.IResultManager" name="ResultManager"/>
    <implementation class="edu.kit.palladio.rest.resultmanagement.AnalysisResultController"/>
 </scr:component>

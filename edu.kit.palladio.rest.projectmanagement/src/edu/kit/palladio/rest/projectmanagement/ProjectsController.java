@@ -13,10 +13,10 @@ import javax.ws.rs.Produces;
 import edu.kit.palladio.remote.projectmanagement.IProject;
 import edu.kit.palladio.remote.projectmanagement.IProjectManager;
 import edu.kit.palladio.remote.projectmanagement.Project;
-import edu.kit.palladio.remote.projectmanagement.ProjectManager;
 import javax.ws.rs.core.MediaType;
 
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 @Path("")
 @Component(immediate = true, property = { "service.exported.interfaces=edu.kit.palladio.rest.projectmanagement.IProjectsController", "service.exported.intents=osgi.async",
@@ -24,8 +24,10 @@ import org.osgi.service.component.annotations.Component;
 public class ProjectsController implements IProjectsController {
 	
 	private IProjectManager projectManager;
-	public ProjectsController() {
-		projectManager = new ProjectManager();
+	
+	@Reference
+	public void setProjectManager(IProjectManager projectManager) {
+		this.projectManager = projectManager;
 	}
 	
 	 // Aggregate root

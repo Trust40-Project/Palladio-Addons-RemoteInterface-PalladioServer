@@ -1,16 +1,13 @@
 package edu.kit.palladio.rest.resultmanagement;
 
 import edu.kit.palladio.remote.resultmanagement.IResultManager;
-import edu.kit.palladio.remote.resultmanagement.ResultManager;
-
 import java.io.Serializable;
-import java.util.Map;
-
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 @Path("")
 @Component(immediate = true, property = { "service.exported.interfaces=edu.kit.palladio.rest.projectmanagement.IAnalysisResultController", "service.exported.intents=osgi.async",
@@ -19,8 +16,9 @@ public class AnalysisResultController implements IAnalysisResultController {
 
 	private IResultManager resultManager;
 	
-	public AnalysisResultController() {
-		resultManager = new ResultManager();
+	@Reference
+	public void setResultManager(IResultManager resultManager) {
+		this.resultManager = resultManager;
 	}
 	
 	@Override

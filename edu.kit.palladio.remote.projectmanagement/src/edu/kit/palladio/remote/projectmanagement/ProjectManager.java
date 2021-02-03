@@ -1,6 +1,5 @@
 package edu.kit.palladio.remote.projectmanagement;
 
-import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -18,7 +17,7 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.osgi.service.component.annotations.Component;
 
 
-//@Component(immediate = true, property = { "id=edu.kit.palladio.remote.projectmanagement", "name=Project Manager"/*, "needsNativeExecutables=false" */})
+@Component(immediate = true, property = { "id=edu.kit.palladio.remote.projectmanagement", "name=Project Manager"})
 public class ProjectManager implements IProjectManager {
 	
 	/**
@@ -30,7 +29,6 @@ public class ProjectManager implements IProjectManager {
 	
 	public ProjectManager(){
 		this.workspace = ResourcesPlugin.getWorkspace();
-		System.out.println("workspace root: " + this.workspace.getRoot().getRawLocation());
 	}
 	
 

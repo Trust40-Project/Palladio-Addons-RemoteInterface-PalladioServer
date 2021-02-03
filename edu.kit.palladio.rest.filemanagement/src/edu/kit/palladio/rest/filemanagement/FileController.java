@@ -7,7 +7,6 @@ import java.io.OutputStream;
 import java.util.List;
 
 import javax.servlet.ServletContext;
-import javax.servlet.ServletConfig;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -31,7 +30,6 @@ import org.osgi.service.component.annotations.Reference;
 
 import edu.kit.palladio.remote.filemanagement.EclipseFileInputStream;
 import edu.kit.palladio.remote.filemanagement.EclipseFileOutputStream;
-import edu.kit.palladio.remote.filemanagement.FileManager;
 import edu.kit.palladio.remote.filemanagement.IFileManager;
 
 @Component(immediate = true, property = { "service.exported.interfaces=edu.kit.palladio.rest.filemanagement.IFileController", "service.exported.intents=osgi.async",
@@ -39,16 +37,12 @@ import edu.kit.palladio.remote.filemanagement.IFileManager;
 public class FileController implements IFileController {
 
 	private static final String PATHPARAMETERURL = "s";
-	@Reference(service = IFileManager.class)
 	private IFileManager fileManager;
-	/*@Reference
-	private ServletConfig  config;
-	*/
 	
-	public FileController() {
-		//this.fileManager = new FileManager();
-		System.out.println("---------------------------------------------------------constructor with filemanager called: " + this.fileManager);			
-		
+	
+	@Reference
+	public void setFileManager(IFileManager fileManager) {
+		this.fileManager = fileManager;
 	}
 	
 	@Override

@@ -15,7 +15,10 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.NullProgressMonitor;
+import org.osgi.service.component.annotations.Component;
 
+
+@Component(immediate = true, property = { "id=edu.kit.palladio.remote.filemanagement", "name=File Manager"})
 public class FileManager implements IFileManager {
 	private final transient IWorkspace workspace = ResourcesPlugin.getWorkspace();
 	

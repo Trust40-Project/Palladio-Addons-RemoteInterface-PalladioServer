@@ -9,5 +9,6 @@ jaxrs
    <service>
       <provide interface="edu.kit.palladio.rest.filemanagement.IProjectController"/>
    </service>
+   <reference bind="setFileManager" interface="edu.kit.palladio.remote.filemanagement.IFileManager" name="FileManager"/>
    <implementation class="edu.kit.palladio.rest.filemanagement.ProjectController"/>
 </scr:component>

@@ -12,12 +12,8 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
 import edu.kit.palladio.remote.projectmanagement.IProject;
-import edu.kit.palladio.remote.projectmanagement.IProjectManager;
 import edu.kit.palladio.remote.projectmanagement.Project;
-import edu.kit.palladio.remote.projectmanagement.ProjectManager;
 import javax.ws.rs.core.MediaType;
-
-import org.osgi.service.component.annotations.Component;
 
 @Path("")
 public interface IProjectsController {

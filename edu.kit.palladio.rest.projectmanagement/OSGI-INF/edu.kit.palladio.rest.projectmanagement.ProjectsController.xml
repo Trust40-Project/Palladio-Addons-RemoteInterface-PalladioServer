@@ -9,5 +9,6 @@ jaxrs
    <service>
       <provide interface="edu.kit.palladio.rest.projectmanagement.IProjectsController"/>
    </service>
+   <reference bind="setProjectManager" interface="edu.kit.palladio.remote.projectmanagement.IProjectManager" name="ProjectManager"/>
    <implementation class="edu.kit.palladio.rest.projectmanagement.ProjectsController"/>
 </scr:component>

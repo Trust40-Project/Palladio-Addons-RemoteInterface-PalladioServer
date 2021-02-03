@@ -6,5 +6,8 @@ Bundle-Version: 1.0.0.qualifier
 Automatic-Module-Name: edu.kit.palladio.remote.filemanagement
 Bundle-RequiredExecutionEnvironment: JavaSE-11
 Import-Package: org.eclipse.core.resources,
- org.eclipse.core.runtime
+ org.eclipse.core.runtime,
+ org.osgi.service.component.annotations;version="1.2.0"
 Export-Package: edu.kit.palladio.remote.filemanagement
+Service-Component: OSGI-INF/edu.kit.palladio.remote.filemanagement.FileManager.xml
+Bundle-ActivationPolicy: lazy

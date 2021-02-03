@@ -8,16 +8,13 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.PathSegment;
 import javax.ws.rs.core.UriInfo;
 
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 import edu.kit.palladio.remote.filemanagement.File;
-import edu.kit.palladio.remote.filemanagement.FileManager;
 import edu.kit.palladio.remote.filemanagement.IFileManager;
-
-import javax.servlet.http.HttpServletRequest;
 
 @Path("")
 @Component(immediate = true, property = { "service.exported.interfaces=edu.kit.palladio.rest.filemanagement.IProjectController", "service.exported.intents=osgi.async",
@@ -27,8 +24,10 @@ public class ProjectController implements IProjectController {
 	private IFileManager fileManager;
 	private static final String PATHPARAMETERURL = "s";
 	
-	public ProjectController() {
-		fileManager = new FileManager();
+	
+	@Reference
+	public void setFileManager(IFileManager fileManager) {
+		this.fileManager = fileManager;
 	}
 	
 	@Override

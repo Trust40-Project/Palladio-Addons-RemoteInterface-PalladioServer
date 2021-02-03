@@ -9,7 +9,6 @@ import javax.ws.rs.core.MediaType;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
-import edu.kit.palladio.remote.dataprocessinganalysis.AnalysisLauncher;
 import edu.kit.palladio.remote.dataprocessinganalysis.IAnalysisLauncher;
 import edu.kit.palladio.remote.dataprocessinganalysis.LaunchConfig;
 
