@@ -6,7 +6,8 @@ Bundle-Version: 1.0.0.qualifier
 Automatic-Module-Name: edu.kit.palladio.rest.resultmanagement
 Bundle-RequiredExecutionEnvironment: JavaSE-11
 Import-Package: edu.kit.palladio.remote.resultmanagement,
- javax.ws.rs
+ javax.ws.rs,
+ org.osgi.service.component.annotations;version="1.3.0"
 Require-Bundle: org.eclipse.core.runtime;bundle-version="3.16.0"
 Service-Component: OSGI-INF/edu.kit.palladio.rest.resultmanagement.AnalysisResultController.xml
 Bundle-ActivationPolicy: lazy
