@@ -14,7 +14,7 @@
 -Declipse.ignoreApp=true 
 -Dosgi.noShutdown=true 
 -Dorg.osgi.service.http.port=8080
--Decf.jaxrs.server.pathPrefix=/rservices
+-Decf.jaxrs.server.pathPrefix=/palladio
       </vmArgs>
       <vmArgsMac>-XstartOnFirstThread -Dorg.eclipse.swt.internal.carbon.smallFonts
       </vmArgsMac>
