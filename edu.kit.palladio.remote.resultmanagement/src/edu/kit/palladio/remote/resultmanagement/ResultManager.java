@@ -3,11 +3,7 @@ package edu.kit.palladio.remote.resultmanagement;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
-
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.ServiceScope;
 
@@ -15,7 +11,7 @@ import org.osgi.service.component.annotations.ServiceScope;
 		"name=Result Manager" }, scope = ServiceScope.SINGLETON)
 public class ResultManager implements IResultManager {
 
-	private final static int MAXNUMMILLISECTOWAIT = 100;
+	
 	private Map<String, Future<Serializable>> registeredFutureSolutions;
 
 	public ResultManager() {

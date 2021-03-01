@@ -3,7 +3,6 @@ package edu.kit.palladio.rest.filemanagement;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.List;
 
 import javax.servlet.ServletContext;
@@ -29,7 +28,6 @@ import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
 import edu.kit.palladio.remote.filemanagement.EclipseFileInputStream;
-import edu.kit.palladio.remote.filemanagement.EclipseFileOutputStream;
 import edu.kit.palladio.remote.filemanagement.IFileManager;
 
 @Component(immediate = true, property = { "service.exported.interfaces=edu.kit.palladio.rest.filemanagement.IFileController", "service.exported.intents=osgi.async",
@@ -125,12 +123,8 @@ public class FileController implements IFileController {
 		
 		for(FileItem fileItem: items) {
 			if(!fileItem.isFormField()) {
+				fileManager.uploadFile(path, fileItem.getInputStream());
 				
-				try(final OutputStream fileToWriteTo = new EclipseFileOutputStream(path)){
-					try(final InputStream uploadedInputStream = fileItem.getInputStream()){
-						uploadedInputStream.transferTo(fileToWriteTo);
-					}
-				}
 			}
 			
 		}

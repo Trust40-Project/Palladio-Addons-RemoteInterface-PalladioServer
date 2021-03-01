@@ -40,12 +40,10 @@
       <plugin id="com.fasterxml.jackson.jaxrs.jackson-jaxrs-json-provider"/>
       <plugin id="com.fasterxml.jackson.module.jackson-module-jaxb-annotations"/>
       <plugin id="com.sun.activation.javax.activation"/>
-      <plugin id="edu.kit.palladio.remote.dataprocessinganalysis"/>
       <plugin id="edu.kit.palladio.remote.experimentautomation"/>
       <plugin id="edu.kit.palladio.remote.filemanagement"/>
       <plugin id="edu.kit.palladio.remote.projectmanagement"/>
       <plugin id="edu.kit.palladio.remote.resultmanagement"/>
-      <plugin id="edu.kit.palladio.rest.dataprocessinganalysis"/>
       <plugin id="edu.kit.palladio.rest.experimentautomation"/>
       <plugin id="edu.kit.palladio.rest.filemanagement"/>
       <plugin id="edu.kit.palladio.rest.projectmanagement"/>
@@ -127,6 +125,8 @@
       <plugin id="org.glassfish.jersey.inject.jersey-hk2"/>
       <plugin id="org.glassfish.jersey.media.jersey-media-jaxb"/>
       <plugin id="org.glassfish.jersey.media.jersey-media-json-jackson"/>
+      <plugin id="org.jgrapht.core"/>
+      <plugin id="org.jheaps"/>
    </plugins>
 
    <configurations>
@@ -136,8 +136,6 @@
       <plugin id="com.fasterxml.jackson.jaxrs.jackson-jaxrs-base" autoStart="true" startLevel="0" />
       <plugin id="com.fasterxml.jackson.jaxrs.jackson-jaxrs-json-provider" autoStart="true" startLevel="0" />
       <plugin id="com.fasterxml.jackson.module.jackson-module-jaxb-annotations" autoStart="true" startLevel="0" />
-      <plugin id="edu.kit.palladio.remote.dataprocessinganalysis" autoStart="true" startLevel="0" />
-      <plugin id="edu.kit.palladio.rest.dataprocessinganalysis" autoStart="true" startLevel="0" />
       <plugin id="edu.kit.palladio.rest.experimentautomation" autoStart="true" startLevel="0" />
       <plugin id="edu.kit.palladio.rest.filemanagement" autoStart="true" startLevel="0" />
       <plugin id="edu.kit.palladio.rest.projectmanagement" autoStart="true" startLevel="0" />

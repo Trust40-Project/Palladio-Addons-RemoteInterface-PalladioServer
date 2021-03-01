@@ -9,6 +9,6 @@ jaxrs
    <service>
       <provide interface="edu.kit.palladio.rest.dataprocessinganalysis.IDataProcessingAnalysisLauncherController"/>
    </service>
-   <reference cardinality="1..1" field="analysisLauncher" interface="edu.kit.palladio.remote.dataprocessinganalysis.IAnalysisLauncher" name="analysisLauncher"/>
+   <reference cardinality="1..1" field="analysisLauncher" interface="IAnalysisLauncher" name="analysisLauncher"/>
    <implementation class="edu.kit.palladio.rest.dataprocessinganalysis.DataProcessingAnalysisLauncherController"/>
 </scr:component>

@@ -1,6 +1,7 @@
 package edu.kit.palladio.remote.filemanagement;
 
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -181,5 +182,20 @@ public class FileManager implements IFileManager {
 		}
 		return filesAndDirectories;
 	}
+
+	@Override
+	public void uploadFile(String path, InputStream toUpload) {
+		// TODO Auto-generated method stub
+		IFile fileToUploadTo = this.getFile(path);
+		try {
+			fileToUploadTo.setContents(toUpload, true, true, null);
+		} catch (CoreException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
+	
 
 }

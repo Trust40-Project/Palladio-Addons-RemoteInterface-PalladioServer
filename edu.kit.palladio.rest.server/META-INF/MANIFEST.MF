@@ -7,12 +7,10 @@ Require-Bundle: org.eclipse.core.runtime,
  org.antlr.runtime;bundle-version="3.2.0"
 Automatic-Module-Name: edu.kit.palladio.rest.server
 Bundle-RequiredExecutionEnvironment: JavaSE-11
-Import-Package: edu.kit.palladio.remote.dataprocessinganalysis,
- edu.kit.palladio.remote.experimentautomation,
+Import-Package: edu.kit.palladio.remote.experimentautomation,
  edu.kit.palladio.remote.filemanagement,
  edu.kit.palladio.remote.projectmanagement,
  edu.kit.palladio.remote.resultmanagement,
- edu.kit.palladio.rest.dataprocessinganalysis,
  edu.kit.palladio.rest.experimentautomation,
  edu.kit.palladio.rest.filemanagement,
  edu.kit.palladio.rest.projectmanagement,
@@ -22,6 +20,5 @@ Import-Package: edu.kit.palladio.remote.dataprocessinganalysis,
  javax.ws.rs.container,
  javax.ws.rs.core,
  org.osgi.framework,
- org.osgi.service.component.annotations;resolution:=optional,
- org.prolog4j.tuprolog
+ org.osgi.service.component.annotations;resolution:=optional
 Bundle-ActivationPolicy: lazy
