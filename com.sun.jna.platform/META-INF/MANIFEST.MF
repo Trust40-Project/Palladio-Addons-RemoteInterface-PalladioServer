@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Platform
+Bundle-SymbolicName: com.sun.jna.platform
+Bundle-Version: 5.8.0
+Automatic-Module-Name: com.sun.jna.platform
+Bundle-RequiredExecutionEnvironment: JavaSE-11

@@ -1,17 +1,15 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Server
-Bundle-SymbolicName: edu.kit.palladio.rest.server
+Bundle-SymbolicName: edu.kit.palladio.rest.server;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Require-Bundle: org.eclipse.core.runtime,
  org.antlr.runtime;bundle-version="3.2.0"
 Automatic-Module-Name: edu.kit.palladio.rest.server
 Bundle-RequiredExecutionEnvironment: JavaSE-11
-Import-Package: edu.kit.palladio.remote.experimentautomation,
- edu.kit.palladio.remote.filemanagement,
+Import-Package: edu.kit.palladio.remote.filemanagement,
  edu.kit.palladio.remote.projectmanagement,
  edu.kit.palladio.remote.resultmanagement,
- edu.kit.palladio.rest.experimentautomation,
  edu.kit.palladio.rest.filemanagement,
  edu.kit.palladio.rest.projectmanagement,
  edu.kit.palladio.rest.resultmanagement,
@@ -22,3 +20,4 @@ Import-Package: edu.kit.palladio.remote.experimentautomation,
  org.osgi.framework,
  org.osgi.service.component.annotations;resolution:=optional
 Bundle-ActivationPolicy: lazy
+Bundle-ClassPath: .

@@ -25,3 +25,4 @@ Require-Bundle: org.eclipse.core.runtime;bundle-version="3.16.0"
 Export-Package: edu.kit.palladio.remote.experimentautomation
 Service-Component: OSGI-INF/edu.kit.palladio.remote.experimentautomation.ExperimentAutomationLauncher.xml
 Bundle-ActivationPolicy: lazy
+Bundle-ClassPath: .
