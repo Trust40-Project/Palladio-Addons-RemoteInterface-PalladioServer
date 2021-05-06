@@ -83,14 +83,14 @@
       <plugin id="de.uka.ipd.sdq.workflow.mdsd"/>
       <plugin id="de.uka.ipd.sdq.workflow.ui"/>
       <plugin id="de.uka.ipd.sdq.workflow.workbench"/>
+      <plugin id="edu.kit.palladio.remote.dataprocessinganalysis"/>
       <plugin id="edu.kit.palladio.remote.filemanagement"/>
       <plugin id="edu.kit.palladio.remote.projectmanagement"/>
       <plugin id="edu.kit.palladio.remote.resultmanagement"/>
-      <plugin id="edu.kit.palladio.remote.experimentautomation"/>
+      <plugin id="edu.kit.palladio.rest.dataprocessinganalysis"/>
       <plugin id="edu.kit.palladio.rest.filemanagement"/>
       <plugin id="edu.kit.palladio.rest.projectmanagement"/>
       <plugin id="edu.kit.palladio.rest.resultmanagement"/>
-      <plugin id="edu.kit.palladio.rest.experimentautomation"/> 
       <plugin id="edu.kit.palladio.rest.server"/>
       <plugin id="io.github.classgraph"/>
       <plugin id="jakarta.annotation-api"/>
@@ -444,6 +444,7 @@
       <plugin id="org.palladiosimulator.pcm.edit"/>
       <plugin id="org.palladiosimulator.pcm.edp2.measuringpoint"/>
       <plugin id="org.palladiosimulator.pcm.edp2.measuringpoint.edit"/>
+      <plugin id="org.palladiosimulator.pcm.stoex.ui" version="5.0.0"/>
       <plugin id="org.palladiosimulator.pcm.ui"/>
       <plugin id="org.palladiosimulator.probeframework"/>
       <plugin id="org.palladiosimulator.recorderframework"/>
@@ -479,8 +480,8 @@
       <plugin id="com.fasterxml.jackson.jaxrs.jackson-jaxrs-base" autoStart="true" startLevel="0" />
       <plugin id="com.fasterxml.jackson.jaxrs.jackson-jaxrs-json-provider" autoStart="true" startLevel="0" />
       <plugin id="com.fasterxml.jackson.module.jackson-module-jaxb-annotations" autoStart="true" startLevel="0" />
+      <plugin id="edu.kit.palladio.rest.dataprocessinganalysis" autoStart="true" startLevel="0" />
       <plugin id="edu.kit.palladio.rest.filemanagement" autoStart="true" startLevel="0" />
-      <plugin id="edu.kit.palladio.rest.experimentautomation" autoStart="true" startLevel="0" />
       <plugin id="edu.kit.palladio.rest.projectmanagement" autoStart="true" startLevel="0" />
       <plugin id="edu.kit.palladio.rest.resultmanagement" autoStart="true" startLevel="0" />
       <plugin id="edu.kit.palladio.rest.server" autoStart="true" startLevel="0" />

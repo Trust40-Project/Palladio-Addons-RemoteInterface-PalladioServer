@@ -1,9 +1,5 @@
 package edu.kit.palladio.remote.experimentautomation;
 
-import de.uka.ipd.sdq.workflow.BlackboardBasedWorkflow;
-import de.uka.ipd.sdq.workflow.mdsd.blackboard.MDSDBlackboard;
-import edu.kit.palladio.remote.resultmanagement.IResultManager;
-
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.ArrayList;
@@ -14,18 +10,22 @@ import java.util.concurrent.Future;
 
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.osgi.framework.Bundle;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
-import org.palladiosimulator.experimentautomation.experiments.Experiment;
-import org.palladiosimulator.experimentautomation.experiments.ExperimentRepository;
-import org.palladiosimulator.experimentautomation.experiments.ExperimentsPackage;
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.palladiosimulator.experimentautomation.application.config.ExperimentAutomationConfiguration;
 import org.palladiosimulator.experimentautomation.application.jobs.RunExperimentAutomationJob;
 import org.palladiosimulator.experimentautomation.application.utils.EcoreHelper;
+import org.palladiosimulator.experimentautomation.experiments.Experiment;
+import org.palladiosimulator.experimentautomation.experiments.ExperimentRepository;
+import org.palladiosimulator.experimentautomation.experiments.ExperimentsPackage;
+
+import de.uka.ipd.sdq.workflow.BlackboardBasedWorkflow;
+import de.uka.ipd.sdq.workflow.mdsd.blackboard.MDSDBlackboard;
+import edu.kit.palladio.remote.resultmanagement.IResultManager;
 
 @Component(immediate = true, property = { "id=edu.kit.palladio.remote.experimentautomation", "name=Experiment Automation Launcher"})
 public class ExperimentAutomationLauncher implements IExperimentAutomationLauncher {
