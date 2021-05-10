@@ -1,0 +1,741 @@
+{
+	"info": {
+		"_postman_id": "4dba3214-1e95-4c93-a5df-3a04b03d1486",
+		"name": "Hiwi - Palladio on server",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create Project",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"projectId\":\"Palladio-Addons-DataProcessing-AnalysisTransformation-SMS\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/rservices/projects",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"rservices",
+						"projects"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List Projects",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/rservices/projects",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"rservices",
+						"projects"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Single Project",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Project",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/rservices/projects/Palladio-Addons-DataProcessing-AnalysisTransformation-SMS",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"rservices",
+						"projects",
+						"Palladio-Addons-DataProcessing-AnalysisTransformation-SMS"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create File",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/rservices/files/project/Palladio-Addons-DataProcessing-AnalysisTransformation-SMS/test.txt",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"rservices",
+						"files",
+						"project",
+						"Palladio-Addons-DataProcessing-AnalysisTransformation-SMS",
+						"test.txt"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Upload File",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/C:/Users/Malte/Downloads/test/test.txt"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/rservices/files/upload/project/Palladio-Addons-DataProcessing-AnalysisTransformation-SMS/test.txt",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"rservices",
+						"files",
+						"upload",
+						"project",
+						"Palladio-Addons-DataProcessing-AnalysisTransformation-SMS",
+						"test.txt"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Download File",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/rservices/files/download/project/Palladio-Addons-DataProcessing-AnalysisTransformation-SMS/test.txt",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"rservices",
+						"files",
+						"download",
+						"project",
+						"Palladio-Addons-DataProcessing-AnalysisTransformation-SMS",
+						"test.txt"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete File",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/rservices/files/project/Palladio-Addons-DataProcessing-AnalysisTransformation-SMS/test.txt",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"rservices",
+						"files",
+						"project",
+						"Palladio-Addons-DataProcessing-AnalysisTransformation-SMS",
+						"test.txt"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List Directories",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/ls/project/Palladio-Addons-DataProcessing-AnalysisTransformation-SMS",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"ls",
+						"project",
+						"Palladio-Addons-DataProcessing-AnalysisTransformation-SMS"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Directory",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/directories/project/Palladio-Addons-DataProcessing-AnalysisTransformation-SMS/test/folder/subfolder",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"directories",
+						"project",
+						"Palladio-Addons-DataProcessing-AnalysisTransformation-SMS",
+						"test",
+						"folder",
+						"subfolder"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Directory",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/rservices/directories/project/Palladio-Addons-DataProcessing-AnalysisTransformation-SMS/folder/subfolder",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"rservices",
+						"directories",
+						"project",
+						"Palladio-Addons-DataProcessing-AnalysisTransformation-SMS",
+						"folder",
+						"subfolder"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create File - characteristicTypes - contactSMSManager",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/rservices/files/project/Palladio-Addons-DataProcessing-AnalysisTransformation-SMS/characteristicTypes.xmi",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"rservices",
+						"files",
+						"project",
+						"Palladio-Addons-DataProcessing-AnalysisTransformation-SMS",
+						"characteristicTypes.xmi"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Upload File - characteristicTypes - contactSMSManager",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/C:/Users/Malte/Downloads/contactSMSManager/characteristicTypes.xmi"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/rservices/files/upload/project/Palladio-Addons-DataProcessing-AnalysisTransformation-SMS/characteristicTypes.xmi",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"rservices",
+						"files",
+						"upload",
+						"project",
+						"Palladio-Addons-DataProcessing-AnalysisTransformation-SMS",
+						"characteristicTypes.xmi"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create File - DataSpecification - contactSMSManager",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/rservices/files/project/Palladio-Addons-DataProcessing-AnalysisTransformation-SMS/DataSpecification.xmi",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"rservices",
+						"files",
+						"project",
+						"Palladio-Addons-DataProcessing-AnalysisTransformation-SMS",
+						"DataSpecification.xmi"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Upload File - DataSpecification - contactSMSManager",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/C:/Users/Malte/Downloads/contactSMSManager/DataSpecification.xmi"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/rservices/files/upload/project/Palladio-Addons-DataProcessing-AnalysisTransformation-SMS/DataSpecification.xmi",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"rservices",
+						"files",
+						"upload",
+						"project",
+						"Palladio-Addons-DataProcessing-AnalysisTransformation-SMS",
+						"DataSpecification.xmi"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create File - default.allocation - contactSMSManager",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/rservices/files/project/Palladio-Addons-DataProcessing-AnalysisTransformation-SMS/default.allocation",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"rservices",
+						"files",
+						"project",
+						"Palladio-Addons-DataProcessing-AnalysisTransformation-SMS",
+						"default.allocation"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Upload File - default.allocation - contactSMSManager",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/C:/Users/Malte/Downloads/contactSMSManager/default.allocation"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/rservices/files/upload/project/Palladio-Addons-DataProcessing-AnalysisTransformation-SMS/default.allocation",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"rservices",
+						"files",
+						"upload",
+						"project",
+						"Palladio-Addons-DataProcessing-AnalysisTransformation-SMS",
+						"default.allocation"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create File - default.repository - contactSMSManager",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/rservices/files/project/Palladio-Addons-DataProcessing-AnalysisTransformation-SMS/default.repository",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"rservices",
+						"files",
+						"project",
+						"Palladio-Addons-DataProcessing-AnalysisTransformation-SMS",
+						"default.repository"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Upload File - default.repository - contactSMSManager",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/C:/Users/Malte/Downloads/contactSMSManager/default.repository"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/rservices/files/upload/project/Palladio-Addons-DataProcessing-AnalysisTransformation-SMS/default.repository",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"rservices",
+						"files",
+						"upload",
+						"project",
+						"Palladio-Addons-DataProcessing-AnalysisTransformation-SMS",
+						"default.repository"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create File - default.resourceenvironment - contactSMSManager",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/rservices/files/project/Palladio-Addons-DataProcessing-AnalysisTransformation-SMS/default.resourceenvironment",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"rservices",
+						"files",
+						"project",
+						"Palladio-Addons-DataProcessing-AnalysisTransformation-SMS",
+						"default.resourceenvironment"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Upload File - default.resourceenvironment - contactSMSManager",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/C:/Users/Malte/Downloads/contactSMSManager/default.resourceenvironment"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/rservices/files/upload/project/Palladio-Addons-DataProcessing-AnalysisTransformation-SMS/default.resourceenvironment",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"rservices",
+						"files",
+						"upload",
+						"project",
+						"Palladio-Addons-DataProcessing-AnalysisTransformation-SMS",
+						"default.resourceenvironment"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create File - default.system - contactSMSManager",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/rservices/files/project/Palladio-Addons-DataProcessing-AnalysisTransformation-SMS/default.system",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"rservices",
+						"files",
+						"project",
+						"Palladio-Addons-DataProcessing-AnalysisTransformation-SMS",
+						"default.system"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Upload File - default.system - contactSMSManager",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/C:/Users/Malte/Downloads/contactSMSManager/default.system"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/rservices/files/upload/project/Palladio-Addons-DataProcessing-AnalysisTransformation-SMS/default.system",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"rservices",
+						"files",
+						"upload",
+						"project",
+						"Palladio-Addons-DataProcessing-AnalysisTransformation-SMS",
+						"default.system"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create File - default.usagemodel - contactSMSManager",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/rservices/files/project/Palladio-Addons-DataProcessing-AnalysisTransformation-SMS/default.usagemodel",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"rservices",
+						"files",
+						"project",
+						"Palladio-Addons-DataProcessing-AnalysisTransformation-SMS",
+						"default.usagemodel"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Upload File - default.usagemodel - contactSMSManager",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/C:/Users/Malte/Downloads/contactSMSManager/default.usagemodel"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/rservices/files/upload/project/Palladio-Addons-DataProcessing-AnalysisTransformation-SMS/default.usagemodel",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"rservices",
+						"files",
+						"upload",
+						"project",
+						"Palladio-Addons-DataProcessing-AnalysisTransformation-SMS",
+						"default.usagemodel"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Launch data processing analysis - contactSMSManager",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"launchName\":\"contactSMSManager\",\r\n\t\"usageModelPath\":\"Palladio-Addons-DataProcessing-AnalysisTransformation-SMS/default.usagemodel\",\r\n\t\"allocModelPath\":\"Palladio-Addons-DataProcessing-AnalysisTransformation-SMS/default.allocation\",\r\n\t\"characteristicsModelPath\":\"Palladio-Addons-DataProcessing-AnalysisTransformation-SMS/characteristicTypes.xmi\",\r\n\t\"proverFactoryId\":\"org.prolog4j.tuprolog.proverfactory\",\r\n\t\"analysisGoalId\":\"pcm.dataprocessing.analysis.launcher.returnquery\",\r\n\t\"launchFlags\": [],\r\n\t\"parameters\":{\r\n\t\t\"Role characteristic type (ID)\": \"_vP5JoFqnEeiY18w7ObeSrg\",\r\n        \"Access rights characteritic type (ID)\": \"_rkiSMFqnEeiY18w7ObeSrg\"\r\n\t}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/rservices/dataprocessinganalysis/launch",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"rservices",
+						"dataprocessinganalysis",
+						"launch"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
